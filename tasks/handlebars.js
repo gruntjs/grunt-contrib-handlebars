@@ -13,9 +13,6 @@ module.exports = function(grunt) {
   // TODO: ditch this when grunt v0.4 is released
   grunt.util = grunt.util || grunt.utils;
 
-  var _ = grunt.util._;
-  var helpers = require('grunt-contrib-lib').init(grunt);
-
   // filename conversion for templates
   var defaultProcessName = function(name) { return name; };
 
@@ -27,6 +24,9 @@ module.exports = function(grunt) {
   };
 
   grunt.registerMultiTask("handlebars", "Compile handlebars templates and partials.", function() {
+
+    var _ = grunt.util._;
+    var helpers = require('grunt-contrib-lib').init(grunt);
     var options = helpers.options(this, {namespace: "JST"});
 
     grunt.verbose.writeflags(options, "Options");
