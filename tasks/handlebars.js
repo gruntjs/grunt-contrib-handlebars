@@ -26,27 +26,6 @@ module.exports = function(grunt) {
     return name.substr(1, name.length);                       // strips leading _ character
   };
 
-  // full template compilation
-  var templateFn = function(source, filepath, namespace) {
-    try {
-      var output = "Handlebars.template(" + require("handlebars").precompile(source) + ");";
-      return namespace + "['" + filepath + "'] = " + output;
-    } catch (e) {
-      grunt.log.error(e);
-      grunt.fail.warn("Handlebars failed to compile.");
-    }
-  };
-
-  // partial template compilation
-  var partialFn = function(source, filepath, namespace) {
-    try {
-      return "Handlebars.registerPartial('" + filepath + "', " + "Handlebars.template(" + require("handlebars").precompile(source) + "));";
-    } catch (e) {
-      grunt.log.error(e);
-      grunt.fail.warn("Handlebars failed to compile partial.");
-    }
-  };
-
   grunt.registerMultiTask("handlebars", "Compile handlebars templates and partials.", function() {
     var options = helpers.options(this, {namespace: "JST"});
 
@@ -55,7 +34,7 @@ module.exports = function(grunt) {
     // TODO: ditch this when grunt v0.4 is released
     this.files = this.files || helpers.normalizeMultiTaskFiles(this.data, this.target);
 
-    var srcFiles, src, filename;
+    var compiled, srcFiles, src, filename;
     var partials = [];
     var templates = [];
     var output = [];
@@ -74,12 +53,24 @@ module.exports = function(grunt) {
       srcFiles.forEach(function(file) {
         src = grunt.file.read(file);
 
+        try {
+          compiled = require("handlebars").precompile(src);
+          // if configured to, wrap template in Handlebars.template call
+          if(options.wrapped) {
+            compiled = "Handlebars.template("+compiled+")";
+          }
+        } catch (e) {
+          grunt.log.error(e);
+          grunt.fail.warn("Handlebars failed to compile "+file+".");
+        }
+
+        // register partial or add template to namespace
         if(isPartial.test(_.last(file.split("/")))) {
           filename = processPartialName(file);
-          partials.push(partialFn(src, filename, namespace));
+          partials.push("Handlebars.registerPartial('"+filename+"', "+compiled+");");
         } else {
           filename = processName(file);
-          templates.push(templateFn(src, filename, namespace));
+          templates.push(namespace+"['"+filename+"'] = "+compiled+";");
         }
       });
       output = output.concat(partials, templates);

@@ -35,6 +35,10 @@ This controls how this task operates and should contain key:value pairs, see opt
 
 The namespace in which the resulting JST templates are assigned to.
 
+##### wrapped ```boolean```
+
+Determine if preprocessed template functions will be wrapped in Handlebars.template calls.
+
 ##### processName ```function```
 
 This option accepts a function which takes one argument (the template filepath) and returns a string which will be used as the key for the precompiled template object.  The example below stores all templates on the default JST namespace in capital letters.
