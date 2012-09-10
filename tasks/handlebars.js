@@ -60,17 +60,19 @@ module.exports = function(grunt) {
     var templates = [];
     var output = [];
     var namespace = "this['" + options.namespace + "']";
+
+    // assign regex for partial detection
     var isPartial = options.partialRegex || /^_/;
+
+    // assign filename transformation functions
     var processName = options.processName || defaultProcessName;
     var processPartialName = options.processName || defaultProcessPartialName;
 
+    // iterate files, processing partials and templates separately
     this.files.forEach(function(files) {
-
       srcFiles = grunt.file.expandFiles(files.src);
-
       srcFiles.forEach(function(file) {
         src = grunt.file.read(file);
-        console.log(src);
 
         if(isPartial.test(_.last(file.split("/")))) {
           filename = processPartialName(file);
