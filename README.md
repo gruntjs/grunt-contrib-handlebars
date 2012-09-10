@@ -37,7 +37,7 @@ The namespace in which the resulting JST templates are assigned to.
 
 ##### wrapped ```boolean```
 
-Determine if preprocessed template functions will be wrapped in Handlebars.template calls.
+Determine if preprocessed template functions will be wrapped in Handlebars.template function (default is false).
 
 ##### processName ```function```
 
