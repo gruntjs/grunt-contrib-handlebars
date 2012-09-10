@@ -1,10 +1,10 @@
 /*
- * grunt-contrib-less
+ * grunt-contrib-handlebars
  * http://gruntjs.com/
  *
- * Copyright (c) 2012 Tyler Kellen, contributors
+ * Copyright (c) 2012 Tim Branyen, contributors
  * Licensed under the MIT license.
- * https://github.com/gruntjs/grunt-contrib-less/blob/master/LICENSE-MIT
+ * https://github.com/gruntjs/grunt-contrib-handlebars/blob/master/LICENSE-MIT
  */
 
 module.exports = function(grunt) {
