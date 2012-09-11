@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-handlebars",
   "description": "Precompile Handlebars templates to JST file.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/gruntjs/grunt-contrib-handlebars",
   "author": {
     "name": "Tim Branyen",

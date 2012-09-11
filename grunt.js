@@ -51,7 +51,7 @@ module.exports = function(grunt) {
       wrapcompile: {
         options: {
           namespace: "JST",
-          wrap: true
+          wrapped: true
         },
         files: {
           "tmp/handlebarswrap.js": ["test/fixtures/*.hbs"]
