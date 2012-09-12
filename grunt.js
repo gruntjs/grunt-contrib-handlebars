@@ -45,7 +45,7 @@ module.exports = function(grunt) {
           namespace: "JST"
         },
         files: {
-          "tmp/handlebars.js": ["test/fixtures/*.hbs"]
+          "tmp/handlebars.js": ["test/fixtures/_partial.hbs", "test/fixtures/one.hbs"]
         }
       },
       wrapcompile: {
@@ -54,12 +54,66 @@ module.exports = function(grunt) {
           wrapped: true
         },
         files: {
-          "tmp/handlebarswrap.js": ["test/fixtures/*.hbs"]
+          "tmp/handlebarswrap.js": ["test/fixtures/_partial.hbs", "test/fixtures/one.hbs"]
         }
       },
       uglyfile: {
         files: {
           "tmp/uglyfile.js": ["test/fixtures/*bad*"]
+        }
+      },
+      namespace_this: {
+        options: {
+          namespace: "this.JST",
+          squareBrackets: false
+        },
+        files: {
+          "tmp/namespace_this.js": ["test/fixtures/ns-test.hbs"]
+        }
+      },
+      namespace_globalvar: {
+        options: {
+          namespace: "JST",
+          squareBrackets: false
+        },
+        files: {
+          "tmp/namespace_globalvar.js": ["test/fixtures/ns-test.hbs"]
+        }
+      },
+      namespace_nested: {
+        options: {
+          namespace: "GUI.JST.MainTemplates",
+          squareBrackets: false
+        },
+        files: {
+          "tmp/namespace_nested.js": ["test/fixtures/ns-test.hbs"]
+        }
+      },
+      namespace_this_square: {
+        options: {
+          namespace: "this.JST",
+          squareBrackets: true
+        },
+        files: {
+          "tmp/namespace_this_square.js": ["test/fixtures/ns-test.hbs"]
+        }
+      },
+      namespace_globalvar_square: {
+        options: {
+          namespace: "data-templates",
+          squareBrackets: true
+        },
+        files: {
+          "tmp/namespace_globalvar_square.js": ["test/fixtures/ns-test.hbs"]
+        }
+      },
+      namespace_nested_square: {
+        options: {
+          namespace: "GUI.JST.MainTemplates",
+          squareBrackets: true
+        },
+        files: {
+          "tmp/namespace_nested_square.js": ["test/fixtures/ns-test.hbs"]
         }
       }
     },
