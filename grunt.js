@@ -45,7 +45,7 @@ module.exports = function(grunt) {
           namespace: "JST"
         },
         files: {
-          "tmp/handlebars.js": ["test/fixtures/*.hbs"]
+          "tmp/handlebars.js": ["test/fixtures/_partial.hbs", "test/fixtures/one.hbs"]
         }
       },
       wrapcompile: {
@@ -60,6 +60,30 @@ module.exports = function(grunt) {
       uglyfile: {
         files: {
           "tmp/uglyfile.js": ["test/fixtures/*bad*"]
+        }
+      },
+      namespace_this: {
+        options: {
+          namespace: "this.JST"
+        },
+        files: {
+          "tmp/namespace_this.js": ["test/fixtures/ns-test.hbs"]
+        }
+      },
+      namespace_globalvar: {
+        options: {
+          namespace: "data-templates"
+        },
+        files: {
+          "tmp/namespace_globalvar.js": ["test/fixtures/ns-test.hbs"]
+        }
+      },
+      namespace_nested: {
+        options: {
+          namespace: "GUI.JST.MainTemplates"
+        },
+        files: {
+          "tmp/namespace_nested.js": ["test/fixtures/ns-test.hbs"]
         }
       }
     },

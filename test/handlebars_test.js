@@ -4,21 +4,33 @@ exports['handlebars'] = {
   main: function(test) {
     'use strict';
 
-    test.expect(3);
+    test.expect(6);
 
     var expect, result;
 
-    expect = 'this[\'JST\'] = this[\'JST\'] || {};\n\nHandlebars.registerPartial(\'partial\', function (Handlebars,depth0,helpers,partials,data) {\n  helpers = helpers || Handlebars.helpers;\n  \n\n\n  return "<span>Canada</span>";});\n\nthis[\'JST\'][\'test/fixtures/it\\\'s-a-bad-filename.hbs\'] = function (Handlebars,depth0,helpers,partials,data) {\n  helpers = helpers || Handlebars.helpers;\n  \n\n\n  return "Why would you name your file like this?";};\n\nthis[\'JST\'][\'test/fixtures/one.hbs\'] = function (Handlebars,depth0,helpers,partials,data) {\n  helpers = helpers || Handlebars.helpers; partials = partials || Handlebars.partials;\n  var buffer = "", stack1, foundHelper, functionType="function", escapeExpression=this.escapeExpression, self=this;\n\n\n  buffer += "<p>Hello, my name is ";\n  foundHelper = helpers.name;\n  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }\n  else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1() : stack1; }\n  buffer += escapeExpression(stack1) + ". I live in ";\n  stack1 = depth0;\n  stack1 = self.invokePartial(partials.partial, \'partial\', stack1, helpers, partials);;\n  if(stack1 || stack1 === 0) { buffer += stack1; }\n  buffer += "</p>";\n  return buffer;};';
+    expect = grunt.file.read("test/expected/handlebars.js");
     result = grunt.file.read("tmp/handlebars.js");
     test.equal(expect, result, "should compile partials into Handlebars.partials and handlebars template into JST");
 
-    expect = 'this[\'JST\'] = this[\'JST\'] || {};\n\nHandlebars.registerPartial(\'partial\', Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {\n  helpers = helpers || Handlebars.helpers;\n  \n\n\n  return "<span>Canada</span>";}));\n\nthis[\'JST\'][\'test/fixtures/it\\\'s-a-bad-filename.hbs\'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {\n  helpers = helpers || Handlebars.helpers;\n  \n\n\n  return "Why would you name your file like this?";});\n\nthis[\'JST\'][\'test/fixtures/one.hbs\'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {\n  helpers = helpers || Handlebars.helpers; partials = partials || Handlebars.partials;\n  var buffer = "", stack1, foundHelper, functionType="function", escapeExpression=this.escapeExpression, self=this;\n\n\n  buffer += "<p>Hello, my name is ";\n  foundHelper = helpers.name;\n  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }\n  else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1() : stack1; }\n  buffer += escapeExpression(stack1) + ". I live in ";\n  stack1 = depth0;\n  stack1 = self.invokePartial(partials.partial, \'partial\', stack1, helpers, partials);;\n  if(stack1 || stack1 === 0) { buffer += stack1; }\n  buffer += "</p>";\n  return buffer;});';
+    expect = grunt.file.read("test/expected/handlebarswrap.js");
     result = grunt.file.read("tmp/handlebarswrap.js");
     test.equal(expect, result, "should compile partials into Handlebars.partials and handlebars template into JST");
 
-    expect = 'this[\'JST\'] = this[\'JST\'] || {};\n\nthis[\'JST\'][\'test/fixtures/it\\\'s-a-bad-filename.hbs\'] = function (Handlebars,depth0,helpers,partials,data) {\n  helpers = helpers || Handlebars.helpers;\n  \n\n\n  return "Why would you name your file like this?";};';
+    expect = grunt.file.read("test/expected/uglyfile.js");
     result = grunt.file.read("tmp/uglyfile.js");
     test.equal(expect, result, "should escape single quotes in filenames");
+
+    expect = grunt.file.read("test/expected/namespace_this.js");
+    result = grunt.file.read("tmp/namespace_this.js");
+    test.equal(expect, result, "should not attempt to declare this");
+
+    expect = grunt.file.read("test/expected/namespace_nested.js");
+    result = grunt.file.read("tmp/namespace_nested.js");
+    test.equal(expect, result, "should declare all parts of nested namespace");
+
+    expect = grunt.file.read("test/expected/namespace_globalvar.js");
+    result = grunt.file.read("tmp/namespace_globalvar.js");
+    test.equal(expect, result, "should declare global vars with var");
 
     test.done();
   }
