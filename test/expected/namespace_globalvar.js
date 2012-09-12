@@ -1,6 +1,6 @@
-var data-templates = data-templates || {};
+var JST = JST || {};
 
-data-templates['test/fixtures/ns-test.hbs'] = function (Handlebars,depth0,helpers,partials,data) {
+JST['test/fixtures/ns-test.hbs'] = function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   
 

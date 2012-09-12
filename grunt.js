@@ -54,7 +54,7 @@ module.exports = function(grunt) {
           wrapped: true
         },
         files: {
-          "tmp/handlebarswrap.js": ["test/fixtures/*.hbs"]
+          "tmp/handlebarswrap.js": ["test/fixtures/_partial.hbs", "test/fixtures/one.hbs"]
         }
       },
       uglyfile: {
@@ -64,7 +64,8 @@ module.exports = function(grunt) {
       },
       namespace_this: {
         options: {
-          namespace: "this.JST"
+          namespace: "this.JST",
+          squareBrackets: false
         },
         files: {
           "tmp/namespace_this.js": ["test/fixtures/ns-test.hbs"]
@@ -72,7 +73,8 @@ module.exports = function(grunt) {
       },
       namespace_globalvar: {
         options: {
-          namespace: "data-templates"
+          namespace: "JST",
+          squareBrackets: false
         },
         files: {
           "tmp/namespace_globalvar.js": ["test/fixtures/ns-test.hbs"]
@@ -80,10 +82,38 @@ module.exports = function(grunt) {
       },
       namespace_nested: {
         options: {
-          namespace: "GUI.JST.MainTemplates"
+          namespace: "GUI.JST.MainTemplates",
+          squareBrackets: false
         },
         files: {
           "tmp/namespace_nested.js": ["test/fixtures/ns-test.hbs"]
+        }
+      },
+      namespace_this_square: {
+        options: {
+          namespace: "this.JST",
+          squareBrackets: true
+        },
+        files: {
+          "tmp/namespace_this_square.js": ["test/fixtures/ns-test.hbs"]
+        }
+      },
+      namespace_globalvar_square: {
+        options: {
+          namespace: "data-templates",
+          squareBrackets: true
+        },
+        files: {
+          "tmp/namespace_globalvar_square.js": ["test/fixtures/ns-test.hbs"]
+        }
+      },
+      namespace_nested_square: {
+        options: {
+          namespace: "GUI.JST.MainTemplates",
+          squareBrackets: true
+        },
+        files: {
+          "tmp/namespace_nested_square.js": ["test/fixtures/ns-test.hbs"]
         }
       }
     },

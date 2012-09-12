@@ -1,4 +1,4 @@
-var JST = JST || {};
+this['JST'] = this['JST'] || {};
 
 Handlebars.registerPartial('partial', Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
@@ -7,21 +7,7 @@ Handlebars.registerPartial('partial', Handlebars.template(function (Handlebars,d
 
   return "<span>Canada</span>";}));
 
-JST['test/fixtures/it\'s-a-bad-filename.hbs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  helpers = helpers || Handlebars.helpers;
-  
-
-
-  return "Why would you name your file like this?";});
-
-JST['test/fixtures/ns-test.hbs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  helpers = helpers || Handlebars.helpers;
-  
-
-
-  return "Namespace test template!";});
-
-JST['test/fixtures/one.hbs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+this['JST']['test/fixtures/one.hbs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers; partials = partials || Handlebars.partials;
   var buffer = "", stack1, foundHelper, functionType="function", escapeExpression=this.escapeExpression, self=this;
 

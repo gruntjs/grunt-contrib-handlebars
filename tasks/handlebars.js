@@ -25,15 +25,31 @@ module.exports = function(grunt) {
     return name.substr(1, name.length);                       // strips leading _ character
   };
 
+  var matchSquareBrackets = /\[|\]/;
+  
   var escapeQuote = function(name) { return name.replace("'","\\'"); };
+   
+  function getRootNs(ns, squareBrackets) {
+    if (squareBrackets) {
+      if (matchSquareBrackets.test(ns)) { // error out if namespace contains square brackets already
+        grunt.log.error('Handlebars options.namespace must be defined with dot notation');
+        grunt.fail.warn("Handlebars failed to compile.");
+      }
+      var parts = ns.split('.');
+      ns = 'this';
+      parts.forEach(function(str, index) {
+        if (str === 'this') {
+          return;
+        }
+        ns += "['"+escapeQuote(str)+"']";
+      });
+    }
+    return ns;
+  }
   
   function getPartInfo(nsPart, index, squareBrackets) {
     if (nsPart === 'this') {
       return { prefix: '', part: nsPart };
-    }
-
-    if (index === 0) {
-      return { prefix: 'var ', part: nsPart };
     }
 
     var info = {
@@ -43,6 +59,14 @@ module.exports = function(grunt) {
 
     if (squareBrackets) {
       info.part = "['"+escapeQuote(info.part)+"']";
+    }
+    
+    if (index === 0) {
+      info.prefix = 'var ';
+      if (squareBrackets) {
+        info.prefix = '';
+        info.part = 'this'+info.part;
+      }
     }
 
     return info;
@@ -82,7 +106,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask("handlebars", "Compile handlebars templates and partials.", function() {
 
     var helpers = require('grunt-contrib-lib').init(grunt);
-    var options = helpers.options(this, {namespace: "JST", squareBrackets: false});
+    var options = helpers.options(this, {namespace: "JST", squareBrackets: true});
 
     grunt.verbose.writeflags(options, "Options");
 
@@ -94,6 +118,9 @@ module.exports = function(grunt) {
     var templates = [];
     var output = [];
     var namespace = options.namespace;
+    
+    // get the root namespace we'll add templates to
+    var rootNamespace = getRootNs(options.namespace, options.squareBrackets);
 
     // assign regex for partial detection
     var isPartial = options.partialRegex || /^_/;
@@ -125,7 +152,7 @@ module.exports = function(grunt) {
           partials.push("Handlebars.registerPartial('"+filename+"', "+compiled+");");
         } else {
           filename = escapeQuote(processName(file));
-          templates.push(namespace+"['"+filename+"'] = "+compiled+";");
+          templates.push(rootNamespace+"['"+filename+"'] = "+compiled+";");
         }
       });
       output = output.concat(partials, templates);

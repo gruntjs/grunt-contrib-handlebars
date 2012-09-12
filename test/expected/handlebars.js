@@ -1,4 +1,4 @@
-var JST = JST || {};
+this['JST'] = this['JST'] || {};
 
 Handlebars.registerPartial('partial', function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
@@ -7,7 +7,7 @@ Handlebars.registerPartial('partial', function (Handlebars,depth0,helpers,partia
 
   return "<span>Canada</span>";});
 
-JST['test/fixtures/one.hbs'] = function (Handlebars,depth0,helpers,partials,data) {
+this['JST']['test/fixtures/one.hbs'] = function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers; partials = partials || Handlebars.partials;
   var buffer = "", stack1, foundHelper, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
