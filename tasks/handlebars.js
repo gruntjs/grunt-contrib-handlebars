@@ -39,7 +39,7 @@ module.exports = function(grunt) {
     var partials = [];
     var templates = [];
     var output = [];
-    var namespace = "this['" + options.namespace + "']";
+    var namespace = options.namespace;
 
     // assign regex for partial detection
     var isPartial = options.partialRegex || /^_/;
