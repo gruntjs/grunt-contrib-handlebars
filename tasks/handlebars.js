@@ -26,11 +26,63 @@ module.exports = function(grunt) {
   };
 
   var escapeQuote = function(name) { return name.replace("'","\\'"); };
+  
+  function getPartInfo(nsPart, index, squareBrackets) {
+    if (nsPart === 'this') {
+      return { prefix: '', part: nsPart };
+    }
+
+    if (index === 0) {
+      return { prefix: 'var ', part: nsPart };
+    }
+
+    var info = {
+      prefix: '',
+      part: nsPart
+    };
+
+    if (squareBrackets) {
+      info.part = "['"+escapeQuote(info.part)+"']";
+    }
+
+    return info;
+  }
+
+  function defineNs(ns, squareBrackets) {
+    if (ns === 'this') {	// No declaraction required for this
+      return '';
+    }
+
+    var output = [];
+    var nsParts = ns.split('.');
+    var curPath = '';
+
+    // Loop on each part and make sure it's declared
+    nsParts.forEach(function(curPart, index) {
+      // Get the prefix and escaped path part
+      var partInfo = getPartInfo(curPart, index, squareBrackets);
+
+      // Add the previous path
+      curPath += partInfo.part;
+
+      // Add the declaraction for this part of the namespace path
+      if (curPart !== 'this') {
+        output.push(partInfo.prefix+curPath + ' = ' + curPath + ' || {};');
+      }
+
+      // When not using square brackets, we need to add a .
+      if (!squareBrackets) {
+        curPath += '.';
+      }
+    });
+
+    return output.join('\n');
+  }
 
   grunt.registerMultiTask("handlebars", "Compile handlebars templates and partials.", function() {
 
     var helpers = require('grunt-contrib-lib').init(grunt);
-    var options = helpers.options(this, {namespace: "JST"});
+    var options = helpers.options(this, {namespace: "JST", squareBrackets: false});
 
     grunt.verbose.writeflags(options, "Options");
 
@@ -79,7 +131,7 @@ module.exports = function(grunt) {
       output = output.concat(partials, templates);
 
       if (output.length > 0) {
-        output.unshift(namespace + " = " + namespace + " || {};");
+        output.unshift(defineNs(namespace, options.squareBrackets));
         grunt.file.write(files.dest, output.join("\n\n"));
         grunt.log.writeln("File '" + files.dest + "' created.");
       }
