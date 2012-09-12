@@ -25,6 +25,8 @@ module.exports = function(grunt) {
     return name.substr(1, name.length);                       // strips leading _ character
   };
 
+  var escapeQuote = function(name) { return name.replace("'","\\'"); };
+
   grunt.registerMultiTask("handlebars", "Compile handlebars templates and partials.", function() {
 
     var helpers = require('grunt-contrib-lib').init(grunt);
@@ -67,10 +69,10 @@ module.exports = function(grunt) {
 
         // register partial or add template to namespace
         if(isPartial.test(_.last(file.split("/")))) {
-          filename = processPartialName(file);
+          filename = escapeQuote(processPartialName(file));
           partials.push("Handlebars.registerPartial('"+filename+"', "+compiled+");");
         } else {
-          filename = processName(file);
+          filename = escapeQuote(processName(file));
           templates.push(namespace+"['"+filename+"'] = "+compiled+";");
         }
       });
