@@ -56,6 +56,11 @@ module.exports = function(grunt) {
         files: {
           "tmp/handlebarswrap.js": ["test/fixtures/*.hbs"]
         }
+      },
+      uglyfile: {
+        files: {
+          "tmp/uglyfile.js": ["test/fixtures/*bad*"]
+        }
       }
     },
 
