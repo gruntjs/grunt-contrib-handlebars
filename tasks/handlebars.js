@@ -14,6 +14,7 @@ module.exports = function(grunt) {
   grunt.util = grunt.util || grunt.utils;
 
   var _ = grunt.util._;
+  var helpers = require('grunt-contrib-lib').init(grunt);
 
   // filename conversion for templates
   var defaultProcessName = function(name) { return name; };
@@ -41,7 +42,7 @@ module.exports = function(grunt) {
     var partials = [];
     var templates = [];
     var output = [];
-    var namespace = "this['" + options.namespace + "']";
+    var nsInfo = helpers.getNamespaceDeclaration(options.namespace);
 
     // assign regex for partial detection
     var isPartial = options.partialRegex || /^_/;
@@ -73,13 +74,13 @@ module.exports = function(grunt) {
           partials.push("Handlebars.registerPartial('"+filename+"', "+compiled+");");
         } else {
           filename = escapeQuote(processName(file));
-          templates.push(namespace+"['"+filename+"'] = "+compiled+";");
+          templates.push(nsInfo.namespace+"["+JSON.stringify(filename)+"] = "+compiled+";");
         }
       });
       output = output.concat(partials, templates);
 
       if (output.length > 0) {
-        output.unshift(namespace + " = " + namespace + " || {};");
+        output.unshift(nsInfo.declaration);
         grunt.file.write(files.dest, output.join("\n\n"));
         grunt.log.writeln("File '" + files.dest + "' created.");
       }
