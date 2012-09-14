@@ -1,6 +1,6 @@
 this["JST"] = this["JST"] || {};
 
-Handlebars.registerPartial('partial', Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+Handlebars.registerPartial("partial", Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   
 
