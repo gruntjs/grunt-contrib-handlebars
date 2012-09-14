@@ -33,7 +33,14 @@ This controls how this task operates and should contain key:value pairs, see opt
 
 ##### namespace ```string```
 
-The namespace in which the resulting JST templates are assigned to.
+The namespace, in dot notation, in which the resulting JST templates are assigned to. The example below assigns templates to the `MyApp.Templates` namespace:
+
+Example:
+``` javascript
+options: {
+  namespace: 'MyApp.Templates'
+}
+```
 
 ##### wrapped ```boolean```
 
