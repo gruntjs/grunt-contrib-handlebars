@@ -14,6 +14,7 @@ module.exports = function(grunt) {
   grunt.util = grunt.util || grunt.utils;
 
   var _ = grunt.util._;
+  var helpers = require('grunt-contrib-lib').init(grunt);
 
   // filename conversion for templates
   var defaultProcessName = function(name) { return name; };
@@ -24,8 +25,6 @@ module.exports = function(grunt) {
     var name   = _(pieces).without(_.last(pieces)).join("."); // strips file extension
     return name.substr(1, name.length);                       // strips leading _ character
   };
-
-  var escapeQuote = function(name) { return name.replace("'","\\'"); };
 
   grunt.registerMultiTask("handlebars", "Compile handlebars templates and partials.", function() {
 
@@ -41,7 +40,7 @@ module.exports = function(grunt) {
     var partials = [];
     var templates = [];
     var output = [];
-    var namespace = "this['" + options.namespace + "']";
+    var nsInfo = helpers.getNamespaceDeclaration(options.namespace);
 
     // assign regex for partial detection
     var isPartial = options.partialRegex || /^_/;
@@ -69,17 +68,17 @@ module.exports = function(grunt) {
 
         // register partial or add template to namespace
         if(isPartial.test(_.last(file.split("/")))) {
-          filename = escapeQuote(processPartialName(file));
-          partials.push("Handlebars.registerPartial('"+filename+"', "+compiled+");");
+          filename = processPartialName(file);
+          partials.push("Handlebars.registerPartial("+JSON.stringify(filename)+", "+compiled+");");
         } else {
-          filename = escapeQuote(processName(file));
-          templates.push(namespace+"['"+filename+"'] = "+compiled+";");
+          filename = processName(file);
+          templates.push(nsInfo.namespace+"["+JSON.stringify(filename)+"] = "+compiled+";");
         }
       });
       output = output.concat(partials, templates);
 
       if (output.length > 0) {
-        output.unshift(namespace + " = " + namespace + " || {};");
+        output.unshift(nsInfo.declaration);
         grunt.file.write(files.dest, output.join("\n\n"));
         grunt.log.writeln("File '" + files.dest + "' created.");
       }
