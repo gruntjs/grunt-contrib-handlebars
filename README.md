@@ -100,13 +100,6 @@ handlebars: {
 }
 ```
 
-## Release History
-* 2012/10/03 - v0.3.1 - Bugfix (default processPartialName)
-* 2012/09/23 - v0.3.0 - Options no longer accepted from global config key.
-* 2012/09/16 - v0.2.3 - Support for nested namespaces.
-* 2012/09/12 - v0.2.2 - Escape single quotes in filenames.
-* 2012/09/10 - v0.2.0 - Refactored from grunt-contrib into individual repo.
-
 --
 
-Task submitted by [Tim Branyen](http://github.com/tbranyen).
+*Task submitted by [Tim Branyen](http://github.com/tbranyen).*
