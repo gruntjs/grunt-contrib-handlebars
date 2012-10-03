@@ -1,5 +1,6 @@
 # grunt-contrib-handlebars [![Build Status](https://secure.travis-ci.org/gruntjs/grunt-contrib-handlebars.png?branch=master)](http://travis-ci.org/gruntjs/grunt-contrib-handlebars)
-> Precompile Handlebars templates to JST file (part of the [grunt-contrib](https://github.com/gruntjs/grunt-contrib) collection).  Submitted by [Tim Branyen](/tbranyen).
+
+> Precompile Handlebars templates to JST file.
 
 ## Getting Started
 Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-contrib-handlebars`
@@ -105,3 +106,7 @@ handlebars: {
 * 2012/09/16 - v0.2.3 - Support for nested namespaces.
 * 2012/09/12 - v0.2.2 - Escape single quotes in filenames.
 * 2012/09/10 - v0.2.0 - Refactored from grunt-contrib into individual repo.
+
+--
+
+Task submitted by [Tim Branyen](http://github.com/tbranyen).
