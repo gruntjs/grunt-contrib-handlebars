@@ -4,9 +4,7 @@
  *
  * Copyright (c) 2012 Tim Branyen, contributors
  * Licensed under the MIT license.
- * https://github.com/gruntjs/grunt-contrib-handlebars/blob/master/LICENSE-MIT
  */
-
 module.exports = function(grunt) {
   'use strict';
 
