@@ -14,7 +14,7 @@ This controls how this task operates and should contain key:value pairs, see opt
 
 ##### namespace ```string```
 
-The namespace in which the precompiled templates will be asssigned (default is JST).  *Use dot notation (e.g. App.Templates) for nested namespaces.*
+The namespace in which the precompiled templates will be assigned (default is JST).  *Use dot notation (e.g. App.Templates) for nested namespaces.*
 
 Example:
 ```js
