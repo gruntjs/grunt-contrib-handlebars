@@ -1,4 +1,7 @@
-##### files ```object```
+# Options
+
+## files
+Type: `Object`
 
 This defines what files this task will process and should contain key:value pairs.
 
@@ -6,15 +9,11 @@ The key (destination) should be an unique filepath (supports [grunt.template](ht
 
 Note: Values are precompiled to the namespaced JST array in the order passed.
 
-##### options ```object```
+## namespace
+Type: `string`
+Default: 'jst'
 
-This controls how this task operates and should contain key:value pairs, see options below.
-
-#### Options
-
-##### namespace ```string```
-
-The namespace in which the precompiled templates will be assigned (default is JST).  *Use dot notation (e.g. App.Templates) for nested namespaces.*
+The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces.*
 
 Example:
 ```js
@@ -23,11 +22,14 @@ options: {
 }
 ```
 
-##### wrapped ```boolean```
+## wrapped
+Type: `Boolean`
+Default: false
 
-Determine if preprocessed template functions will be wrapped in Handlebars.template function (default is false).
+Determine if preprocessed template functions will be wrapped in Handlebars.template function.
 
-##### processName ```function```
+## processName
+Type: `function`
 
 This option accepts a function which takes one argument (the template filepath) and returns a string which will be used as the key for the precompiled template object.  The example below stores all templates on the default JST namespace in capital letters.
 
@@ -39,7 +41,8 @@ options: {
 }
 ```
 
-##### processPartialName ```function```
+## processPartialName
+Type: ```function```
 
 This option accepts a function which takes one argument (the partial filepath) and returns a string which will be used as the key for the precompiled partial object when it is registered in Handlebars.partials. The example below stores all partials using only the actual filename instead of the full path.
 
@@ -54,12 +57,15 @@ options: {
 
 Note: If processPartialName is not provided as an option the default assumes that partials will be stored by stripping trailing underscore characters and filename extensions. For example, the path *templates/_header.hbs* will become *header* and can be referenced in other templates as *{{> header}}*.
 
-##### partialRegex ```regex```
+## partialRegex
+Type: `Regexp`
+Default: /^_/
 
-This option accepts a regex that defines the prefix character that is used to identify Handlebars partial files. (The default is _).
+This option accepts a regex that defines the prefix character that is used to identify Handlebars partial files.
 
 ``` javascript
+// assumes partial files would be prefixed with "par_" ie: "par_header.hbs"
 options: {
-  partialRegex: /^par_/ // assumes partial files would be prefixed with "par_" ie: "par_header.hbs"
+  partialRegex: /^par_/
 }
 ```

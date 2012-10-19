@@ -5,11 +5,10 @@
  * Copyright (c) 2012 Tim Branyen, contributors
  * Licensed under the MIT license.
  */
-module.exports = function(grunt) {
-  'use strict';
 
-  // TODO: ditch this when grunt v0.4 is released
-  grunt.util = grunt.util || grunt.utils;
+'use strict';
+
+module.exports = function(grunt) {
 
   var _ = grunt.util._;
   var helpers = require('grunt-lib-contrib').init(grunt);
@@ -26,13 +25,9 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
 
-    var helpers = require('grunt-lib-contrib').init(grunt);
-    var options = helpers.options(this, {namespace: 'JST'});
+    var options = this.options({namespace: 'JST'});
 
     grunt.verbose.writeflags(options, 'Options');
-
-    // TODO: ditch this when grunt v0.4 is released
-    this.files = this.files || helpers.normalizeMultiTaskFiles(this.data, this.target);
 
     var compiled, srcFiles, src, filename;
     var partials = [];
