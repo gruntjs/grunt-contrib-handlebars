@@ -2,31 +2,20 @@
 
 > Precompile Handlebars templates to JST file.
 
-_Note that this plugin has not yet been released, and only works with the latest bleeding-edge, in-development version of grunt. See the [When will I be able to use in-development feature 'X'?](https://github.com/gruntjs/grunt/blob/devel/docs/faq.md#when-will-i-be-able-to-use-in-development-feature-x) FAQ entry for more information._
 
 ## Getting Started
-_If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
+If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide, as it explains how to create a [gruntfile][Getting Started] as well as install and use grunt plugins. Once you're familiar with that process, install this plugin with this command:
 
-From the same directory as your project's [Gruntfile][Getting Started] and [package.json][], install this plugin with the following command:
-
-```bash
+```shell
 npm install grunt-contrib-handlebars --save-dev
 ```
 
-Once that's done, add this line to your project's Gruntfile:
-
-```js
-grunt.loadNpmTasks('grunt-contrib-handlebars');
-```
-
-If the plugin has been installed correctly, running `grunt --help` at the command line should list the newly-installed plugin's task or tasks. In addition, the plugin should be listed in package.json as a `devDependency`, which ensures that it will be installed whenever the `npm install` command is run.
-
 [grunt]: http://gruntjs.com/
 [Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
-[package.json]: https://npmjs.org/doc/json.html
 
 
-## The handlebars task
+## Handlebars task
+_Run this task with the `grunt handlebars` command._
 
 ### Overview
 
@@ -46,7 +35,7 @@ grunt.initConfig({
 ```
 ### Options
 
-## files
+#### files
 Type: `Object`
 
 This defines what files this task will process and should contain key:value pairs.
@@ -55,7 +44,7 @@ The key (destination) should be an unique filepath (supports [grunt.template](ht
 
 Note: Values are precompiled to the namespaced JST array in the order passed.
 
-## namespace
+#### namespace
 Type: `string`
 Default: 'jst'
 
@@ -68,13 +57,13 @@ options: {
 }
 ```
 
-## wrapped
+#### wrapped
 Type: `Boolean`
 Default: false
 
 Determine if preprocessed template functions will be wrapped in Handlebars.template function.
 
-## processName
+#### processName
 Type: `function`
 
 This option accepts a function which takes one argument (the template filepath) and returns a string which will be used as the key for the precompiled template object.  The example below stores all templates on the default JST namespace in capital letters.
@@ -87,7 +76,7 @@ options: {
 }
 ```
 
-## processPartialName
+#### processPartialName
 Type: ```function```
 
 This option accepts a function which takes one argument (the partial filepath) and returns a string which will be used as the key for the precompiled partial object when it is registered in Handlebars.partials. The example below stores all partials using only the actual filename instead of the full path.
@@ -103,7 +92,7 @@ options: {
 
 Note: If processPartialName is not provided as an option the default assumes that partials will be stored by stripping trailing underscore characters and filename extensions. For example, the path *templates/_header.hbs* will become *header* and can be referenced in other templates as *{{> header}}*.
 
-## partialRegex
+#### partialRegex
 Type: `Regexp`
 Default: /^_/
 
@@ -134,14 +123,15 @@ handlebars: {
 
 ## Release History
 
- * 2012-10-11 - v0.3.2 - Rename grunt-contrib-lib dep to grunt-lib-contrib.
- * 2012-10-02 - v0.3.1 - Bugfix default processPartialName.
- * 2012-09-22 - v0.3.0 - Options no longer accepted from global config key.
- * 2012-09-15 - v0.2.3 - Support for nested namespaces.
- * 2012-09-11 - v0.2.2 - Escape single quotes in filenames.
- * 2012-09-09 - v0.2.0 - Refactored from grunt-contrib into individual repo.
+ * 2012-10-11   v0.3.2   Rename grunt-contrib-lib dep to grunt-lib-contrib.
+ * 2012-10-02   v0.3.1   Bugfix default processPartialName.
+ * 2012-09-22   v0.3.0   Options no longer accepted from global config key.
+ * 2012-09-15   v0.2.3   Support for nested namespaces.
+ * 2012-09-11   v0.2.2   Escape single quotes in filenames.
+ * 2012-09-09   v0.2.0   Refactored from grunt-contrib into individual repo.
 
---
-Task submitted by <a href="http://tbranyen.com">Tim Branyen</a>.
+---
 
-*Generated on Thu Oct 18 2012 22:28:59.*
+Task submitted by [Tim Branyen](http://tbranyen.com)
+
+*This file was generated on Tue Nov 13 2012 13:49:31.*
