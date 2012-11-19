@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 
     grunt.verbose.writeflags(options, 'Options');
 
-    var compiled, srcFiles, src, filename;
+    var compiled, src, filename;
     var partials = [];
     var templates = [];
     var output = [];
@@ -43,8 +43,7 @@ module.exports = function(grunt) {
     var processPartialName = options.processPartialName || defaultProcessPartialName;
 
     // iterate files, processing partials and templates separately
-    var files = grunt.file.expandFiles(this.file.src);
-    files.forEach(function(file) {
+    this.file.src.forEach(function(file) {
       src = grunt.file.read(file);
 
       try {
