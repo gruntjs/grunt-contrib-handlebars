@@ -1,3 +1,7 @@
+v0.3.3: 
+  date: 2012-11-21
+  changes:
+    - Reset for each target 
 v0.3.2:
   date: 2012-10-12
   changes:
