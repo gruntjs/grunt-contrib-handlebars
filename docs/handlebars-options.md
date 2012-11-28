@@ -1,17 +1,8 @@
 # Options
 
-## files
-Type: `Object`
-
-This defines what files this task will process and should contain key:value pairs.
-
-The key (destination) should be an unique filepath (supports [grunt.template](https://github.com/gruntjs/grunt/blob/master/docs/api_template.md)) and the value (source) should be a filepath or an array of filepaths (supports [minimatch](https://github.com/isaacs/minimatch)).
-
-Note: Values are precompiled to the namespaced JST array in the order passed.
-
 ## namespace
-Type: `string`
-Default: 'jst'
+Type: `String`
+Default: 'JST'
 
 The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces.*
 
@@ -24,7 +15,7 @@ options: {
 
 ## wrapped
 Type: `Boolean`
-Default: false
+Default: `false`
 
 Determine if preprocessed template functions will be wrapped in Handlebars.template function.
 
@@ -50,7 +41,7 @@ This option accepts a function which takes one argument (the partial filepath) a
 options: {
   processPartialName: function(filePath) { // input:  templates/_header.hbs
     var pieces = filePath.split("/");
-    return pieces[pieces.length - 1];      // output: _header.hbs
+    return pieces[pieces.length - 1]; // output: _header.hbs
   }
 }
 ````

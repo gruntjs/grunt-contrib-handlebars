@@ -17,36 +17,15 @@ npm install grunt-contrib-handlebars --save-dev
 ## Handlebars task
 _Run this task with the `grunt handlebars` command._
 
-### Overview
+_This task is a [multi task][] so any targets, files and options should be specified according to the [multi task][] documentation._
+[multi task]: https://github.com/gruntjs/grunt/wiki/Configuring-tasks
 
-In your project's Gruntfile, add a section named `handlebars` to the data object passed into `grunt.initConfig()`.
 
-```js
-grunt.initConfig({
-  handlebars: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-})
-```
 ### Options
 
-#### files
-Type: `Object`
-
-This defines what files this task will process and should contain key:value pairs.
-
-The key (destination) should be an unique filepath (supports [grunt.template](https://github.com/gruntjs/grunt/blob/master/docs/api_template.md)) and the value (source) should be a filepath or an array of filepaths (supports [minimatch](https://github.com/isaacs/minimatch)).
-
-Note: Values are precompiled to the namespaced JST array in the order passed.
-
 #### namespace
-Type: `string`
-Default: 'jst'
+Type: `String`
+Default: 'JST'
 
 The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces.*
 
@@ -59,7 +38,7 @@ options: {
 
 #### wrapped
 Type: `Boolean`
-Default: false
+Default: `false`
 
 Determine if preprocessed template functions will be wrapped in Handlebars.template function.
 
@@ -85,7 +64,7 @@ This option accepts a function which takes one argument (the partial filepath) a
 options: {
   processPartialName: function(filePath) { // input:  templates/_header.hbs
     var pieces = filePath.split("/");
-    return pieces[pieces.length - 1];      // output: _header.hbs
+    return pieces[pieces.length - 1]; // output: _header.hbs
   }
 }
 ````
@@ -105,7 +84,7 @@ options: {
 }
 ```
 
-### Examples
+### Usage Examples
 
 ```js
 handlebars: {
@@ -121,8 +100,10 @@ handlebars: {
 }
 ```
 
+
 ## Release History
 
+ * 2012-11-20   v0.3.3   Reset for each target
  * 2012-10-11   v0.3.2   Rename grunt-contrib-lib dep to grunt-lib-contrib.
  * 2012-10-02   v0.3.1   Bugfix default processPartialName.
  * 2012-09-22   v0.3.0   Options no longer accepted from global config key.
@@ -134,4 +115,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Tue Nov 13 2012 13:49:31.*
+*This file was generated on Wed Nov 28 2012 08:38:29.*
