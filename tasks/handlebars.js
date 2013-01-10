@@ -42,37 +42,41 @@ module.exports = function(grunt) {
     var processName = options.processName || defaultProcessName;
     var processPartialName = options.processPartialName || defaultProcessPartialName;
 
-    // iterate files, processing partials and templates separately
-    this.file.src.forEach(function(file) {
-      src = grunt.file.read(file);
+    this.files.forEach(function(f) {
 
-      try {
-        compiled = require('handlebars').precompile(src);
-        // if configured to, wrap template in Handlebars.template call
-        if(options.wrapped) {
-          compiled = 'Handlebars.template('+compiled+')';
+      // iterate files, processing partials and templates separately
+      f.src.forEach(function(file) {
+        src = grunt.file.read(file);
+
+        try {
+          compiled = require('handlebars').precompile(src);
+          // if configured to, wrap template in Handlebars.template call
+          if (options.wrapped) {
+            compiled = 'Handlebars.template('+compiled+')';
+          }
+        } catch (e) {
+          grunt.log.error(e);
+          grunt.fail.warn('Handlebars failed to compile '+file+'.');
         }
-      } catch (e) {
-        grunt.log.error(e);
-        grunt.fail.warn('Handlebars failed to compile '+file+'.');
-      }
 
-      // register partial or add template to namespace
-      if(isPartial.test(_.last(file.split('/')))) {
-        filename = processPartialName(file);
-        partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
-      } else {
-        filename = processName(file);
-        templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+        // register partial or add template to namespace
+        if (isPartial.test(_.last(file.split('/')))) {
+          filename = processPartialName(file);
+          partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
+        } else {
+          filename = processName(file);
+          templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+        }
+      });
+      output = output.concat(partials, templates);
+
+      if (output.length > 0) {
+        output.unshift(nsInfo.declaration);
+        grunt.file.write(f.dest, output.join('\n\n'));
+        grunt.log.writeln('File "' + f.dest + '" created.');
       }
     });
-    output = output.concat(partials, templates);
 
-    if (output.length > 0) {
-      output.unshift(nsInfo.declaration);
-      grunt.file.write(this.file.dest, output.join('\n\n'));
-      grunt.log.writeln('File "' + this.file.dest + '" created.');
-    }
   });
 
 };
