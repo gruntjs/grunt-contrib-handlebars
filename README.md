@@ -25,6 +25,12 @@ _Version `0.4.x` of this plugin is compatible with Grunt `0.4.x`. Version `0.3.x
 
 ### Options
 
+#### separator
+Type: `String`
+Default: linefeed + linefeed
+
+Concatenated files will be joined on this string.
+
 #### namespace
 Type: `String`
 Default: 'JST'
@@ -118,4 +124,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Wed Jan 09 2013 16:22:55.*
+*This file was generated on Thu Jan 10 2013 12:21:50.*

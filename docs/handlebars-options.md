@@ -1,5 +1,11 @@
 # Options
 
+## separator
+Type: `String`
+Default: linefeed + linefeed
+
+Concatenated files will be joined on this string.
+
 ## namespace
 Type: `String`
 Default: 'JST'

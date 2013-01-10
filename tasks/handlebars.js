@@ -24,15 +24,12 @@ module.exports = function(grunt) {
   };
 
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
-
-    var options = this.options({namespace: 'JST'});
-
+    var options = this.options({
+      namespace: 'JST',
+      separator: grunt.util.linefeed + grunt.util.linefeed
+    });
     grunt.verbose.writeflags(options, 'Options');
 
-    var compiled, src, filename;
-    var partials = [];
-    var templates = [];
-    var output = [];
     var nsInfo = helpers.getNamespaceDeclaration(options.namespace);
 
     // assign regex for partial detection
@@ -43,11 +40,22 @@ module.exports = function(grunt) {
     var processPartialName = options.processPartialName || defaultProcessPartialName;
 
     this.files.forEach(function(f) {
+      var partials = [];
+      var templates = [];
 
       // iterate files, processing partials and templates separately
-      f.src.forEach(function(file) {
-        src = grunt.file.read(file);
-
+      f.src.filter(function(filepath) {
+        // Warn on and remove invalid source files (if nonull was set).
+        if (!grunt.file.exists(filepath)) {
+          grunt.log.warn('Source file "' + filepath + '" not found.');
+          return false;
+        } else {
+          return true;
+        }
+      })
+      .forEach(function(filepath) {
+        var src = grunt.file.read(filepath);
+        var compiled, filename;
         try {
           compiled = require('handlebars').precompile(src);
           // if configured to, wrap template in Handlebars.template call
@@ -56,23 +64,25 @@ module.exports = function(grunt) {
           }
         } catch (e) {
           grunt.log.error(e);
-          grunt.fail.warn('Handlebars failed to compile '+file+'.');
+          grunt.fail.warn('Handlebars failed to compile '+filepath+'.');
         }
 
         // register partial or add template to namespace
-        if (isPartial.test(_.last(file.split('/')))) {
-          filename = processPartialName(file);
+        if (isPartial.test(_.last(filepath.split('/')))) {
+          filename = processPartialName(filepath);
           partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
         } else {
-          filename = processName(file);
+          filename = processName(filepath);
           templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
         }
       });
-      output = output.concat(partials, templates);
 
-      if (output.length > 0) {
+      var output = partials.concat(templates);
+      if (output.length < 1) {
+        grunt.log.warn('Destination not written because compiled files were empty.');
+      } else {
         output.unshift(nsInfo.declaration);
-        grunt.file.write(f.dest, output.join('\n\n'));
+        grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
         grunt.log.writeln('File "' + f.dest + '" created.');
       }
     });
