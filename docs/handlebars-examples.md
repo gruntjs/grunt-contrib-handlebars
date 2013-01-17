@@ -13,3 +13,18 @@ handlebars: {
   }
 }
 ```
+
+# AMD Usage Examples
+
+```js
+handlebars: {
+  compile: {
+    options: {
+      amd: true
+    },
+    files: {
+      "path/to/result.js": "path/to/sources/*.hbs"
+    }
+  }
+}
+```
