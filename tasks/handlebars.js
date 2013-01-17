@@ -26,6 +26,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
     var options = this.options({
       namespace: 'JST',
+      amd: false,
       separator: grunt.util.linefeed + grunt.util.linefeed
     });
     grunt.verbose.writeflags(options, 'Options');
@@ -82,6 +83,15 @@ module.exports = function(grunt) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {
         output.unshift(nsInfo.declaration);
+
+        if (options.amd) {
+            // Wrap the file in an AMD define fn.
+            output.unshift('define(function() {');
+            output.push('  return '+nsInfo.namespace+';');
+            output.push('});');
+            console.log(output);
+        }
+
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
         grunt.log.writeln('File "' + f.dest + '" created.');
       }
