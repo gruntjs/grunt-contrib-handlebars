@@ -89,7 +89,6 @@ module.exports = function(grunt) {
             output.unshift('define(function() {');
             output.push('  return '+nsInfo.namespace+';');
             output.push('});');
-            console.log(output);
         }
 
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
