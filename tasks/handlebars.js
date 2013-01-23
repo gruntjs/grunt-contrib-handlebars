@@ -26,7 +26,8 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
     var options = this.options({
       namespace: 'JST',
-      separator: grunt.util.linefeed + grunt.util.linefeed
+      separator: grunt.util.linefeed + grunt.util.linefeed,
+      wrapped: true
     });
     grunt.verbose.writeflags(options, 'Options');
 
