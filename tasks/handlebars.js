@@ -27,7 +27,8 @@ module.exports = function(grunt) {
     var options = this.options({
       namespace: 'JST',
       amd: false,
-      separator: grunt.util.linefeed + grunt.util.linefeed
+      separator: grunt.util.linefeed + grunt.util.linefeed,
+      wrapped: true
     });
     grunt.verbose.writeflags(options, 'Options');
 

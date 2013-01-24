@@ -140,6 +140,7 @@ handlebars: {
 
 ## Release History
 
+ * 2013-01-22   v0.5.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions. Default wrapped option to true.
  * 2013-01-08   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Switching to this.files api.
  * 2012-11-20   v0.3.3   Reset for each target
  * 2012-10-11   v0.3.2   Rename grunt-contrib-lib dep to grunt-lib-contrib.
@@ -153,4 +154,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Thu Jan 10 2013 12:21:50.*
+*This file was generated on Wed Jan 23 2013 11:13:19.*
