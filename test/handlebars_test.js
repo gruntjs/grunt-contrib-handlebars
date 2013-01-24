@@ -51,4 +51,14 @@ exports.handlebars = {
 
     test.done();
   },
+  no_namespace:function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/no_namespace.js');
+    var expected = grunt.file.read('test/expected/no_namespace.js');
+    test.equal(actual, expected, 'should skip the creation of a namespace array arround the generated template file');
+
+    test.done();
+  }
 };
