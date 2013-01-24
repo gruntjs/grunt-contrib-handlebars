@@ -67,6 +67,14 @@ module.exports = function(grunt) {
         files: {
           'tmp/ns_nested_this.js': ['test/fixtures/basic.hbs']
         }
+      },
+      amd_compile: {
+        options: {
+          amd: true
+        },
+        files: {
+          'tmp/amd_compile.js': ['test/fixtures/amd.html']
+        }
       }
     },
 
