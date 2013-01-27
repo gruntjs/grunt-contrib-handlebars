@@ -41,6 +41,7 @@ module.exports = function(grunt) {
 
     // assign transformation functions
     var processContent = options.processContent || defaultProcessContent;
+    var processName = options.processName || defaultProcessName;
     var processPartialName = options.processPartialName || defaultProcessPartialName;
 
     this.files.forEach(function(f) {
