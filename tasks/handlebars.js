@@ -56,10 +56,6 @@ module.exports = function(grunt) {
       })
       .forEach(function(filepath) {
         var src = grunt.file.read(filepath);
-        if (options.trimSpaces) {
-            src = src.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
-            src = src.replace(/^[\r\n]+/, '').replace(/[\r\n]+$/, '');
-        }
         var compiled, filename;
         try {
           compiled = require('handlebars').precompile(src);
