@@ -35,7 +35,7 @@ Concatenated files will be joined on this string.
 Type: `String`
 Default: 'JST'
 
-The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces.*
+The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*
 
 Example:
 ```js
