@@ -1,3 +1,8 @@
+v0.5.1rc7:
+  date: 2013-01-28
+  changes:
+    - Add processContent option
+    - Do not generate templates into a namespaces when namespace option is false.
 v0.5.0rc7:
   date: 2013-01-23
   changes:
