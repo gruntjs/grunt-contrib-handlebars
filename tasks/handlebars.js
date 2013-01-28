@@ -9,7 +9,6 @@
 'use strict';
 
 module.exports = function(grunt) {
-
   var _ = grunt.util._;
   var helpers = require('grunt-lib-contrib').init(grunt);
 
@@ -31,7 +30,10 @@ module.exports = function(grunt) {
     });
     grunt.verbose.writeflags(options, 'Options');
 
-    var nsInfo = helpers.getNamespaceDeclaration(options.namespace);
+    var nsInfo;
+    if(options.namespace !== false){
+        nsInfo = helpers.getNamespaceDeclaration(options.namespace);
+    }
 
     // assign regex for partial detection
     var isPartial = options.partialRegex || /^_/;
@@ -74,7 +76,11 @@ module.exports = function(grunt) {
           partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
         } else {
           filename = processName(filepath);
-          templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+          if (options.namespace !== false) {
+              templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+          } else {
+              templates.push(compiled);
+          }
         }
       });
 
@@ -82,7 +88,9 @@ module.exports = function(grunt) {
       if (output.length < 1) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {
-        output.unshift(nsInfo.declaration);
+        if (options.namespace !== false) {
+            output.unshift(nsInfo.declaration);
+        }
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
         grunt.log.writeln('File "' + f.dest + '" created.');
       }

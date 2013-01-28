@@ -67,6 +67,14 @@ module.exports = function(grunt) {
         files: {
           'tmp/ns_nested_this.js': ['test/fixtures/basic.hbs']
         }
+      },
+      no_namespace: {
+        options: {
+          namespace: false
+        },
+        files: {
+          'tmp/no_namespace.js': ['test/fixtures/basic.hbs']
+        }
       }
     },
 
