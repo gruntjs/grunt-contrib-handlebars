@@ -87,9 +87,16 @@ module.exports = function(grunt) {
         files: {
           'tmp/processcontent.js': ['test/fixtures/has-spaces.hbs']
         }
+      },
+      amd_compile: {
+        options: {
+          amd: true
+        },
+        files: {
+          'tmp/amd_compile.js': ['test/fixtures/amd.html']
+        }
       }
     },
-
     // Unit tests.
     nodeunit: {
       tests: ['test/*_test.js']

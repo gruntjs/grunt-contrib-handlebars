@@ -71,4 +71,14 @@ exports.handlebars = {
 
     test.done();
   },
+  amd_compile: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/amd_compile.js');
+    var expected = grunt.file.read('test/expected/amd_compile.js'); // same as previous test
+    test.equal(actual, expected, 'should wrap everything with an AMD define block.');
+
+    test.done();
+  }
 };

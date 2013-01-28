@@ -50,6 +50,19 @@ Default: `false`
 
 Determine if preprocessed template functions will be wrapped in Handlebars.template function.
 
+#### amd
+Type: `Boolean`
+default: `false`
+
+Wraps the output file with an AMD define function and returns the compiled template.
+
+```js
+define(function() {
+    //...//
+    returns this['[template namespace]'];
+});
+```
+
 #### processContent
 Type: `function`
 
@@ -141,4 +154,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Mon Jan 28 2013 09:24:34.*
+*This file was generated on Mon Jan 28 2013 09:41:13.*

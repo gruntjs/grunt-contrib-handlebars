@@ -29,13 +29,14 @@ module.exports = function(grunt) {
     var options = this.options({
       namespace: 'JST',
       separator: grunt.util.linefeed + grunt.util.linefeed,
-      wrapped: true
+      wrapped: true,
+      amd: false
     });
     grunt.verbose.writeflags(options, 'Options');
 
     var nsInfo;
     if(options.namespace !== false){
-        nsInfo = helpers.getNamespaceDeclaration(options.namespace);
+      nsInfo = helpers.getNamespaceDeclaration(options.namespace);
     }
 
     // assign regex for partial detection
@@ -80,10 +81,10 @@ module.exports = function(grunt) {
           partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
         } else {
           filename = processName(filepath);
-          if (options.namespace !== false) {
-              templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+          if (options.namespace !== false && !options.amd) {
+            templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
           } else {
-              templates.push(compiled);
+            templates.push(compiled);
           }
         }
       });
@@ -92,9 +93,16 @@ module.exports = function(grunt) {
       if (output.length < 1) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {
-        if (options.namespace !== false) {
-            output.unshift(nsInfo.declaration);
+        if (options.namespace !== false && !options.amd) {
+          output.unshift(nsInfo.declaration);
         }
+
+        if (options.amd) {
+          // Wrap the file in an AMD define fn.
+          output.unshift('define(function() { return');
+          output.push('});');
+        }
+
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
         grunt.log.writeln('File "' + f.dest + '" created.');
       }
