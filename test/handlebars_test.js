@@ -51,4 +51,14 @@ exports.handlebars = {
 
     test.done();
   },
+  processcontent: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/processcontent.js');
+    var expected = grunt.file.read('test/expected/processcontent.js');
+    test.equal(actual, expected, 'should remove leading and trailing spaces');
+
+    test.done();
+  },
 };
