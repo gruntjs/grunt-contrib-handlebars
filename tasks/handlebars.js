@@ -59,8 +59,7 @@ module.exports = function(grunt) {
         }
       })
       .forEach(function(filepath) {
-        var src = grunt.file.read(filepath);
-        src = processContent(src);
+        var src = processContent(grunt.file.read(filepath));
         var compiled, filename;
         try {
           compiled = require('handlebars').precompile(src);
