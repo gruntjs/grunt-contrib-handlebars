@@ -12,6 +12,9 @@ module.exports = function(grunt) {
   var _ = grunt.util._;
   var helpers = require('grunt-lib-contrib').init(grunt);
 
+  // content conversion for templates
+  var defaultProcessContent = function(content) { return content; };
+
   // filename conversion for templates
   var defaultProcessName = function(name) { return name; };
 
@@ -38,7 +41,8 @@ module.exports = function(grunt) {
     // assign regex for partial detection
     var isPartial = options.partialRegex || /^_/;
 
-    // assign filename transformation functions
+    // assign transformation functions
+    var processContent = options.processContent || defaultProcessContent;
     var processName = options.processName || defaultProcessName;
     var processPartialName = options.processPartialName || defaultProcessPartialName;
 
@@ -57,7 +61,7 @@ module.exports = function(grunt) {
         }
       })
       .forEach(function(filepath) {
-        var src = grunt.file.read(filepath);
+        var src = processContent(grunt.file.read(filepath));
         var compiled, filename;
         try {
           compiled = require('handlebars').precompile(src);

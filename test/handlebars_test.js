@@ -60,5 +60,15 @@ exports.handlebars = {
     test.equal(actual, expected, 'should skip the creation of a namespace array arround the generated template file');
 
     test.done();
-  }
+  },
+  processcontent: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/processcontent.js');
+    var expected = grunt.file.read('test/expected/processcontent.js');
+    test.equal(actual, expected, 'should remove leading and trailing spaces');
+
+    test.done();
+  },
 };

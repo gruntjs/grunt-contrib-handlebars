@@ -50,6 +50,21 @@ Default: `false`
 
 Determine if preprocessed template functions will be wrapped in Handlebars.template function.
 
+#### processContent
+Type: `function`
+
+This option accepts a function which takes one argument (the template file content) and returns a string which will be used as the source for the precompiled template object.  The example below removes leading and trailing spaces to shorten templates.
+
+```js
+options: {
+  processContent: function(content) {
+    content = content.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
+    content = content.replace(/^[\r\n]+/, '').replace(/[\r\n]*$/, '\n');
+    return content;
+  }
+}
+```
+
 #### processName
 Type: `function`
 
@@ -125,4 +140,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Wed Jan 23 2013 11:13:19.*
+*This file was generated on Mon Jan 28 2013 09:20:25.*

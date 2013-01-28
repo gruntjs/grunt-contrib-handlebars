@@ -75,6 +75,18 @@ module.exports = function(grunt) {
         files: {
           'tmp/no_namespace.js': ['test/fixtures/basic.hbs']
         }
+      },
+      processcontent: {
+        options: {
+          processContent: function(content) {
+            content = content.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
+            content = content.replace(/^[\r\n]+/, '').replace(/[\r\n]+$/, '');
+            return content;
+          }
+        },
+        files: {
+          'tmp/processcontent.js': ['test/fixtures/has-spaces.hbs']
+        }
       }
     },
 
