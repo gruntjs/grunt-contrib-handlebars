@@ -99,8 +99,8 @@ module.exports = function(grunt) {
 
         if (options.amd) {
           // Wrap the file in an AMD define fn.
-          output.unshift('define(function() { return');
-          output.push('});');
+          output.unshift("define(['handlebars'], function(Handlebars) { return");
+          output.push("});");
         }
 
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
