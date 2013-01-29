@@ -81,7 +81,7 @@ module.exports = function(grunt) {
           partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
         } else {
           filename = processName(filepath);
-          if (options.namespace !== false && !options.amd) {
+          if (options.namespace !== false) {
             templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
           } else {
             templates.push(compiled);
@@ -93,13 +93,14 @@ module.exports = function(grunt) {
       if (output.length < 1) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {
-        if (options.namespace !== false && !options.amd) {
+        if (options.namespace !== false) {
           output.unshift(nsInfo.declaration);
         }
 
         if (options.amd) {
           // Wrap the file in an AMD define fn.
-          output.unshift("define(['handlebars'], function(Handlebars) { return");
+          output.unshift("define(['handlebars'], function(Handlebars) {");
+          output.push("return "+nsInfo.namespace+";");
           output.push("});");
         }
 
