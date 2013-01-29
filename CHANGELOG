@@ -1,7 +1,11 @@
+v0.5.2rc7:
+  date: 2013-01-29
+  changes:
+    - Define handlebars as a dependency for AMD option.
 v0.5.1rc7:
   date: 2013-01-28
   changes:
-    - Add amd compilation option.
+    - Add AMD compilation option.
     - Add processContent option.
     - Do not generate templates into a namespaces when namespace option is false.
 v0.5.0rc7:

@@ -139,7 +139,8 @@ handlebars: {
 
 ## Release History
 
- * 2013-01-27   v0.5.1rc7   Add amd compilation option. Add processContent option. Do not generate templates into a namespaces when namespace option is false.
+ * 2013-01-28   v0.5.2rc7   Define handlebars as a dependency for AMD option.
+ * 2013-01-27   v0.5.1rc7   Add AMD compilation option. Add processContent option. Do not generate templates into a namespaces when namespace option is false.
  * 2013-01-22   v0.5.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions. Default wrapped option to true.
  * 2013-01-08   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Switching to this.files api.
  * 2012-11-20   v0.3.3   Reset for each target
@@ -154,4 +155,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Mon Jan 28 2013 09:43:22.*
+*This file was generated on Tue Jan 29 2013 14:07:32.*
