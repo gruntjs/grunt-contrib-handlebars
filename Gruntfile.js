@@ -38,6 +38,15 @@ module.exports = function(grunt) {
           'tmp/handlebars.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
         }
       },
+      compileNode: {
+        options: {
+          namespace: 'JST',
+          node: true
+        },
+        files: {
+          'tmp/handlebars-node.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
+        }
+      },
       wrapcompile: {
         options: {
           namespace: 'JST',
