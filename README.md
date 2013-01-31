@@ -47,6 +47,10 @@ options: {
 
 Determine if preprocessed template functions will be wrapped in Handlebars.template function (default is false).
 
+##### node ```boolean```
+
+Enable the compiled file to be required on node.js by preppending and appending proper declarations. You can use the file safely on the front-end.
+
 ##### processName ```function```
 
 This option accepts a function which takes one argument (the template filepath) and returns a string which will be used as the key for the precompiled template object.  The example below stores all templates on the default JST namespace in capital letters.
