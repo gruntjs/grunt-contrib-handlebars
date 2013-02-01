@@ -25,6 +25,14 @@ Default: `false`
 
 Determine if preprocessed template functions will be wrapped in Handlebars.template function.
 
+## node
+Type: `Boolean`
+Default: `false`
+
+Enable the compiled file to be required on node.js by preppending and appending proper declarations. You can use the file safely on the front-end.
+
+For this option to work you need to define the `namespace` option.
+
 ## amd
 Type: `Boolean`
 default: `false`

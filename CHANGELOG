@@ -1,3 +1,7 @@
+v0.5.3rc7:
+  date: 2013-02-01
+  changes:
+    - Add `node` option to produce dual node.js / front-end compiled file.
 v0.5.2rc7:
   date: 2013-01-29
   changes:

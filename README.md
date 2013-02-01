@@ -50,6 +50,14 @@ Default: `false`
 
 Determine if preprocessed template functions will be wrapped in Handlebars.template function.
 
+#### node
+Type: `Boolean`
+Default: `false`
+
+Enable the compiled file to be required on node.js by preppending and appending proper declarations. You can use the file safely on the front-end.
+
+For this option to work you need to define the `namespace` option.
+
 #### amd
 Type: `Boolean`
 default: `false`
@@ -139,6 +147,7 @@ handlebars: {
 
 ## Release History
 
+ * 2013-01-31   v0.5.3rc7   Add `node` option to produce dual node.js / front-end compiled file.
  * 2013-01-28   v0.5.2rc7   Define handlebars as a dependency for AMD option.
  * 2013-01-27   v0.5.1rc7   Add AMD compilation option. Add processContent option. Do not generate templates into a namespaces when namespace option is false.
  * 2013-01-22   v0.5.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions. Default wrapped option to true.
@@ -155,4 +164,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Tue Jan 29 2013 14:07:32.*
+*This file was generated on Fri Feb 01 2013 13:53:56.*
