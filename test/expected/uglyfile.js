@@ -1,7 +1,7 @@
 this["JST"] = this["JST"] || {};
 
 this["JST"]["test/fixtures/it's-a-bad-filename.hbs"] = function (Handlebars,depth0,helpers,partials,data) {
-  helpers = helpers || Handlebars.helpers;
+  helpers = helpers || Handlebars.helpers; data = data || {};
   
 
 
