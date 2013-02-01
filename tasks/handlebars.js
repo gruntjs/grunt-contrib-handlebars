@@ -75,8 +75,19 @@ module.exports = function(grunt) {
       });
       output = output.concat(partials, templates);
 
+
       if (output.length > 0) {
         output.unshift(nsInfo.declaration);
+
+        if (options.node) {
+          output.unshift('var Handlebars = Handlebars || require(\'Handlebars\');');
+
+          var nodeExport = 'if (typeof exports === \'object\' && exports) {';
+          nodeExport += 'module.exports = ' + nsInfo.namespace + ';}';
+
+          output.push(nodeExport);
+        }
+
         grunt.file.write(files.dest, output.join('\n\n'));
         grunt.log.writeln('File "' + files.dest + '" created.');
         output.length = partials.length = templates.length = 0;
