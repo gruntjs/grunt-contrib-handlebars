@@ -11,6 +11,16 @@ exports.handlebars = {
 
     test.done();
   },
+  compileNode: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/handlebars-node.js');
+    var expected = grunt.file.read('test/expected/handlebars-node.js');
+    test.equal(actual, expected, 'should compile as per compile test and also have node directives prepended and appended');
+
+    test.done();
+  },
   wrapcompile: function(test) {
     'use strict';
     test.expect(1);

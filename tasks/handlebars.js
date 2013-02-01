@@ -95,6 +95,16 @@ module.exports = function(grunt) {
       } else {
         if (options.namespace !== false) {
           output.unshift(nsInfo.declaration);
+
+          if (options.node) {
+            output.unshift('var Handlebars = Handlebars || require(\'Handlebars\');');
+
+            var nodeExport = 'if (typeof exports === \'object\' && exports) {';
+            nodeExport += 'module.exports = ' + nsInfo.namespace + ';}';
+
+            output.push(nodeExport);
+          }
+
         }
 
         if (options.amd) {
