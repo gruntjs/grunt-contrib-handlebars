@@ -70,6 +70,11 @@ module.exports = function(grunt) {
           if (options.wrapped) {
             compiled = 'Handlebars.template('+compiled+')';
           }
+          // if configured for amd and the namespace has been explicitly set
+          // to false, the handlebars template will be directly returned
+          if (options.wrapped && options.amd && options.namespace === false) {
+            compiled = 'return ' + compiled;
+          }
         } catch (e) {
           grunt.log.error(e);
           grunt.fail.warn('Handlebars failed to compile '+filepath+'.');
@@ -110,7 +115,11 @@ module.exports = function(grunt) {
         if (options.amd) {
           // Wrap the file in an AMD define fn.
           output.unshift("define(['handlebars'], function(Handlebars) {");
-          output.push("return "+nsInfo.namespace+";");
+          if (options.namespace !== false) {
+            // Namespace has not been explicitly set to false; the AMD
+            // wrapper will return the object containing the template.
+            output.push("return "+nsInfo.namespace+";");
+          }
           output.push("});");
         }
 
