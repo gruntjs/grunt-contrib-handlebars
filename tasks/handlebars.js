@@ -76,7 +76,7 @@ module.exports = function(grunt) {
         }
 
         // register partial or add template to namespace
-        if (isPartial.test(_.last(filepath.split('/')))) {
+        if (isPartial.test(filepath)) {
           filename = processPartialName(filepath);
           partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
         } else {
