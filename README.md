@@ -11,7 +11,7 @@ npm install grunt-contrib-handlebars --save-dev
 ```
 
 [grunt]: http://gruntjs.com/
-[Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
+[Getting Started]: http://gruntjs.com/getting-started
 
 
 ## Handlebars task
@@ -164,4 +164,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Fri Feb 01 2013 13:53:56.*
+*This file was generated on Tue Feb 05 2013 10:18:25.*
