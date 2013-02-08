@@ -104,6 +104,15 @@ module.exports = function(grunt) {
         files: {
           'tmp/amd_compile.js': ['test/fixtures/amd.html']
         }
+      },
+      amd_compile_direct: {
+        options: {
+          amd: true,
+          namespace: false
+        },
+        files: {
+          'tmp/amd_compile_direct.js': ['test/fixtures/amd.html']
+        }
       }
     },
     // Unit tests.
