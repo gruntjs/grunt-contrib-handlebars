@@ -7,12 +7,10 @@ Default: linefeed + linefeed
 Concatenated files will be joined on this string.
 
 ## namespace
-Type: `String`
+Type: `String` `false`
 Default: 'JST'
 
-The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*
-
-No namespace wrapping together with an AMD wrapper will result in the template being returned directly from the wrapper.
+The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*  When false with `amd` option set `true`, templates will be returned directly from the AMD wrapper.
 
 Example:
 ```js

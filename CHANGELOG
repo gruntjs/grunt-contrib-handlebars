@@ -1,3 +1,7 @@
+v0.5.4rc7:
+  date: 2013-02-08
+  changes:
+    - When `namespace` is false and `amd` is true, return handlebars templates directly from AMD wrapper.
 v0.5.3rc7:
   date: 2013-02-01
   changes:

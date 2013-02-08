@@ -32,10 +32,10 @@ Default: linefeed + linefeed
 Concatenated files will be joined on this string.
 
 #### namespace
-Type: `String`
+Type: `String` `false`
 Default: 'JST'
 
-The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*
+The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*  When false with `amd` option set `true`, templates will be returned directly from the AMD wrapper.
 
 Example:
 ```js
@@ -62,7 +62,7 @@ For this option to work you need to define the `namespace` option.
 Type: `Boolean`
 default: `false`
 
-Wraps the output file with an AMD define function and returns the compiled template.
+Wraps the output file with an AMD define function and returns the compiled template namespace unless namespace has been explicitly set to false in which case the template function will be returned directly.
 
 ```js
 define(function() {
@@ -147,6 +147,7 @@ handlebars: {
 
 ## Release History
 
+ * 2013-01-31   v0.5.4rc7   When `namespace` is false and `amd` is true, return handlebars templates directly from AMD wrapper.
  * 2013-01-31   v0.5.3rc7   Add `node` option to produce dual node.js / front-end compiled file.
  * 2013-01-28   v0.5.2rc7   Define handlebars as a dependency for AMD option.
  * 2013-01-27   v0.5.1rc7   Add AMD compilation option. Add processContent option. Do not generate templates into a namespaces when namespace option is false.
@@ -164,4 +165,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Tue Feb 05 2013 10:18:25.*
+*This file was generated on Fri Feb 08 2013 10:35:22.*
