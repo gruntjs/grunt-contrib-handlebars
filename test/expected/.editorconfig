@@ -1,0 +1,10 @@
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+# editorconfig.org
+
+[*.js]
+
+# Tests have a 2 line space on a line that if removed breaks asserts
+trim_trailing_whitespace = false
+# Same for this rule
+insert_final_newline = false
