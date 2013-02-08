@@ -1,4 +1,6 @@
-var Handlebars = Handlebars || require('Handlebars');
+var glob = ('undefined' === typeof window) ? global : window,
+
+Handlebars = glob.Handlebars || require('handlebars');
 
 this["JST"] = this["JST"] || {};
 
