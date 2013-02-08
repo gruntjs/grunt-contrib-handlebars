@@ -90,5 +90,15 @@ exports.handlebars = {
     test.equal(actual, expected, 'should wrap everything with an AMD define block.');
 
     test.done();
+  },
+  amd_compile_direct: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/amd_compile_direct.js');
+    var expected = grunt.file.read('test/expected/amd_compile_direct.js'); // same as previous test
+    test.equal(actual, expected, 'should wrap everything with an AMD define block and directly return the template.');
+
+    test.done();
   }
 };

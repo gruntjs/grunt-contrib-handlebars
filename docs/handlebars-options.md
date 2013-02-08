@@ -12,6 +12,8 @@ Default: 'JST'
 
 The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*
 
+No namespace wrapping together with an AMD wrapper will result in the template being returned directly from the wrapper.
+
 Example:
 ```js
 options: {
@@ -37,7 +39,7 @@ For this option to work you need to define the `namespace` option.
 Type: `Boolean`
 default: `false`
 
-Wraps the output file with an AMD define function and returns the compiled template.
+Wraps the output file with an AMD define function and returns the compiled template namespace unless namespace has been explicitly set to false in which case the template function will be returned directly.
 
 ```js
 define(function() {
