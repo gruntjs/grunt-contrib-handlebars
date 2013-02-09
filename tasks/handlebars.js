@@ -80,7 +80,8 @@ module.exports = function(grunt) {
         output.unshift(nsInfo.declaration);
 
         if (options.node) {
-          output.unshift('var Handlebars = Handlebars || require(\'Handlebars\');');
+          output.unshift('Handlebars = glob.Handlebars || require(\'handlebars\');');
+          output.unshift('var glob = (\'undefined\' === typeof window) ? global : window,');
 
           var nodeExport = 'if (typeof exports === \'object\' && exports) {';
           nodeExport += 'module.exports = ' + nsInfo.namespace + ';}';
