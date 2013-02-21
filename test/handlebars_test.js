@@ -120,5 +120,15 @@ exports.handlebars = {
     test.equal(actual, expected, 'should convert template name to upper case.');
 
     test.done();
+  },
+  process_partial_name: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/process_partial_name.js');
+    var expected = grunt.file.read('test/expected/process_partial_name.js');
+    test.equal(actual, expected, 'should support custom handling of partial naming conventions.');
+
+    test.done();
   }
 };

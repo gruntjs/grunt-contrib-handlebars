@@ -131,6 +131,16 @@ module.exports = function(grunt) {
         files: {
           'tmp/processname.js': ['test/fixtures/basic.hbs']
         }
+      },
+      process_partial_name: {
+        options: {
+          processPartialName: function(filepath) {
+            return filepath.replace('test/fixtures/_weird_prefix_', '').replace('.hbs', '');
+          }
+        },
+        files: {
+          'tmp/process_partial_name.js': ['test/fixtures/_weird_prefix_partial.hbs', 'test/fixtures/one.hbs']
+        }
       }
     },
     // Unit tests.
