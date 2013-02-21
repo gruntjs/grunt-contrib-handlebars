@@ -130,5 +130,15 @@ exports.handlebars = {
     test.equal(actual, expected, 'should support custom handling of partial naming conventions.');
 
     test.done();
+  },
+  partial_regex: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/partial_regex.js');
+    var expected = grunt.file.read('test/expected/partial_regex.js');
+    test.equal(actual, expected, 'should support custom file name identifiers for partials.');
+
+    test.done();
   }
 };
