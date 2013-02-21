@@ -100,5 +100,45 @@ exports.handlebars = {
     test.equal(actual, expected, 'should wrap everything with an AMD define block and directly return the template.');
 
     test.done();
+  },
+  custom_separator: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/custom_separator.js');
+    var expected = grunt.file.read('test/expected/custom_separator.js');
+    test.equal(actual, expected, 'should use custom file separators as specified.');
+
+    test.done();
+  },
+  processname: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/processname.js');
+    var expected = grunt.file.read('test/expected/processname.js');
+    test.equal(actual, expected, 'should convert template name to upper case.');
+
+    test.done();
+  },
+  process_partial_name: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/process_partial_name.js');
+    var expected = grunt.file.read('test/expected/process_partial_name.js');
+    test.equal(actual, expected, 'should support custom handling of partial naming conventions.');
+
+    test.done();
+  },
+  partial_regex: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/partial_regex.js');
+    var expected = grunt.file.read('test/expected/partial_regex.js');
+    test.equal(actual, expected, 'should support custom file name identifiers for partials.');
+
+    test.done();
   }
 };
