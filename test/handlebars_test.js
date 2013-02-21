@@ -100,5 +100,15 @@ exports.handlebars = {
     test.equal(actual, expected, 'should wrap everything with an AMD define block and directly return the template.');
 
     test.done();
+  },
+  custom_separator: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/custom_separator.js');
+    var expected = grunt.file.read('test/expected/custom_separator.js');
+    test.equal(actual, expected, 'should use custom file separators as specified.');
+
+    test.done();
   }
 };

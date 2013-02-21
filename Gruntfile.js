@@ -113,6 +113,14 @@ module.exports = function(grunt) {
         files: {
           'tmp/amd_compile_direct.js': ['test/fixtures/amd.html']
         }
+      },
+      custom_separator: {
+        options: {
+          separator: ';;;;;'
+        },
+        files: {
+          'tmp/custom_separator.js': ['test/fixtures/basic.hbs']
+        }
       }
     },
     // Unit tests.
