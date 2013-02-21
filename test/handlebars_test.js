@@ -110,5 +110,15 @@ exports.handlebars = {
     test.equal(actual, expected, 'should use custom file separators as specified.');
 
     test.done();
+  },
+  processname: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/processname.js');
+    var expected = grunt.file.read('test/expected/processname.js');
+    test.equal(actual, expected, 'should convert template name to upper case.');
+
+    test.done();
   }
 };

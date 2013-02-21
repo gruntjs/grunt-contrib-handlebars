@@ -121,6 +121,16 @@ module.exports = function(grunt) {
         files: {
           'tmp/custom_separator.js': ['test/fixtures/basic.hbs']
         }
+      },
+      processname: {
+        options: {
+          processName: function(filename) {
+            return filename.toUpperCase();
+          }
+        },
+        files: {
+          'tmp/processname.js': ['test/fixtures/basic.hbs']
+        }
       }
     },
     // Unit tests.
