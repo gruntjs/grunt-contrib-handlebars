@@ -138,6 +138,19 @@ options: {
 }
 ```
 
+#### partialsPathRegex
+Type: `Regexp`
+Default: '/./'
+
+This option accepts a regex that defines the path to a directory of Handlebars partials files. The example below shows how to mark every file in a specific directory as a partial.
+
+``` javascript
+options: {
+  partialRegex: /.*/,
+  partialsPathRegex: /\/partials\//
+}
+```
+
 ### Usage Examples
 
 ```js
@@ -176,4 +189,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Wed Feb 27 2013 09:30:22.*
+*This file was generated on Wed Feb 27 2013 09:32:54.*

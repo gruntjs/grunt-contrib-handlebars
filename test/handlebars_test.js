@@ -150,5 +150,15 @@ exports.handlebars = {
     test.equal(actual, expected, 'should allow partials to be added to template namespace.');
 
     test.done();
+  },
+  partials_path: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/partials_path_regex.js');
+    var expected = grunt.file.read('test/expected/partials_path_regex.js');
+    test.equal(actual, expected, 'should support custom path to partials.');
+
+    test.done();
   }
 };
