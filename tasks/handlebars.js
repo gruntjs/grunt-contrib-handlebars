@@ -22,7 +22,10 @@ module.exports = function(grunt) {
   var defaultProcessPartialName = function(filePath) {
     var pieces = _.last(filePath.split('/')).split('.');
     var name   = _(pieces).without(_.last(pieces)).join('.'); // strips file extension
-    return name.substr(1, name.length);                       // strips leading _ character
+    if (name.charAt(0) === '_') {
+      name = name.substr(1, name.length); // strips leading _ character
+    }
+    return name;
   };
 
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
