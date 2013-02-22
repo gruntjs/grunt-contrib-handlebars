@@ -132,6 +132,19 @@ options: {
 }
 ```
 
+#### partialsPath
+Type: `String`
+Default: ''
+
+This option accepts a string that defines the path to a directory of Handlebars partials files. The example below shows how to mark every file in a directory as a partial.
+
+``` javascript
+options: {
+  partialRegex: /.*/,
+  partialsPath: 'templates/partials/'
+}
+```
+
 ### Usage Examples
 
 ```js

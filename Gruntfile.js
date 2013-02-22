@@ -152,6 +152,15 @@ module.exports = function(grunt) {
         files: {
           'tmp/partial_regex.js': ['test/fixtures/par_partial.hbs', 'test/fixtures/one.hbs']
         }
+      },
+      partials_path: {
+        options: {
+          partialRegex: /.*/,
+          partialsPath: 'test/fixtures/partials/'
+        },
+        files: {
+          'tmp/partials_path.js': ['test/fixtures/partials/partial.hbs', 'test/fixtures/one.hbs']
+        }
       }
     },
     // Unit tests.
