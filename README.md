@@ -119,6 +119,19 @@ options: {
 
 Note: If processPartialName is not provided as an option the default assumes that partials will be stored by stripping trailing underscore characters and filename extensions. For example, the path *templates/_header.hbs* will become *header* and can be referenced in other templates as *{{> header}}*.
 
+#### partialsPath
+Type: `String`
+Default: ''
+
+This option accepts a string that defines the path to a directory of Handlebars partials files. The example below shows how to mark every file in a directory as a partial.
+
+``` javascript
+options: {
+  partialRegex: /.*/,
+  partialsPath: 'templates/partials/'
+}
+```
+
 #### partialRegex
 Type: `Regexp`
 Default: /^_/

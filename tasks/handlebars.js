@@ -41,6 +41,9 @@ module.exports = function(grunt) {
     if(options.namespace !== false){
       nsInfo = helpers.getNamespaceDeclaration(options.namespace);
     }
+    
+    // assign default partials directory path
+    var partialsPath = options.partialsPath || '';
 
     // assign regex for partial detection
     var isPartial = options.partialRegex || /^_/;
@@ -84,7 +87,7 @@ module.exports = function(grunt) {
         }
 
         // register partial or add template to namespace
-        if (isPartial.test(_.last(filepath.split('/')))) {
+        if (filepath.indexOf(partialsPath) === 0 && isPartial.test(_.last(filepath.split('/')))) {
           filename = processPartialName(filepath);
           partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
         } else {

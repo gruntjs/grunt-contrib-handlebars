@@ -140,5 +140,15 @@ exports.handlebars = {
     test.equal(actual, expected, 'should support custom file name identifiers for partials.');
 
     test.done();
+  },
+  partials_path: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/partials_path.js');
+    var expected = grunt.file.read('test/expected/partials_path.js');
+    test.equal(actual, expected, 'should support custom path to partials.');
+
+    test.done();
   }
 };
