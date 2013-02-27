@@ -35,7 +35,7 @@ module.exports = function(grunt) {
     grunt.verbose.writeflags(options, 'Options');
 
     var nsInfo;
-    if(options.namespace !== false){
+    if (options.namespace !== false) {
       nsInfo = helpers.getNamespaceDeclaration(options.namespace);
     }
 
@@ -83,7 +83,11 @@ module.exports = function(grunt) {
         // register partial or add template to namespace
         if (isPartial.test(_.last(filepath.split('/')))) {
           filename = processPartialName(filepath);
-          partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
+          if (options.partialsUseNamespace === true) {
+            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
+          } else {
+            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
+          }
         } else {
           filename = processName(filepath);
           if (options.namespace !== false) {

@@ -48,6 +48,12 @@ options: {
 }
 ```
 
+#### partialsUseNamespace
+Type: `Boolean`
+Default: 'false'
+
+When set to `true`, partials will be registered in the `namespace` in addition to templates.
+
 #### wrapped
 Type: `Boolean`
 Default: `false`
@@ -170,4 +176,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Wed Feb 20 2013 12:35:48.*
+*This file was generated on Wed Feb 27 2013 09:30:22.*
