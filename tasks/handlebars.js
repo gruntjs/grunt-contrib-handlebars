@@ -22,7 +22,10 @@ module.exports = function(grunt) {
   var defaultProcessPartialName = function(filePath) {
     var pieces = _.last(filePath.split('/')).split('.');
     var name   = _(pieces).without(_.last(pieces)).join('.'); // strips file extension
-    return name.substr(1, name.length);                       // strips leading _ character
+    if (name.charAt(0) === '_') {
+      name = name.substr(1, name.length); // strips leading _ character
+    }
+    return name;
   };
 
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
@@ -38,6 +41,9 @@ module.exports = function(grunt) {
     if(options.namespace !== false){
       nsInfo = helpers.getNamespaceDeclaration(options.namespace);
     }
+    
+    // assign regex for partials directory detection
+    var partialsPathRegex = options.partialsPathRegex || /./;
 
     // assign regex for partial detection
     var isPartial = options.partialRegex || /^_/;
@@ -81,7 +87,7 @@ module.exports = function(grunt) {
         }
 
         // register partial or add template to namespace
-        if (isPartial.test(_.last(filepath.split('/')))) {
+        if (partialsPathRegex.test(filepath) && isPartial.test(_.last(filepath.split('/')))) {
           filename = processPartialName(filepath);
           partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
         } else {

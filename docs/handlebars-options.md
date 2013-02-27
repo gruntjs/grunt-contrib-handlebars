@@ -102,3 +102,16 @@ options: {
   partialRegex: /^par_/
 }
 ```
+
+## partialsPathRegex
+Type: `Regexp`
+Default: '/./'
+
+This option accepts a regex that defines the path to a directory of Handlebars partials files. The example below shows how to mark every file in a specific directory as a partial.
+
+``` javascript
+options: {
+  partialRegex: /.*/,
+  partialsPathRegex: /\/partials\//
+}
+```
