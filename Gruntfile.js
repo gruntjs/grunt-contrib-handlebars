@@ -152,6 +152,14 @@ module.exports = function(grunt) {
         files: {
           'tmp/partial_regex.js': ['test/fixtures/par_partial.hbs', 'test/fixtures/one.hbs']
         }
+      },
+      partials_use_namespace: {
+        options: {
+          partialsUseNamespace: true
+        },
+        files: {
+          'tmp/partials_use_namespace.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
+        }
       }
     },
     // Unit tests.
