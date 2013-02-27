@@ -1,3 +1,7 @@
+v0.5.5:
+  date: 2013-02-27
+  changes:
+    - Add new options partialsUseNamespace, partialRegex, partialsPathRegex
 v0.5.4:
   date: 2013-02-15
   changes:

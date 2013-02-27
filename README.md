@@ -170,6 +170,7 @@ handlebars: {
 
 ## Release History
 
+ * 2013-02-26   v0.5.5   Add new options partialsUseNamespace, partialRegex, partialsPathRegex
  * 2013-02-14   v0.5.4   First official release for Grunt 0.4.0.
  * 2013-02-07   v0.5.4rc7   When `namespace` is false and `amd` is true, return handlebars templates directly from AMD wrapper.
  * 2013-01-31   v0.5.3rc7   Add `node` option to produce dual node.js / front-end compiled file.
@@ -189,4 +190,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Wed Feb 27 2013 09:32:54.*
+*This file was generated on Wed Feb 27 2013 09:38:15.*
