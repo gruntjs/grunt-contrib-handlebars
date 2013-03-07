@@ -97,6 +97,21 @@ module.exports = function(grunt) {
           'tmp/processcontent.js': ['test/fixtures/has-spaces.hbs']
         }
       },
+      process_ast: {
+        options: {
+          processAST: function(ast) {
+            ast.statements.forEach(function(statement, i) {
+              if (statement.type === 'partial') {
+                ast.statements[i] = { type: 'content', string: 'Fooville' };
+              }
+            });
+            return ast;
+          }
+        },
+        files: {
+          'tmp/process_ast.js': ['test/fixtures/one.hbs']
+        }
+      },
       amd_compile: {
         options: {
           amd: true

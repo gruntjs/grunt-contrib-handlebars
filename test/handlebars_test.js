@@ -81,6 +81,16 @@ exports.handlebars = {
 
     test.done();
   },
+  process_ast: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/process_ast.js');
+    var expected = grunt.file.read('test/expected/process_ast.js');
+    test.equal(actual, expected, 'should allow the AST to be modified before compilation');
+
+    test.done();
+  },
   amd_compile: function(test) {
     'use strict';
     test.expect(1);

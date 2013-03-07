@@ -96,6 +96,24 @@ options: {
 }
 ```
 
+#### processAST
+Type: `function`
+
+This option accepts a function which takes one argument (the parsed Abstract Syntax Tree) and returns a modified version which will be used as the source for the precompiled template object.  The example below removes any partial and replaces it with the text `foo`.
+
+```js
+options: {
+  processAST: function(ast) {
+    ast.statements.forEach(function(statement, i) {
+      if (statement.type === 'partial') {
+        ast.statements[i] = { type: 'content', string: 'foo' };
+      }
+    });
+    return ast;
+  }
+}
+```
+
 #### processName
 Type: `function`
 
@@ -190,4 +208,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Wed Feb 27 2013 09:38:15.*
+*This file was generated on Wed Mar 06 2013 23:56:18.*
