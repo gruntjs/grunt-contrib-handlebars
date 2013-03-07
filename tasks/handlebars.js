@@ -15,6 +15,9 @@ module.exports = function(grunt) {
   // content conversion for templates
   var defaultProcessContent = function(content) { return content; };
 
+  // AST processing for templates
+  var defaultProcessAST = function(ast) { return ast; };
+
   // filename conversion for templates
   var defaultProcessName = function(name) { return name; };
 
@@ -52,6 +55,7 @@ module.exports = function(grunt) {
     var processContent = options.processContent || defaultProcessContent;
     var processName = options.processName || defaultProcessName;
     var processPartialName = options.processPartialName || defaultProcessPartialName;
+    var processAST = options.processAST || defaultProcessAST;
 
     this.files.forEach(function(f) {
       var partials = [];
@@ -69,9 +73,13 @@ module.exports = function(grunt) {
       })
       .forEach(function(filepath) {
         var src = processContent(grunt.file.read(filepath));
-        var compiled, filename;
+        var Handlebars = require('handlebars');
+        var ast, compiled, filename;
         try {
-          compiled = require('handlebars').precompile(src);
+          // parse the handlebars template into it's AST
+          ast = processAST(Handlebars.parse(src));
+          compiled = Handlebars.precompile(ast);
+
           // if configured to, wrap template in Handlebars.template call
           if (options.wrapped) {
             compiled = 'Handlebars.template('+compiled+')';
