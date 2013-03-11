@@ -56,7 +56,7 @@ When set to `true`, partials will be registered in the `namespace` in addition t
 
 #### wrapped
 Type: `Boolean`
-Default: `false`
+Default: `true`
 
 Determine if preprocessed template functions will be wrapped in Handlebars.template function.
 
@@ -210,4 +210,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Mon Mar 11 2013 09:51:45.*
+*This file was generated on Mon Mar 11 2013 17:10:04.*
