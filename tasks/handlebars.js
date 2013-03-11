@@ -81,12 +81,11 @@ module.exports = function(grunt) {
           compiled = Handlebars.precompile(ast);
 
           // if configured to, wrap template in Handlebars.template call
-          if (options.wrapped) {
+          if (options.wrapped === true) {
             compiled = 'Handlebars.template('+compiled+')';
           }
-          // if configured for amd and the namespace has been explicitly set
-          // to false, the handlebars template will be directly returned
-          if (options.wrapped && options.amd && options.namespace === false) {
+
+          if(options.amd && options.namespace === false) {
             compiled = 'return ' + compiled;
           }
         } catch (e) {

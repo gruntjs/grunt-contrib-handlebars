@@ -21,12 +21,12 @@ exports.handlebars = {
 
     test.done();
   },
-  wrapcompile: function(test) {
+  nowrap: function(test) {
     'use strict';
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/handlebarswrap.js');
-    var expected = grunt.file.read('test/expected/handlebarswrap.js');
+    var actual = grunt.file.read('tmp/handlebarsnowrap.js');
+    var expected = grunt.file.read('test/expected/handlebarsnowrap.js');
     test.equal(actual, expected, 'should compile partials into Handlebars.partials and handlebars template into JST');
 
     test.done();

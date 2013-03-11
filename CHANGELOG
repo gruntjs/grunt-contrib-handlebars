@@ -1,3 +1,7 @@
+v0.5.7:
+  date: 2013-03-11
+  changes:
+    - Fix regression with 'wrapped' option.
 v0.5.6:
   date: 2013-03-07
   changes:

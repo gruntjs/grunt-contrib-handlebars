@@ -47,13 +47,13 @@ module.exports = function(grunt) {
           'tmp/handlebars-node.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
         }
       },
-      wrapcompile: {
+      nowrap: {
         options: {
           namespace: 'JST',
-          wrapped: true
+          wrapped: false
         },
         files: {
-          'tmp/handlebarswrap.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
+          'tmp/handlebarsnowrap.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
         }
       },
       uglyfile: {

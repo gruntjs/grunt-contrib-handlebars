@@ -1,15 +1,15 @@
 this["JST"] = this["JST"] || {};
 
-Handlebars.registerPartial("partial", Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+Handlebars.registerPartial("partial", function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
 helpers = helpers || Handlebars.helpers; data = data || {};
   
 
 
   return "<span>Canada</span>";
-  }));
+  });
 
-this["JST"]["test/fixtures/one.hbs"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+this["JST"]["test/fixtures/one.hbs"] = function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
 helpers = helpers || Handlebars.helpers; partials = partials || Handlebars.partials; data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -24,4 +24,4 @@ helpers = helpers || Handlebars.helpers; partials = partials || Handlebars.parti
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</p>";
   return buffer;
-  });
+  };
