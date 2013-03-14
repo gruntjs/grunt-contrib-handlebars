@@ -188,6 +188,7 @@ handlebars: {
 
 ## Release History
 
+ * 2013-03-13   v0.5.8   Update handlebars dep to ~1.0.10
  * 2013-03-10   v0.5.7   Fix regression with 'wrapped' option.
  * 2013-03-06   v0.5.6   [object Object]
  * 2013-02-26   v0.5.5   Add new options partialsUseNamespace, partialRegex, partialsPathRegex
@@ -210,4 +211,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Mon Mar 11 2013 17:10:04.*
+*This file was generated on Thu Mar 14 2013 09:50:33.*

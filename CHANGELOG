@@ -1,3 +1,7 @@
+v0.5.8:
+  date: 2013-03-14
+  changes:
+    - Update handlebars dep to ~1.0.10
 v0.5.7:
   date: 2013-03-11
   changes:
