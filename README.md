@@ -77,8 +77,29 @@ Wraps the output file with an AMD define function and returns the compiled templ
 ```js
 define(function() {
     //...//
-    returns this['[template namespace]'];
+    return this['[template namespace]'];
 });
+```
+
+#### commonjs
+Type: `Boolean`
+default: `false`
+
+Wraps the output file in a CommonJS module function, exporting the compiled templates. It will also add templates to the template namespace, unless `namepsace` is explicitly set to `false`.
+
+```js
+module.exports = function(Handlebars) {
+    //...//
+    Handlebars.template(…);
+    return this['[template namespace]'];
+};
+```
+
+When requiring the module in a CommonJS environment, pass in your `Handlebars` object.
+
+```js
+var Handlebars = require('handlebars');
+var templates = require('./templates')(Handlebars);
 ```
 
 #### processContent
@@ -206,6 +227,7 @@ handlebars: {
 
 ## Release History
 
+ * 2013-07-14   v0.5.10   Add `commonjs` option.
  * 2013-05-30   v0.5.9   Allow passing `compilerOptions` to Handlebars compiler.
  * 2013-03-14   v0.5.8   Update handlebars dep to ~1.0.10
  * 2013-03-11   v0.5.7   Fix regression with 'wrapped' option.
@@ -230,4 +252,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Thu May 30 2013 09:54:24.*
+*This file was generated on Sun Jul 14 2013 21:15:02.*

@@ -37,6 +37,7 @@ module.exports = function(grunt) {
       separator: grunt.util.linefeed + grunt.util.linefeed,
       wrapped: true,
       amd: false,
+      commonjs: false,
       knownHelpers: [],
       knownHelpersOnly: false
     });
@@ -110,6 +111,8 @@ module.exports = function(grunt) {
           filename = processName(filepath);
           if (options.namespace !== false) {
             templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+          } else if (options.commonjs === true) {
+            templates.push('templates['+JSON.stringify(filename)+'] = '+compiled+';');
           } else {
             templates.push(compiled);
           }
@@ -144,6 +147,18 @@ module.exports = function(grunt) {
             output.push("return "+nsInfo.namespace+";");
           }
           output.push("});");
+        }
+
+        if (options.commonjs) {
+          if (options.namespace === false) {
+            output.unshift('var templates = {};');
+            output.push("return templates;");
+          } else {
+            output.push("return "+nsInfo.namespace+";");
+          }
+          // Export the templates object for CommonJS environments.
+          output.unshift("module.exports = function(Handlebars) {");
+          output.push("};");
         }
 
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));

@@ -129,6 +129,23 @@ module.exports = function(grunt) {
           'tmp/amd_compile_direct.js': ['test/fixtures/amd.html']
         }
       },
+      commonjs_compile: {
+        options: {
+          commonjs: true
+        },
+        files: {
+          'tmp/commonjs_compile.js': ['test/fixtures/commonjs.html']
+        }
+      },
+      commonjs_compile_direct: {
+        options: {
+          commonjs: true,
+          namespace: false
+        },
+        files: {
+          'tmp/commonjs_compile_direct.js': ['test/fixtures/commonjs.html']
+        }
+      },
       custom_separator: {
         options: {
           separator: ';;;;;'
