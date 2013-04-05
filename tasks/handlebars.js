@@ -12,6 +12,10 @@ module.exports = function(grunt) {
   var _ = grunt.util._;
   var helpers = require('grunt-lib-contrib').init(grunt);
 
+  var partialStart = '{{>';
+  var partialEnd = '}}';
+  var partialNameRegex = new RegExp( partialStart + '[^\n]*' + partialEnd, 'g');
+
   // content conversion for templates
   var defaultProcessContent = function(content) { return content; };
 
@@ -60,6 +64,7 @@ module.exports = function(grunt) {
     this.files.forEach(function(f) {
       var partials = [];
       var templates = [];
+      var dependencies = ['handlebars'];
 
       // iterate files, processing partials and templates separately
       f.src.filter(function(filepath) {
@@ -109,6 +114,18 @@ module.exports = function(grunt) {
             templates.push(compiled);
           }
         }
+
+        // grab partials from src and add names to dependencies
+        if( options.amd ) {
+          var dependency = src.match(partialNameRegex)
+            , l = dependency ? dependency.length-1 : -1;
+
+          while( l > -1 ) {
+            dependencies.push(dependency[l].replace(partialStart, '').replace(partialEnd, '').replace(/\s/g, ''));
+            l--;
+          }
+        }
+
       });
 
       var output = partials.concat(templates);
@@ -131,8 +148,10 @@ module.exports = function(grunt) {
         }
 
         if (options.amd) {
+          // remove duplicates and dependencies not in partials
+          dependencies = _.difference(_.uniq(dependencies), partials);
           // Wrap the file in an AMD define fn.
-          output.unshift("define(['handlebars'], function(Handlebars) {");
+          output.unshift("define(['" + dependencies.join("','") + "'], function(Handlebars) {");
           if (options.namespace !== false) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
