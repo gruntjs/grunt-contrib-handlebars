@@ -12,10 +12,6 @@ module.exports = function(grunt) {
   var _ = grunt.util._;
   var helpers = require('grunt-lib-contrib').init(grunt);
 
-  var partialStart = '{{>';
-  var partialEnd = '}}';
-  var partialNameRegex = new RegExp( partialStart + '[^\n]*' + partialEnd, 'g');
-
   // content conversion for templates
   var defaultProcessContent = function(content) { return content; };
 
@@ -33,6 +29,17 @@ module.exports = function(grunt) {
       name = name.substr(1, name.length); // strips leading _ character
     }
     return name;
+  };
+
+  var defaultWrapAMD = function(output) {
+    // Wrap the file in an AMD define fn.
+    output.unshift("define(['handlebars'], function(Handlebars) {");
+    if (options.namespace !== false) {
+      // Namespace has not been explicitly set to false; the AMD
+      // wrapper will return the object containing the template.
+      output.push("return "+nsInfo.namespace+";");
+    }
+    return output.push("});");
   };
 
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
@@ -60,11 +67,11 @@ module.exports = function(grunt) {
     var processName = options.processName || defaultProcessName;
     var processPartialName = options.processPartialName || defaultProcessPartialName;
     var processAST = options.processAST || defaultProcessAST;
+    var wrapAMD = options.wrapAMD || defaultWrapAMD;
 
     this.files.forEach(function(f) {
       var partials = [];
       var templates = [];
-      var dependencies = ['handlebars'];
 
       // iterate files, processing partials and templates separately
       f.src.filter(function(filepath) {
@@ -114,18 +121,6 @@ module.exports = function(grunt) {
             templates.push(compiled);
           }
         }
-
-        // grab partials from src and add names to dependencies
-        if( options.amd ) {
-          var dependency = src.match(partialNameRegex)
-            , l = dependency ? dependency.length-1 : -1;
-
-          while( l > -1 ) {
-            dependencies.push(dependency[l].replace(partialStart, '').replace(partialEnd, '').replace(/\s/g, ''));
-            l--;
-          }
-        }
-
       });
 
       var output = partials.concat(templates);
@@ -148,16 +143,8 @@ module.exports = function(grunt) {
         }
 
         if (options.amd) {
-          // remove duplicates and dependencies not in partials
-          dependencies = _.difference(_.uniq(dependencies), partials);
-          // Wrap the file in an AMD define fn.
-          output.unshift("define(['" + dependencies.join("','") + "'], function(Handlebars) {");
-          if (options.namespace !== false) {
-            // Namespace has not been explicitly set to false; the AMD
-            // wrapper will return the object containing the template.
-            output.push("return "+nsInfo.namespace+";");
-          }
-          output.push("});");
+          output = wrapAMD();
+          if(_.isString(output)) output = [output];
         }
 
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
