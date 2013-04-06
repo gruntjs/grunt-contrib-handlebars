@@ -39,7 +39,8 @@ module.exports = function(grunt) {
       // wrapper will return the object containing the template.
       output.push("return "+nsInfo.namespace+";");
     }
-    return output.push("});");
+    output.push("});");
+    return output;
   };
 
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
