@@ -144,7 +144,9 @@ module.exports = function(grunt) {
 
         if (options.amd) {
           output = wrapAMD();
-          if(_.isString(output)) output = [output];
+          if( _.isString(output) ) {
+            output = [output];
+          }
         }
 
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
