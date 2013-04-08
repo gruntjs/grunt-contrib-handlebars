@@ -143,7 +143,7 @@ module.exports = function(grunt) {
         }
 
         if (options.amd) {
-          output = wrapAMD();
+          output = wrapAMD(output);
           if( _.isString(output) ) {
             output = [output];
           }
