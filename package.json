@@ -28,7 +28,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "handlebars": "~1.0.10",
+    "handlebars": "git://github.com/spikebrehm/handlebars.js.git#0687c7016c62122ab160a8683817a931b03354ad",
     "grunt-lib-contrib": "~0.5.1"
   },
   "devDependencies": {
