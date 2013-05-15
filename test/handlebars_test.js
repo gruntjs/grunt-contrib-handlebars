@@ -111,6 +111,26 @@ exports.handlebars = {
 
     test.done();
   },
+  commonjs_compile: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/commonjs_compile.js');
+    var expected = grunt.file.read('test/expected/commonjs_compile.js'); // same as previous test
+    test.equal(actual, expected, 'should wrap everything with a CommonJS module.');
+
+    test.done();
+  },
+  commonjs_compile_direct: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/commonjs_compile_direct.js');
+    var expected = grunt.file.read('test/expected/commonjs_compile_direct.js'); // same as previous test
+    test.equal(actual, expected, 'should wrap everything with a CommonJS and directly return the template.');
+
+    test.done();
+  },
   custom_separator: function(test) {
     'use strict';
     test.expect(1);

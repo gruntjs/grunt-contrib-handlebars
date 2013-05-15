@@ -77,9 +77,25 @@ Wraps the output file with an AMD define function and returns the compiled templ
 ```js
 define(function() {
     //...//
-    returns this['[template namespace]'];
+    return this['[template namespace]'];
 });
 ```
+
+#### commonjs
+Type: `Boolean`
+default: `false`
+
+Wraps the output file in a CommonJS module function, exporting the compiled templates. It will also add templates to the template namespace, unless `namepsace` is explicitly set to `false`. 
+
+```js
+module.exports = function(Handlebars) {
+    //...//
+    Handlebars.template(…);
+    return this['[template namespace]'];
+};
+```
+
+When requiring the module, pass in your `Handlebars` object in order to add the 
 
 #### processContent
 Type: `function`
@@ -211,4 +227,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Thu Mar 14 2013 13:26:12.*
+*This file was generated on Thu Mar 28 2013 10:48:37.*
