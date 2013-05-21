@@ -185,6 +185,10 @@ module.exports = function(grunt) {
           'tmp/partials_path_regex.js': ['test/fixtures/partials/partial.hbs', 'test/fixtures/one.hbs']
         }
       },
+      unknown_helpers: {files: {
+          'tmp/unknown_helpers.js': ['test/fixtures/uses_helper.hbs']
+        }
+      },
       known_helpers: {
         options: {
           knownHelpers: ["my-helper"]

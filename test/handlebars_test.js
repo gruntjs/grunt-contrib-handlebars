@@ -171,6 +171,16 @@ exports.handlebars = {
 
     test.done();
   },
+  unknown_helpers: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/unknown_helpers.js');
+    var expected = grunt.file.read('test/expected/unknown_helpers.js');
+    test.equal(actual, expected, 'should wrap unknown helpers by default.');
+
+    test.done();
+  },
   known_helpers: function(test) {
     'use strict';
     test.expect(1);
