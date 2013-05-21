@@ -169,6 +169,18 @@ options: {
 }
 ```
 
+#### knownHelpers
+Type: `Array`
+Default: '[]'
+
+This option accepts a array of strings that defines the known helpers. The compiler uses this list to "optimize accesses to these helpers for size and speed".
+
+``` javascript
+options: {
+  knownHelpers: ["my-helper", "another-helper"]
+}
+```
+
 ### Usage Examples
 
 ```js

@@ -36,7 +36,8 @@ module.exports = function(grunt) {
       namespace: 'JST',
       separator: grunt.util.linefeed + grunt.util.linefeed,
       wrapped: true,
-      amd: false
+      amd: false,
+      knownHelpers: []
     });
     grunt.verbose.writeflags(options, 'Options');
 
@@ -56,6 +57,16 @@ module.exports = function(grunt) {
     var processName = options.processName || defaultProcessName;
     var processPartialName = options.processPartialName || defaultProcessPartialName;
     var processAST = options.processAST || defaultProcessAST;
+
+    // assign compiler options
+    var compilerOptions = {};
+    if (Array.isArray(options.knownHelpers) && options.knownHelpers.length > 0) {
+      var knownHelpers = {};
+      _.forEach(options.knownHelpers, function (helper) {
+        knownHelpers[helper] = true;
+      });
+      compilerOptions.knownHelpers = knownHelpers;
+    }
 
     this.files.forEach(function(f) {
       var partials = [];
@@ -78,7 +89,7 @@ module.exports = function(grunt) {
         try {
           // parse the handlebars template into it's AST
           ast = processAST(Handlebars.parse(src));
-          compiled = Handlebars.precompile(ast);
+          compiled = Handlebars.precompile(ast, compilerOptions);
 
           // if configured to, wrap template in Handlebars.template call
           if (options.wrapped === true) {
