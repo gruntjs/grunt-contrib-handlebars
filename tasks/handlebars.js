@@ -37,7 +37,8 @@ module.exports = function(grunt) {
       separator: grunt.util.linefeed + grunt.util.linefeed,
       wrapped: true,
       amd: false,
-      knownHelpers: []
+      knownHelpers: [],
+      knownHelpersOnly: false
     });
     grunt.verbose.writeflags(options, 'Options');
 
@@ -59,7 +60,9 @@ module.exports = function(grunt) {
     var processAST = options.processAST || defaultProcessAST;
 
     // assign compiler options
-    var compilerOptions = {};
+    var compilerOptions = {
+      knownHelpersOnly: options.knownHelpersOnly
+    };
     if (Array.isArray(options.knownHelpers) && options.knownHelpers.length > 0) {
       var knownHelpers = {};
       _.forEach(options.knownHelpers, function (helper) {
