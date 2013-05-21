@@ -171,7 +171,7 @@ options: {
 
 #### knownHelpers
 Type: `Array`
-Default: '[]'
+Default: `[]`
 
 This option accepts an array of strings that defines the known helpers. The compiler uses this list to "optimize accesses to these helpers for size and speed".
 
@@ -183,7 +183,7 @@ options: {
 
 #### knownHelpersOnly
 Type: `Boolean`
-Default: 'false'
+Default: `false`
 
 Used to optimize block helper references when all helpers are known in advance. Note: When using this flag all helpers must be listed in `knownHelpers`.
 
