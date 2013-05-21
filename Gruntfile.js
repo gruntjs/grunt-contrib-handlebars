@@ -186,7 +186,7 @@ module.exports = function(grunt) {
         }
       },
       unknown_helpers: {files: {
-          'tmp/unknown_helpers.js': ['test/fixtures/uses_helper.hbs']
+          'tmp/unknown_helpers.js': ['test/fixtures/uses_helpers.hbs']
         }
       },
       known_helpers: {
@@ -194,7 +194,7 @@ module.exports = function(grunt) {
           knownHelpers: ["my-helper"]
         },
         files: {
-          'tmp/known_helpers.js': ['test/fixtures/uses_helper.hbs']
+          'tmp/known_helpers.js': ['test/fixtures/uses_helpers.hbs']
         }
       }
     },
