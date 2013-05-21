@@ -190,5 +190,15 @@ exports.handlebars = {
     test.equal(actual, expected, 'should support specifying known helpers.');
 
     test.done();
+  },
+  only_known_helpers: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/only_known_helpers.js');
+    var expected = grunt.file.read('test/expected/only_known_helpers.js');
+    test.equal(actual, expected, 'should support `knownHelpersOnly`.');
+
+    test.done();
   }
 };

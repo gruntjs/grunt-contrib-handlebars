@@ -196,6 +196,15 @@ module.exports = function(grunt) {
         files: {
           'tmp/known_helpers.js': ['test/fixtures/uses_helpers.hbs']
         }
+      },
+      only_known_helpers: {
+        options: {
+          knownHelpers: ["my-helper", "another-helper"],
+          knownHelpersOnly: true
+        },
+        files: {
+          'tmp/only_known_helpers.js': ['test/fixtures/uses_helpers.hbs']
+        }
       }
     },
     // Unit tests.
