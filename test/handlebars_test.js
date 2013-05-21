@@ -170,5 +170,15 @@ exports.handlebars = {
     test.equal(actual, expected, 'should support custom path to partials.');
 
     test.done();
+  },
+  known_helpers: function(test) {
+    'use strict';
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/known_helpers.js');
+    var expected = grunt.file.read('test/expected/known_helpers.js');
+    test.equal(actual, expected, 'should support specifying known helpers.');
+
+    test.done();
   }
 };
