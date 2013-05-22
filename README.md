@@ -169,23 +169,23 @@ options: {
 }
 ```
 
-#### knownHelpers
-Type: `Array`
-Default: `[]`
+#### compilerOptions
+Type `Object`
+Default: `{}`
 
-This option accepts an array of strings that defines the known helpers. The compiler uses this list to "optimize accesses to these helpers for size and speed".
+This option allows you to specify a hash of options which will be passed directly to the Handlebars compiler.
 
 ``` javascript
 options: {
-  knownHelpers: ["my-helper", "another-helper"]
+  compilerOptions: {
+    knownHelpers: {
+      "my-helper": true,
+      "another-helper": true
+    },
+    knownHelpersOnly: true
+  }
 }
 ```
-
-#### knownHelpersOnly
-Type: `Boolean`
-Default: `false`
-
-Used to optimize block helper references when all helpers are known in advance. Note: When using this flag all helpers must be listed in `knownHelpers`.
 
 ### Usage Examples
 
