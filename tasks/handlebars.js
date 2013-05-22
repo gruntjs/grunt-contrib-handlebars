@@ -60,16 +60,7 @@ module.exports = function(grunt) {
     var processAST = options.processAST || defaultProcessAST;
 
     // assign compiler options
-    var compilerOptions = {
-      knownHelpersOnly: options.knownHelpersOnly
-    };
-    if (Array.isArray(options.knownHelpers) && options.knownHelpers.length > 0) {
-      var knownHelpers = {};
-      _.forEach(options.knownHelpers, function (helper) {
-        knownHelpers[helper] = true;
-      });
-      compilerOptions.knownHelpers = knownHelpers;
-    }
+    var compilerOptions = options.compilerOptions || {};
 
     this.files.forEach(function(f) {
       var partials = [];

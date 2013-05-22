@@ -192,7 +192,11 @@ module.exports = function(grunt) {
       },
       known_helpers: {
         options: {
-          knownHelpers: ["my-helper"]
+          compilerOptions: {
+            knownHelpers: {
+              "my-helper": true
+            }
+          }
         },
         files: {
           'tmp/known_helpers.js': ['test/fixtures/uses_helpers.hbs']
@@ -200,8 +204,13 @@ module.exports = function(grunt) {
       },
       only_known_helpers: {
         options: {
-          knownHelpers: ["my-helper", "another-helper"],
-          knownHelpersOnly: true
+          compilerOptions: {
+            knownHelpers: {
+              "my-helper": true,
+              "another-helper": true
+            },
+            knownHelpersOnly: true
+          }
         },
         files: {
           'tmp/only_known_helpers.js': ['test/fixtures/uses_helpers.hbs']
