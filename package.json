@@ -28,7 +28,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "handlebars": "~1.0.10",
+    "handlebars": "1.0.11",
     "grunt-lib-contrib": "~0.5.1"
   },
   "devDependencies": {
