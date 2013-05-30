@@ -139,3 +139,21 @@ options: {
   partialsPathRegex: /\/partials\//
 }
 ```
+
+## compilerOptions
+Type `Object`
+Default: `{}`
+
+This option allows you to specify a hash of options which will be passed directly to the Handlebars compiler.
+
+``` javascript
+options: {
+  compilerOptions: {
+    knownHelpers: {
+      "my-helper": true,
+      "another-helper": true
+    },
+    knownHelpersOnly: true
+  }
+}
+```
