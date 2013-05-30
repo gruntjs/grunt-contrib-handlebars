@@ -184,6 +184,37 @@ module.exports = function(grunt) {
         files: {
           'tmp/partials_path_regex.js': ['test/fixtures/partials/partial.hbs', 'test/fixtures/one.hbs']
         }
+      },
+      unknown_helpers: {
+        files: {
+          'tmp/unknown_helpers.js': ['test/fixtures/uses_helpers.hbs']
+        }
+      },
+      known_helpers: {
+        options: {
+          compilerOptions: {
+            knownHelpers: {
+              "my-helper": true
+            }
+          }
+        },
+        files: {
+          'tmp/known_helpers.js': ['test/fixtures/uses_helpers.hbs']
+        }
+      },
+      only_known_helpers: {
+        options: {
+          compilerOptions: {
+            knownHelpers: {
+              "my-helper": true,
+              "another-helper": true
+            },
+            knownHelpersOnly: true
+          }
+        },
+        files: {
+          'tmp/only_known_helpers.js': ['test/fixtures/uses_helpers.hbs']
+        }
       }
     },
     // Unit tests.

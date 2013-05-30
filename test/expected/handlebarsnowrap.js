@@ -1,7 +1,7 @@
 this["JST"] = this["JST"] || {};
 
 Handlebars.registerPartial("partial", function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+  this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Handlebars.helpers; data = data || {};
   
 
@@ -10,7 +10,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   });
 
 this["JST"]["test/fixtures/one.hbs"] = function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+  this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Handlebars.helpers; partials = partials || Handlebars.partials; data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
 

@@ -3,7 +3,7 @@ define(['handlebars'], function(Handlebars) {
 this["JST"] = this["JST"] || {};
 
 this["JST"]["test/fixtures/amd.html"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+  this.compilerInfo = [3,'>= 1.0.0-rc.4'];
 helpers = helpers || Handlebars.helpers; data = data || {};
   
 
