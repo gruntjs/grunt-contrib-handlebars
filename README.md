@@ -173,15 +173,24 @@ options: {
 
 ```js
 handlebars: {
-  compile: {
+  target_1: {
     options: {
-      namespace: "JST"
+      namespace: "JST1"
     },
     files: {
       "path/to/result.js": "path/to/source.hbs",
       "path/to/another.js": ["path/to/sources/*.hbs", "path/to/more/*.hbs"]
     }
-  }
+  },
+  target_2: {
+    options: {
+      namespace: "JST2"
+    },
+    files: {
+      "path/to/result.js": "path/to/source.hbs",
+      "path/to/another.js": ["path/to/sources/*.hbs", "path/to/more/*.hbs"]
+    }
+  }  
 }
 ```
 
