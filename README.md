@@ -1,4 +1,4 @@
-# grunt-contrib-handlebars [![Build Status](https://secure.travis-ci.org/gruntjs/grunt-contrib-handlebars.png?branch=master)](http://travis-ci.org/gruntjs/grunt-contrib-handlebars)
+# grunt-contrib-handlebars [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars)
 
 > Precompile Handlebars templates to JST file.
 
@@ -169,6 +169,24 @@ options: {
 }
 ```
 
+#### compilerOptions
+Type `Object`
+Default: `{}`
+
+This option allows you to specify a hash of options which will be passed directly to the Handlebars compiler.
+
+``` javascript
+options: {
+  compilerOptions: {
+    knownHelpers: {
+      "my-helper": true,
+      "another-helper": true
+    },
+    knownHelpersOnly: true
+  }
+}
+```
+
 ### Usage Examples
 
 ```js
@@ -188,27 +206,28 @@ handlebars: {
 
 ## Release History
 
- * 2013-03-13   v0.5.8   Update handlebars dep to ~1.0.10
- * 2013-03-10   v0.5.7   Fix regression with 'wrapped' option.
- * 2013-03-06   v0.5.6   Add new option, processAST
- * 2013-02-26   v0.5.5   Add new options partialsUseNamespace, partialRegex, partialsPathRegex
- * 2013-02-14   v0.5.4   First official release for Grunt 0.4.0.
- * 2013-02-07   v0.5.4rc7   When `namespace` is false and `amd` is true, return handlebars templates directly from AMD wrapper.
- * 2013-01-31   v0.5.3rc7   Add `node` option to produce dual node.js / front-end compiled file.
- * 2013-01-28   v0.5.2rc7   Define handlebars as a dependency for AMD option.
- * 2013-01-27   v0.5.1rc7   Add AMD compilation option. Add processContent option. Do not generate templates into a namespaces when namespace option is false.
- * 2013-01-22   v0.5.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions. Default wrapped option to true.
- * 2013-01-08   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Switching to this.files api.
- * 2012-11-20   v0.3.3   Reset for each target
- * 2012-10-11   v0.3.2   Rename grunt-contrib-lib dep to grunt-lib-contrib.
- * 2012-10-02   v0.3.1   Bugfix default processPartialName.
- * 2012-09-22   v0.3.0   Options no longer accepted from global config key.
- * 2012-09-15   v0.2.3   Support for nested namespaces.
- * 2012-09-11   v0.2.2   Escape single quotes in filenames.
- * 2012-09-09   v0.2.0   Refactored from grunt-contrib into individual repo.
+ * 2013-05-30   v0.5.9   Allow passing `compilerOptions` to Handlebars compiler.
+ * 2013-03-14   v0.5.8   Update handlebars dep to ~1.0.10
+ * 2013-03-11   v0.5.7   Fix regression with 'wrapped' option.
+ * 2013-03-07   v0.5.6   Add new option, processAST
+ * 2013-02-27   v0.5.5   Add new options partialsUseNamespace, partialRegex, partialsPathRegex
+ * 2013-02-15   v0.5.4   First official release for Grunt 0.4.0.
+ * 2013-02-08   v0.5.4rc7   When `namespace` is false and `amd` is true, return handlebars templates directly from AMD wrapper.
+ * 2013-02-01   v0.5.3rc7   Add `node` option to produce dual node.js / front-end compiled file.
+ * 2013-01-29   v0.5.2rc7   Define handlebars as a dependency for AMD option.
+ * 2013-01-28   v0.5.1rc7   Add AMD compilation option. Add processContent option. Do not generate templates into a namespaces when namespace option is false.
+ * 2013-01-23   v0.5.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions. Default wrapped option to true.
+ * 2013-01-09   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Switching to this.files api.
+ * 2012-11-21   v0.3.3   Reset for each target
+ * 2012-10-12   v0.3.2   Rename grunt-contrib-lib dep to grunt-lib-contrib.
+ * 2012-10-03   v0.3.1   Bugfix default processPartialName.
+ * 2012-09-23   v0.3.0   Options no longer accepted from global config key.
+ * 2012-09-16   v0.2.3   Support for nested namespaces.
+ * 2012-09-12   v0.2.2   Escape single quotes in filenames.
+ * 2012-09-10   v0.2.0   Refactored from grunt-contrib into individual repo.
 
 ---
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Thu Mar 14 2013 13:26:12.*
+*This file was generated on Thu May 30 2013 09:54:24.*
