@@ -67,7 +67,7 @@ exports.handlebars = {
 
     var actual = grunt.file.read('tmp/no_namespace.js');
     var expected = grunt.file.read('test/expected/no_namespace.js');
-    test.equal(actual, expected, 'should skip the creation of a namespace array arround the generated template file');
+    test.equal(actual, expected, 'should skip the creation of a namespace array around the generated template file');
 
     test.done();
   },
