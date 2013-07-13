@@ -58,6 +58,17 @@ module.exports = function(grunt) {
     var processName = options.processName || defaultProcessName;
     var processPartialName = options.processPartialName || defaultProcessPartialName;
     var processAST = options.processAST || defaultProcessAST;
+    var wrapAMD = options.wrapAMD || function(output) {
+      // Wrap the file in an AMD define fn.
+      output.unshift("define(['handlebars'], function(Handlebars) {");
+      if (options.namespace !== false) {
+        // Namespace has not been explicitly set to false; the AMD
+        // wrapper will return the object containing the template.
+        output.push("return " + nsInfo.namespace + ";");
+      }
+      output.push("});");
+      return output;
+    };
 
     // assign compiler options
     var compilerOptions = options.compilerOptions || {};
@@ -79,6 +90,7 @@ module.exports = function(grunt) {
       .forEach(function(filepath) {
         var src = processContent(grunt.file.read(filepath));
         var Handlebars = require('handlebars');
+        var processAsPartial = !!(partialsPathRegex.test(filepath) && isPartial.test(_.last(filepath.split('/'))));
         var ast, compiled, filename;
         try {
           // parse the handlebars template into it's AST
@@ -90,7 +102,7 @@ module.exports = function(grunt) {
             compiled = 'Handlebars.template('+compiled+')';
           }
 
-          if(options.amd && options.namespace === false) {
+          if(options.amd && options.namespace === false && !processAsPartial) {
             compiled = 'return ' + compiled;
           }
         } catch (e) {
@@ -99,7 +111,7 @@ module.exports = function(grunt) {
         }
 
         // register partial or add template to namespace
-        if (partialsPathRegex.test(filepath) && isPartial.test(_.last(filepath.split('/')))) {
+        if (processAsPartial) {
           filename = processPartialName(filepath);
           if (options.partialsUseNamespace === true) {
             partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
@@ -136,14 +148,10 @@ module.exports = function(grunt) {
         }
 
         if (options.amd) {
-          // Wrap the file in an AMD define fn.
-          output.unshift("define(['handlebars'], function(Handlebars) {");
-          if (options.namespace !== false) {
-            // Namespace has not been explicitly set to false; the AMD
-            // wrapper will return the object containing the template.
-            output.push("return "+nsInfo.namespace+";");
+          output = wrapAMD(output);
+          if( _.isString(output) ) {
+            output = [output];
           }
-          output.push("});");
         }
 
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
