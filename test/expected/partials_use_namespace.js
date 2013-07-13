@@ -1,17 +1,17 @@
 this["JST"] = this["JST"] || {};
 
 Handlebars.registerPartial("partial", this["JST"]["partial"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [3,'>= 1.0.0-rc.4'];
-helpers = helpers || Handlebars.helpers; data = data || {};
-  
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+
 
 
   return "<span>Canada</span>";
   }));
 
 this["JST"]["test/fixtures/one.hbs"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [3,'>= 1.0.0-rc.4'];
-helpers = helpers || Handlebars.helpers; partials = partials || Handlebars.partials; data = data || {};
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
 
