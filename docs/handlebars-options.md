@@ -113,8 +113,8 @@ This option accepts a function which takes one argument (the template filepath) 
 
 ```js
 options: {
-  processName: function(filename) {
-    return filename.toUpperCase();
+  processName: function(filePath) {
+    return filePath.toUpperCase();
   }
 }
 ```
