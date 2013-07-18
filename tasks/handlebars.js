@@ -90,10 +90,6 @@ module.exports = function(grunt) {
           if (options.wrapped === true) {
             compiled = 'Handlebars.template('+compiled+')';
           }
-
-          if(options.amd && options.namespace === false) {
-            compiled = 'return ' + compiled;
-          }
         } catch (e) {
           grunt.log.error(e);
           grunt.fail.warn('Handlebars failed to compile '+filepath+'.');
@@ -108,6 +104,9 @@ module.exports = function(grunt) {
             partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
           }
         } else {
+          if(options.amd && options.namespace === false) {
+            compiled = 'return ' + compiled;
+          }             
           filename = processName(filepath);
           if (options.namespace !== false) {
             templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
