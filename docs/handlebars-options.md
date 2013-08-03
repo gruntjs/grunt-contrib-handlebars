@@ -51,6 +51,11 @@ define(function() {
     return this['[template namespace]'];
 });
 ```
+## handlebarPath
+Type: `String`
+Default: `'handlebars'`
+
+Path to handlebar.js (only valid for amd-style)
 
 ## commonjs
 Type: `Boolean`

@@ -80,6 +80,11 @@ define(function() {
     return this['[template namespace]'];
 });
 ```
+#### handlebarPath
+Type: `String`
+Default: `'handlebars'`
+
+Path to handlebar.js (only valid for amd-style)
 
 #### commonjs
 Type: `Boolean`
@@ -252,4 +257,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Sun Jul 14 2013 21:15:02.*
+*This file was generated on Sat Aug 03 2013 16:40:24.*

@@ -34,6 +34,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
     var options = this.options({
       namespace: 'JST',
+      handlebarPath: 'handlebars',
       separator: grunt.util.linefeed + grunt.util.linefeed,
       wrapped: true,
       amd: false,
@@ -140,7 +141,7 @@ module.exports = function(grunt) {
 
         if (options.amd) {
           // Wrap the file in an AMD define fn.
-          output.unshift("define(['handlebars'], function(Handlebars) {");
+          output.unshift("define(['" + options.handlebarPath + "'], function(Handlebars) {");
           if (options.namespace !== false) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
