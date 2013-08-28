@@ -11,6 +11,12 @@
 module.exports = function(grunt) {
   var _ = grunt.util._;
   var helpers = require('grunt-lib-contrib').init(grunt);
+  var glob = require('glob');
+
+  function getExtension(filename) {
+    var i = filename.lastIndexOf('.');
+    return (i < 0) ? '' : filename.substr(i+1);
+  }
 
   // content conversion for templates
   var defaultProcessContent = function(content) { return content; };
@@ -63,7 +69,7 @@ module.exports = function(grunt) {
     // assign compiler options
     var compilerOptions = options.compilerOptions || {};
 
-    this.files.forEach(function(f) {
+    var processFileEntry = function(f) {
       var partials = [];
       var templates = [];
 
@@ -106,7 +112,7 @@ module.exports = function(grunt) {
         } else {
           if(options.amd && options.namespace === false) {
             compiled = 'return ' + compiled;
-          }             
+          }
           filename = processName(filepath);
           if (options.namespace !== false) {
             templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
@@ -163,6 +169,23 @@ module.exports = function(grunt) {
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
         grunt.log.writeln('File "' + f.dest + '" created.');
       }
+    }
+
+    this.files.forEach(function(f) {
+      if (f.src !== undefined && f.dest !== undefined) {
+        processFileEntry(f);
+      } else {
+        var files = glob.sync(f.pattern, {})
+          .forEach(function (filePath) {
+            var dest = f.dest + filePath.replace(f.base, '');
+            dest = dest.replace(getExtension(dest), f.ext || 'js');
+            processFileEntry({
+              src: [filePath],
+              dest: dest
+            })
+          });
+      }
+
     });
 
   });
