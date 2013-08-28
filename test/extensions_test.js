@@ -1,6 +1,6 @@
 'use strict';
 
-var getExtension = require('../lib/extensions');
+var getExtension = require('../lib/extensions').fileExtension;
 
 exports.compile = {
   extracts_correct_extension: function(test) {
