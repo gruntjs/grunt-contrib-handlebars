@@ -9,14 +9,9 @@
 'use strict';
 
 module.exports = function(grunt) {
-  var _ = grunt.util._;
-  var helpers = require('grunt-lib-contrib').init(grunt);
-  var glob = require('glob');
+  var compileFactory = require('../lib/compile');
 
-  function getExtension(filename) {
-    var i = filename.lastIndexOf('.');
-    return (i < 0) ? '' : filename.substr(i+1);
-  }
+  var _ = grunt.util._;
 
   // content conversion for templates
   var defaultProcessContent = function(content) { return content; };
@@ -49,145 +44,23 @@ module.exports = function(grunt) {
     });
     grunt.verbose.writeflags(options, 'Options');
 
-    var nsInfo;
-    if (options.namespace !== false) {
-      nsInfo = helpers.getNamespaceDeclaration(options.namespace);
-    }
-
     // assign regex for partials directory detection
-    var partialsPathRegex = options.partialsPathRegex || /./;
+    options.partialsPathRegex = options.partialsPathRegex || /./;
 
     // assign regex for partial detection
-    var isPartial = options.partialRegex || /^_/;
+    options.partialRegex = options.partialRegex || /^_/;
 
     // assign transformation functions
-    var processContent = options.processContent || defaultProcessContent;
-    var processName = options.processName || defaultProcessName;
-    var processPartialName = options.processPartialName || defaultProcessPartialName;
-    var processAST = options.processAST || defaultProcessAST;
+    options.processContent = options.processContent || defaultProcessContent;
+    options.processName = options.processName || defaultProcessName;
+    options.processPartialName = options.processPartialName || defaultProcessPartialName;
+    options.processAST = options.processAST || defaultProcessAST;
 
     // assign compiler options
-    var compilerOptions = options.compilerOptions || {};
+    options.compilerOptions = options.compilerOptions || {};
 
-    var processFileEntry = function(f) {
-      var partials = [];
-      var templates = [];
-
-      // iterate files, processing partials and templates separately
-      f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      })
-      .forEach(function(filepath) {
-        var src = processContent(grunt.file.read(filepath));
-        var Handlebars = require('handlebars');
-        var ast, compiled, filename;
-        try {
-          // parse the handlebars template into it's AST
-          ast = processAST(Handlebars.parse(src));
-          compiled = Handlebars.precompile(ast, compilerOptions);
-
-          // if configured to, wrap template in Handlebars.template call
-          if (options.wrapped === true) {
-            compiled = 'Handlebars.template('+compiled+')';
-          }
-        } catch (e) {
-          grunt.log.error(e);
-          grunt.fail.warn('Handlebars failed to compile '+filepath+'.');
-        }
-
-        // register partial or add template to namespace
-        if (partialsPathRegex.test(filepath) && isPartial.test(_.last(filepath.split('/')))) {
-          filename = processPartialName(filepath);
-          if (options.partialsUseNamespace === true) {
-            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
-          } else {
-            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
-          }
-        } else {
-          if(options.amd && options.namespace === false) {
-            compiled = 'return ' + compiled;
-          }
-          filename = processName(filepath);
-          if (options.namespace !== false) {
-            templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
-          } else if (options.commonjs === true) {
-            templates.push('templates['+JSON.stringify(filename)+'] = '+compiled+';');
-          } else {
-            templates.push(compiled);
-          }
-        }
-      });
-
-      var output = partials.concat(templates);
-      if (output.length < 1) {
-        grunt.log.warn('Destination not written because compiled files were empty.');
-      } else {
-        if (options.namespace !== false) {
-          output.unshift(nsInfo.declaration);
-
-          if (options.node) {
-            output.unshift('Handlebars = glob.Handlebars || require(\'handlebars\');');
-            output.unshift('var glob = (\'undefined\' === typeof window) ? global : window,');
-
-            var nodeExport = 'if (typeof exports === \'object\' && exports) {';
-            nodeExport += 'module.exports = ' + nsInfo.namespace + ';}';
-
-            output.push(nodeExport);
-          }
-
-        }
-
-        if (options.amd) {
-          // Wrap the file in an AMD define fn.
-          output.unshift("define(['handlebars'], function(Handlebars) {");
-          if (options.namespace !== false) {
-            // Namespace has not been explicitly set to false; the AMD
-            // wrapper will return the object containing the template.
-            output.push("return "+nsInfo.namespace+";");
-          }
-          output.push("});");
-        }
-
-        if (options.commonjs) {
-          if (options.namespace === false) {
-            output.unshift('var templates = {};');
-            output.push("return templates;");
-          } else {
-            output.push("return "+nsInfo.namespace+";");
-          }
-          // Export the templates object for CommonJS environments.
-          output.unshift("module.exports = function(Handlebars) {");
-          output.push("};");
-        }
-
-        grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
-        grunt.log.writeln('File "' + f.dest + '" created.');
-      }
-    }
-
-    this.files.forEach(function(f) {
-      if (f.src !== undefined && f.dest !== undefined) {
-        processFileEntry(f);
-      } else {
-        var files = glob.sync(f.pattern, {})
-          .forEach(function (filePath) {
-            var dest = f.dest + filePath.replace(f.base, '');
-            dest = dest.replace(getExtension(dest), f.ext || 'js');
-            processFileEntry({
-              src: [filePath],
-              dest: dest
-            })
-          });
-      }
-
-    });
-
+    var generateTemplates = compileFactory(grunt, options);
+    generateTemplates(this.files);
   });
 
 };
