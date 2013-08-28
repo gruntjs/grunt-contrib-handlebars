@@ -10,7 +10,6 @@
 
 module.exports = function(grunt) {
   var compileFactory = require('../lib/compile');
-
   var _ = grunt.util._;
 
   // content conversion for templates
@@ -44,6 +43,8 @@ module.exports = function(grunt) {
     });
     grunt.verbose.writeflags(options, 'Options');
 
+    // prepare options for compilation to take place
+
     // assign regex for partials directory detection
     options.partialsPathRegex = options.partialsPathRegex || /./;
 
@@ -59,8 +60,8 @@ module.exports = function(grunt) {
     // assign compiler options
     options.compilerOptions = options.compilerOptions || {};
 
-    var generateTemplates = compileFactory(grunt, options);
-    generateTemplates(this.files);
+    var process = compileFactory(grunt, options);
+    process(this.files);
   });
 
 };
