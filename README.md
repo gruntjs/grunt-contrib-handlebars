@@ -50,7 +50,7 @@ options: {
 
 #### partialsUseNamespace
 Type: `Boolean`
-Default: 'false'
+Default: `false`
 
 When set to `true`, partials will be registered in the `namespace` in addition to templates.
 
@@ -149,7 +149,7 @@ options: {
 ```
 
 #### processPartialName
-Type: ```function```
+Type: `function`
 
 This option accepts a function which takes one argument (the partial filepath) and returns a string which will be used as the key for the precompiled partial object when it is registered in Handlebars.partials. The example below stores all partials using only the actual filename instead of the full path.
 
@@ -166,7 +166,7 @@ Note: If processPartialName is not provided as an option the default assumes tha
 
 #### partialRegex
 Type: `Regexp`
-Default: /^_/
+Default: `/^_/`
 
 This option accepts a regex that defines the prefix character that is used to identify Handlebars partial files.
 
@@ -179,7 +179,7 @@ options: {
 
 #### partialsPathRegex
 Type: `Regexp`
-Default: '/./'
+Default: `/./`
 
 This option accepts a regex that defines the path to a directory of Handlebars partials files. The example below shows how to mark every file in a specific directory as a partial.
 
@@ -252,4 +252,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Sun Jul 14 2013 21:15:02.*
+*This file was generated on Fri Aug 30 2013 08:58:17.*
