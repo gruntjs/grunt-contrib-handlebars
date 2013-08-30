@@ -21,7 +21,7 @@ options: {
 
 ## partialsUseNamespace
 Type: `Boolean`
-Default: 'false'
+Default: `false`
 
 When set to `true`, partials will be registered in the `namespace` in addition to templates.
 
