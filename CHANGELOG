@@ -1,3 +1,7 @@
+v0.5.11:
+  date: 2013-09-24
+  changes:
+    - Fix for broken partial pre-compilation.
 v0.5.10:
   date: 2013-07-14
   changes:
