@@ -85,7 +85,7 @@ define(function() {
 Type: `Boolean`  
 Default: `false`
 
-Wraps the output file in a CommonJS module function, exporting the compiled templates. It will also add templates to the template namespace, unless `namepsace` is explicitly set to `false`.
+Wraps the output file in a CommonJS module function, exporting the compiled templates. It will also add templates to the template namespace, unless `namespace` is explicitly set to `false`.
 
 ```js
 module.exports = function(Handlebars) {
@@ -253,4 +253,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Tue Sep 24 2013 20:24:30.*
+*This file was generated on Tue Oct 01 2013 08:22:08.*
