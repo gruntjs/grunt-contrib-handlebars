@@ -27,6 +27,20 @@ function filesAreEqual(actual, expected, fn) {
 }
 
 exports.handlebars = {
+  inlined_partials: function(test) {
+    test.expect(2);
+
+    testhbs('inline_partials.js', function(tpl) {
+      var actual = tpl();
+      var expected = '<div><span>Inlined</span></div>\n<div><span>Inlined</span></div>';
+      test.equal(actual, expected, 'should compile partials into Handlebars.partials and handlebars template into JST');
+
+      filesAreEqual('inline_partials.js', function(actual, expected) {
+        test.equal(actual, expected, 'should compile partials into Handlebars.partials and handlebars template into JST');
+        test.done();
+      });
+    });
+  },
   compile: function(test) {
     test.expect(1);
 
