@@ -108,8 +108,13 @@ module.exports = function(grunt) {
             compiled = 'return ' + compiled;
           }             
           filename = processName(filepath);
+          if (filename instanceof Array) {
+            filename = JSON.stringify(filename);
+          } else {
+            filename = '['+JSON.stringify(filename)+']';
+          }
           if (options.namespace !== false) {
-            templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+            templates.push(nsInfo.namespace+filename+' = '+compiled+';');
           } else if (options.commonjs === true) {
             templates.push('templates['+JSON.stringify(filename)+'] = '+compiled+';');
           } else {
