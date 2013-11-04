@@ -119,6 +119,14 @@ exports.handlebars = {
       test.done();
     });
   },
+  amd_compile_deps: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_compile_deps.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap everything with an AMD define block with the right dependencies.');
+      test.done();
+    });
+  },
   amd_compile_direct: function(test) {
     test.expect(1);
 

@@ -120,6 +120,15 @@ module.exports = function(grunt) {
           'tmp/amd_compile.js': ['test/fixtures/amd.html']
         }
       },
+      amd_compile_deps: {
+        options: {
+          amd: true,
+          amdRequire: ['handlebars.helpers']
+        },
+        files: {
+          'tmp/amd_compile_deps.js': ['test/fixtures/amd.html']
+        }
+      },
       amd_compile_direct: {
         options: {
           amd: true,

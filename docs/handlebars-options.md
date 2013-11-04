@@ -52,6 +52,34 @@ define(function() {
 });
 ```
 
+## amdRequire
+Type: `String[]`  
+Default: `['handlebars']`
+
+If `amd` is true, `amdRequire` contains the list of dependencies when the module is `define()`d.
+
+This can be used if you have a separate AMD module that defines your Handlebars helpers that you need loaded prior to compiling your templates.
+
+```js
+// handlebars.helpers.js
+define("handlebars.helpers", ["handlebars"], function(Handlebars) {
+    Handlebars.registerHelper('foo', function(context, options) {
+        ...
+    )};
+});
+
+// Gruntfile.js
+handlebars: {
+    compile: {
+        options: {
+            amd: true,
+            amdRequire: ['handlebars', 'handlebars.helpers']
+        }
+        ...
+    }
+}
+```
+
 ## commonjs
 Type: `Boolean`  
 Default: `false`
