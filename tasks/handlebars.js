@@ -37,6 +37,7 @@ module.exports = function(grunt) {
       separator: grunt.util.linefeed + grunt.util.linefeed,
       wrapped: true,
       amd: false,
+      amdRequire: ['handlebars'],
       commonjs: false,
       knownHelpers: [],
       knownHelpersOnly: false
@@ -138,8 +139,35 @@ module.exports = function(grunt) {
         }
 
         if (options.amd) {
+          // ensure 'handlebars' is the first dependency
+          if (options.amdRequire.length > 0) {
+            var amdHandlebarsIdx = options.amdRequire.indexOf('handlebars');
+            if (amdHandlebarsIdx === -1 || amdHandlebarsIdx > 0) {
+              if (amdHandlebarsIdx > 0) {
+                // 'handlebars' needs to be first, so remove it from the array
+                options.amdRequire.splice(amdHandlebarsIdx, 1);
+              }
+
+              // add to the beginning of the array
+              options.amdRequire.unshift('handlebars');
+            }
+          } else {
+            // no dependencies specified, ensure 'handlebars' is the only one
+            options.amdRequire = ['handlebars'];
+          }
+
+          // convert options.amdRequire to a string of dependencies for require([...])
+          var amdRequireString = '';
+          for (var i = 0; i < options.amdRequire.length; i++) {
+            if (i !== 0) {
+              amdRequireString += ', ';
+            }
+
+            amdRequireString += "'" + options.amdRequire[i] + "'";
+          }
+
           // Wrap the file in an AMD define fn.
-          output.unshift("define(['handlebars'], function(Handlebars) {");
+          output.unshift("define([" + amdRequireString + "], function(Handlebars) {");
           if (options.namespace !== false) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
