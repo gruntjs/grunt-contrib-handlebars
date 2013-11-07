@@ -76,7 +76,7 @@ var templates = require('./templates')(Handlebars);
 ## processContent
 Type: `function`
 
-This option accepts a function which takes one argument (the template file content) and returns a string which will be used as the source for the precompiled template object.  The example below removes leading and trailing spaces to shorten templates.
+This option accepts a function which takes two arguments (the template file content, and the filepath) and returns a string which will be used as the source for the precompiled template object.  The example below removes leading and trailing spaces to shorten templates.
 
 ```js
 options: {
