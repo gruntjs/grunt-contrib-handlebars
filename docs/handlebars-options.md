@@ -80,7 +80,7 @@ This option accepts a function which takes two arguments (the template file cont
 
 ```js
 options: {
-  processContent: function(content) {
+  processContent: function(content, filepath) {
     content = content.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
     content = content.replace(/^[\r\n]+/, '').replace(/[\r\n]*$/, '\n');
     return content;
