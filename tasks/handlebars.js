@@ -78,7 +78,7 @@ module.exports = function(grunt) {
         }
       })
       .forEach(function(filepath) {
-        var src = processContent(grunt.file.read(filepath));
+        var src = processContent(grunt.file.read(filepath), filepath);
         var Handlebars = require('handlebars');
         var ast, compiled, filename;
         try {
