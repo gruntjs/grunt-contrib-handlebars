@@ -1,4 +1,4 @@
-# grunt-contrib-handlebars v0.5.11 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars)
+# grunt-contrib-handlebars v0.5.12 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars)
 
 > Precompile Handlebars templates to JST file.
 
@@ -105,11 +105,11 @@ var templates = require('./templates')(Handlebars);
 #### processContent
 Type: `function`
 
-This option accepts a function which takes one argument (the template file content) and returns a string which will be used as the source for the precompiled template object.  The example below removes leading and trailing spaces to shorten templates.
+This option accepts a function which takes two arguments (the template file content, and the filepath) and returns a string which will be used as the source for the precompiled template object.  The example below removes leading and trailing spaces to shorten templates.
 
 ```js
 options: {
-  processContent: function(content) {
+  processContent: function(content, filepath) {
     content = content.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
     content = content.replace(/^[\r\n]+/, '').replace(/[\r\n]*$/, '\n');
     return content;
@@ -227,6 +227,7 @@ handlebars: {
 
 ## Release History
 
+ * 2013-11-07   v0.5.12   Pass file path into `processContent`.
  * 2013-09-24   v0.5.11   Fix for broken partial pre-compilation.
  * 2013-07-14   v0.5.10   Add `commonjs` option.
  * 2013-05-30   v0.5.9   Allow passing `compilerOptions` to Handlebars compiler.
@@ -253,4 +254,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Tue Oct 01 2013 08:22:08.*
+*This file was generated on Thu Nov 07 2013 12:24:41.*
