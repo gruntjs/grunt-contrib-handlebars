@@ -81,6 +81,27 @@ define(function() {
 });
 ```
 
+#### handlebarsModule
+Type: `String`
+Default: `handlebars`
+
+Used when `amd` is set to `true`.  This allows you to select which handlebars module you want required as your first dependency when your JST output is wrapped within an AMD `define` block.  For instance, let's say you want to use the handlebars runtime as your dependency during production builds.  A Grunt configuration like this:
+
+```js
+options: {
+  amd: true,
+  handlebarsModule: 'handlebars.runtime'
+}
+```
+
+would produce the following AMD wrapped output:
+
+```js
+define(['handlebars.runtime'], function(Handlebars) {
+    //...//
+});
+```
+
 #### commonjs
 Type: `Boolean`  
 Default: `false`
@@ -254,4 +275,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Thu Nov 07 2013 12:24:41.*
+*This file was generated on Mon Nov 11 2013 11:31:12.*

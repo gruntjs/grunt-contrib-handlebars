@@ -127,6 +127,14 @@ exports.handlebars = {
       test.done();
     });
   },
+  amd_compile_module: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_compile_module.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap everything with an AMD define block and require a specific handlebars module provided from config options');
+      test.done();
+    });
+  },
   commonjs_compile: function(test) {
     test.expect(1);
 
