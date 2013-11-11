@@ -3,7 +3,7 @@ this["JST"] = this["JST"] || {};
 Handlebars.registerPartial("partial", Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-
+  
 
 
   return "<span>Canada</span>";
@@ -17,7 +17,7 @@ helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partial
 
   buffer += "<p>Hello, my name is ";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  else { stack1 = (depth0 && depth0.name); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
     + ". I live in ";
   stack1 = self.invokePartial(partials.partial, 'partial', depth0, helpers, partials, data);

@@ -1,4 +1,4 @@
-# grunt-contrib-handlebars v0.5.12 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars)
+# grunt-contrib-handlebars v0.6.0 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars)
 
 > Precompile Handlebars templates to JST file.
 
@@ -227,6 +227,7 @@ handlebars: {
 
 ## Release History
 
+ * 2013-11-11   v0.6.0   Update handlebars dep to ~1.1.2
  * 2013-11-07   v0.5.12   Pass file path into `processContent`.
  * 2013-09-24   v0.5.11   Fix for broken partial pre-compilation.
  * 2013-07-14   v0.5.10   Add `commonjs` option.
@@ -254,4 +255,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Thu Nov 07 2013 12:24:41.*
+*This file was generated on Mon Nov 11 2013 12:54:56.*
