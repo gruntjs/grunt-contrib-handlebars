@@ -120,6 +120,14 @@ module.exports = function(grunt) {
           'tmp/amd_compile.js': ['test/fixtures/amd.html']
         }
       },
+      amd_compile_custom_path: {
+        options: {
+          amd: '../path/to/handlebars'
+        },
+        files: {
+          'tmp/amd_compile_custom_path.js': ['test/fixtures/amd.html']
+        }
+      },
       amd_compile_direct: {
         options: {
           amd: true,
