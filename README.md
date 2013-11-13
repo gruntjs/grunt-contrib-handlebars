@@ -69,13 +69,31 @@ Enable the compiled file to be required on node.js by preppending and appending 
 For this option to work you need to define the `namespace` option.
 
 #### amd
-Type: `Boolean`  
+Type: `String`  
 Default: `false`
 
-Wraps the output file with an AMD define function and returns the compiled template namespace unless namespace has been explicitly set to false in which case the template function will be returned directly.
+Defines an AMD resouce for handlebars and wraps the output file with an AMD define function that returns the compiled template namespace unless namespace has been explicitly set to false in which case the template function will be returned directly. If option is set to boolean `true` the resource will default to `handlebars`
 
+Example:
 ```js
-define(function() {
+// Use default resource path:
+options: {
+    amd: true
+}
+
+// result: 
+define(['handlebars'], function(Handlebars) {
+    //...//
+    return this['[template namespace]'];
+});
+
+// Use custome resource path:
+options: {
+    amd: '../path/to/handlebars'
+}
+
+// result:
+define(['../path/to/handlebars'], function(Handlebars) {
     //...//
     return this['[template namespace]'];
 });
@@ -255,4 +273,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Mon Nov 11 2013 12:54:56.*
+*This file was generated on Wed Nov 13 2013 13:41:34.*
