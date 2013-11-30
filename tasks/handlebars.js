@@ -41,7 +41,6 @@ module.exports = function(grunt) {
       knownHelpers: [],
       knownHelpersOnly: false
     });
-    grunt.verbose.writeflags(options, 'Options');
 
     var nsInfo;
     if (options.namespace !== false) {
@@ -106,7 +105,7 @@ module.exports = function(grunt) {
         } else {
           if(options.amd && options.namespace === false) {
             compiled = 'return ' + compiled;
-          }             
+          }
           filename = processName(filepath);
           if (options.namespace !== false) {
             templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
