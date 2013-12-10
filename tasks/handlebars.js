@@ -103,7 +103,7 @@ module.exports = function(grunt) {
             partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
           }
         } else {
-          if(options.amd && options.namespace === false) {
+          if (options.namespace === false && (options.amd || options.commonjs)) {
             compiled = 'return ' + compiled;
           }
           filename = processName(filepath);
@@ -148,10 +148,7 @@ module.exports = function(grunt) {
         }
 
         if (options.commonjs) {
-          if (options.namespace === false) {
-            output.unshift('var templates = {};');
-            output.push("return templates;");
-          } else {
+          if (options.namespace) {
             output.push("return "+nsInfo.namespace+";");
           }
           // Export the templates object for CommonJS environments.
