@@ -20,9 +20,13 @@ function filesAreEqual(actual, expected, fn) {
     fn = expected;
     expected = actual;
   }
+  var regex = new RegExp('\\s','g');
+  if(!!process.platform.match(/^win/)) {
+    regex = new RegExp('(\\s)|(\\\\r)', 'g');
+  }
   fn(
-    String(grunt.file.read(path.join('tmp', actual))).replace(/\s/g, ''),
-    String(grunt.file.read(path.join('test', 'expected', expected))).replace(/\s/g, '')
+    String(grunt.file.read(path.join('tmp', actual))).replace(regex, ''),
+    String(grunt.file.read(path.join('test', 'expected', expected))).replace(regex, '')
   );
 }
 
@@ -116,6 +120,14 @@ exports.handlebars = {
 
     filesAreEqual('amd_compile.js', function(actual, expected) {
       test.equal(actual, expected, 'should wrap everything with an AMD define block.');
+      test.done();
+    });
+  },
+  amd_compile_pragmas: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_compile_pragmas.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap everything with an AMD define block with pragmas.');
       test.done();
     });
   },

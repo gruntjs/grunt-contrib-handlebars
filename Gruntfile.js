@@ -119,6 +119,15 @@ module.exports = function(grunt) {
         files: {
           'tmp/amd_compile.js': ['test/fixtures/amd.html']
         }
+      }, 
+      amd_compile_pragmas: {
+        options: {
+          amd: true,
+          includePragmas: 'myPragmaBuildExclude'
+        },
+        files: {
+          'tmp/amd_compile_pragmas.js': ['test/fixtures/amd.html']
+        }
       },
       amd_compile_direct: {
         options: {

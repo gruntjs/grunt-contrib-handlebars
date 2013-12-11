@@ -137,14 +137,33 @@ module.exports = function(grunt) {
         }
 
         if (options.amd) {
+          // Wrap with user defined pragmas
+          if( options.includePragmas ) {
+            output.unshift( '\n //>>excludeEnd("' + options.includePragmas + '");\n (function(){' );
+          }
+
           // Wrap the file in an AMD define fn.
           output.unshift("define(['handlebars'], function(Handlebars) {");
+
+          if( options.includePragmas ) {
+            output.unshift( '//>>excludeStart("' + options.includePragmas + '", pragmas.' + options.includePragmas + ');\n' );
+          }
           if (options.namespace !== false) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
             output.push("return "+nsInfo.namespace+";");
           }
+
+          // wrap in pragmas
+          if( options.includePragmas ) {
+            output.push( '})();\n//>>excludeStart("' + options.includePragmas + '", pragmas.' + options.includePragmas + ');\n' );
+          }
           output.push("});");
+
+          // Wrap with user defined pragmas
+          if( options.includePragmas ) {
+            output.push( '\n //>>excludeEnd("' + options.includePragmas + '");' );
+          }
         }
 
         if (options.commonjs) {
