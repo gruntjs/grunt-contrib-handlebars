@@ -7,6 +7,7 @@
  */
 
 'use strict';
+var chalk = require('chalk');
 
 module.exports = function(grunt) {
   var _ = grunt.util._;
@@ -160,7 +161,7 @@ module.exports = function(grunt) {
         }
 
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
-        grunt.log.writeln('File "' + f.dest + '" created.');
+        grunt.log.writeln('File ' + chalk.cyan(f.dest) + ' created.');
       }
     });
 
