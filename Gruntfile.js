@@ -235,13 +235,16 @@ module.exports = function(grunt) {
       },
       namespace_as_function: {
         options: {
+          processName: function(filename) {
+            return filename.replace(/.*\/(\w+)\.hbs/, "$1")
+          },
           namespace: function(filename) {
-            var names = filename.replace(/modules\/(.*)(\/\w+\.hbs)/, '$1');
+            var names = filename.replace(/.*modules\/(.*)(\/\w+\.hbs)/, '$1');
             return names.split('/').join('.');
           },
         },
         files: {
-          'tmp/ns_nested_tmpls.js' : [ 'test/fixtures/modules/**/*.hbs']
+          'tmp/namespace_as_function.js' : [ 'test/fixtures/modules/**/*.hbs']
         }
       }
     },
