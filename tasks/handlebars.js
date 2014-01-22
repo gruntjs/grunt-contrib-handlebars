@@ -43,11 +43,6 @@ module.exports = function(grunt) {
       knownHelpersOnly: false
     });
 
-    var nsInfo;
-    if (options.namespace !== false) {
-      nsInfo = helpers.getNamespaceDeclaration(options.namespace);
-    }
-
     // assign regex for partials directory detection
     var partialsPathRegex = options.partialsPathRegex || /./;
 
@@ -59,6 +54,16 @@ module.exports = function(grunt) {
     var processName = options.processName || defaultProcessName;
     var processPartialName = options.processPartialName || defaultProcessPartialName;
     var processAST = options.processAST || defaultProcessAST;
+    var useNamespace = options.namespace !== false;
+
+    var namespaceInfo = _.memoize(function(filepath) {
+      if (!useNamespace) {return undefined;}
+      if (_.isFunction(options.namespace)) {
+        return helpers.getNamespaceDeclaration(options.namespace(filepath));
+      } else {
+        return helpers.getNamespaceDeclaration(options.namespace);
+      }
+    });
 
     // assign compiler options
     var compilerOptions = options.compilerOptions || {};
@@ -66,6 +71,7 @@ module.exports = function(grunt) {
     this.files.forEach(function(f) {
       var partials = [];
       var templates = [];
+      var nsInfo;
 
       // iterate files, processing partials and templates separately
       f.src.filter(function(filepath) {
@@ -79,6 +85,7 @@ module.exports = function(grunt) {
       })
       .forEach(function(filepath) {
         var src = processContent(grunt.file.read(filepath), filepath);
+        nsInfo = namespaceInfo(filepath);
         var Handlebars = require('handlebars');
         var ast, compiled, filename;
         try {
@@ -104,11 +111,11 @@ module.exports = function(grunt) {
             partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
           }
         } else {
-          if(options.amd && options.namespace === false) {
+          if(options.amd && !useNamespace) {
             compiled = 'return ' + compiled;
           }
           filename = processName(filepath);
-          if (options.namespace !== false) {
+          if (useNamespace) {
             templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
           } else if (options.commonjs === true) {
             templates.push('templates['+JSON.stringify(filename)+'] = '+compiled+';');
@@ -122,7 +129,7 @@ module.exports = function(grunt) {
       if (output.length < 1) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {
-        if (options.namespace !== false) {
+        if (useNamespace) {
           output.unshift(nsInfo.declaration);
 
           if (options.node) {
@@ -140,7 +147,7 @@ module.exports = function(grunt) {
         if (options.amd) {
           // Wrap the file in an AMD define fn.
           output.unshift("define(['handlebars'], function(Handlebars) {");
-          if (options.namespace !== false) {
+          if (useNamespace) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
             output.push("return "+nsInfo.namespace+";");
@@ -149,11 +156,11 @@ module.exports = function(grunt) {
         }
 
         if (options.commonjs) {
-          if (options.namespace === false) {
+          if (useNamespace) {
+            output.push("return "+nsInfo.namespace+";");
+          } else {
             output.unshift('var templates = {};');
             output.push("return templates;");
-          } else {
-            output.push("return "+nsInfo.namespace+";");
           }
           // Export the templates object for CommonJS environments.
           output.unshift("module.exports = function(Handlebars) {");
