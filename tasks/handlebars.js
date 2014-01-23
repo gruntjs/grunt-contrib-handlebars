@@ -59,12 +59,7 @@ module.exports = function(grunt) {
     var namespaceInfo = _.memoize(function(filepath) {
       if (!useNamespace) {return undefined;}
       if (_.isFunction(options.namespace)) {
-        var nsi = helpers.getNamespaceDeclaration(options.namespace(filepath));
-        // appending this separator is necessary because getNamepaceDeclaration
-        // does not add a newline to the end. ugly, but necessary to allow
-        // nsDeclarations map to work
-        nsi.declaration += options.separator;
-        return nsi;
+        return helpers.getNamespaceDeclaration(options.namespace(filepath));
       } else {
         return helpers.getNamespaceDeclaration(options.namespace);
       }
@@ -93,9 +88,9 @@ module.exports = function(grunt) {
         var src = processContent(grunt.file.read(filepath), filepath);
         nsInfo = namespaceInfo(filepath);
         if (nsInfo) {
+          // save a map of declarations so we can put them at the top of the file later
           nsDeclarations[nsInfo.namespace] = nsInfo.declaration;
         }
-        if (/countries/.test(filepath)) {grunt.log.error(">>>", nsInfo.declaration);}
 
         var Handlebars = require('handlebars');
         var ast, compiled, filename;
@@ -141,8 +136,7 @@ module.exports = function(grunt) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {
         if (useNamespace) {
-          var declarations = _.values(nsDeclarations);
-grunt.log.error('//////////////////////', declarations.join(''));
+          var declarations = _.values(nsDeclarations).join(options.separator);
           output.unshift(declarations);
 
           if (options.node) {
