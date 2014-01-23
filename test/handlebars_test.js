@@ -218,5 +218,14 @@ exports.handlebars = {
       test.equal(actual, expected, 'should support `knownHelpersOnly`.');
       test.done();
     });
+  },
+  namespace_as_function: function(test) {
+    test.expect(1);
+
+    filesAreEqual('namespace_as_function.js', function(actual, expected) {
+      test.equal(actual, expected, 'namespace should allow function to allow nested namespaces based on file system structure.');
+      test.done();
+    });
   }
+
 };

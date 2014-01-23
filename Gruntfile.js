@@ -232,6 +232,20 @@ module.exports = function(grunt) {
         files: {
           'tmp/only_known_helpers.js': ['test/fixtures/uses_helpers.hbs']
         }
+      },
+      namespace_as_function: {
+        options: {
+          processName: function(filename) {
+            return filename.replace(/.*\/(\w+)\.hbs/, "$1");
+          },
+          namespace: function(filename) {
+            var names = filename.replace(/.*modules\/(.*)(\/\w+\.hbs)/, '$1');
+            return 'JST.' + names.split('/').join('.');
+          }
+        },
+        files: {
+          'tmp/namespace_as_function.js' : [ 'test/fixtures/modules/**/*.hbs']
+        }
       }
     },
     // Unit tests.
