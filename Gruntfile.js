@@ -240,8 +240,8 @@ module.exports = function(grunt) {
           },
           namespace: function(filename) {
             var names = filename.replace(/.*modules\/(.*)(\/\w+\.hbs)/, '$1');
-            return names.split('/').join('.');
-          },
+            return 'JST.' + names.split('/').join('.');
+          }
         },
         files: {
           'tmp/namespace_as_function.js' : [ 'test/fixtures/modules/**/*.hbs']
