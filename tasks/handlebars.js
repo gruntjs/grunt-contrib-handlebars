@@ -170,8 +170,8 @@ module.exports = function(grunt) {
             output.push("return templates;");
           }
           // Export the templates object for CommonJS environments.
-          output.unshift("module.exports = function(Handlebars) {");
-          output.push("};");
+          output.unshift("module.exports = (function() { var Handlebars = require('handlebars');");
+          output.push("}());");
         }
 
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
