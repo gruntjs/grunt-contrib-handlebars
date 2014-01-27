@@ -71,21 +71,29 @@ define(function() {
 Type: `Boolean`
 Default: `false`
 
-Wraps the output file in a CommonJS module function, exporting the compiled templates. It will also add templates to the template namespace, unless `namespace` is explicitly set to `false`.
+Wraps the output file in a CommonJS module, exporting the compiled templates. It will also add templates to the template namespace, unless `namespace` is explicitly set to `false`.
 
 ```js
-module.exports = function(Handlebars) {
+module.exports = (function() {
+    var Handlebars = require('handlebars');
     //...//
     Handlebars.template(…);
     return this['[template namespace]'];
-};
+}());
 ```
 
-When requiring the module in a CommonJS environment, pass in your `Handlebars` object.
+When requiring the module in a CommonJS environment, `Handlebars` will be automatically required.
+
+Commonjs's `require` caches modules, so options can be passed into `Handlebars` in other files.
 
 ```js
+// index.js
 var Handlebars = require('handlebars');
-var templates = require('./templates')(Handlebars);
+
+Handlebars.registerHelper(...);
+
+// view.js
+var templates = require('./templates');
 ```
 
 ## processContent
