@@ -1,5 +1,5 @@
 v0.6.1:
-  date: 2013-01-23
+  date: 2014-01-23
   changes:
     - Support function on `namespace` option.
 v0.6.0:
