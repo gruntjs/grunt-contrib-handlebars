@@ -242,7 +242,7 @@ handlebars: {
 
 ## Release History
 
- * 2013-01-23   v0.6.1   Support function on `namespace` option.
+ * 2014-01-23   v0.6.1   Support function on `namespace` option.
  * 2013-11-11   v0.6.0   Update handlebars dep to ~1.1.2
  * 2013-11-07   v0.5.12   Pass file path into `processContent`.
  * 2013-09-24   v0.5.11   Fix for broken partial pre-compilation.
