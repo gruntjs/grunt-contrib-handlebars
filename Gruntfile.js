@@ -246,6 +246,23 @@ module.exports = function(grunt) {
         files: {
           'tmp/namespace_as_function.js' : [ 'test/fixtures/modules/**/*.hbs']
         }
+      },
+      handlebars_namespace: {
+        options: {
+          handlebarsNamespace: 'customNamespace'
+        },
+        files: {
+          'tmp/handlebars_namespace.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
+        }
+      },
+      handlebars_namespace_amd: {
+        options: {
+          handlebarsNamespace: 'customNamespace',
+          amd: true
+        },
+        files: {
+          'tmp/handlebars_namespace_amd.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
+        }
       }
     },
     // Unit tests.

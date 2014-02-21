@@ -55,6 +55,17 @@ module.exports = function(grunt) {
     var processPartialName = options.processPartialName || defaultProcessPartialName;
     var processAST = options.processAST || defaultProcessAST;
     var useNamespace = options.namespace !== false;
+    var hbsNs = options.handlebarsNamespace || '';
+
+    // Only set the handlebars namespace in strictly browser environments
+    if (options.amd || options.node || options.commonjs) {
+      grunt.log.warn('handlebarsNamespace can only be used in a strictly browser environment. The option has been ignored.');
+      hbsNs = '';
+    } else {
+      // append a . to the handlebars namespace if it isn't there
+      hbsNs = (hbsNs === '' || hbsNs.slice(-1) === '.') ? hbsNs : hbsNs+'.';
+    }
+    
 
     var namespaceInfo = _.memoize(function(filepath) {
       if (!useNamespace) {return undefined;}
@@ -101,7 +112,7 @@ module.exports = function(grunt) {
 
           // if configured to, wrap template in Handlebars.template call
           if (options.wrapped === true) {
-            compiled = 'Handlebars.template('+compiled+')';
+            compiled = hbsNs+'Handlebars.template('+compiled+')';
           }
         } catch (e) {
           grunt.log.error(e);
@@ -112,14 +123,15 @@ module.exports = function(grunt) {
         if (partialsPathRegex.test(filepath) && isPartial.test(_.last(filepath.split('/')))) {
           filename = processPartialName(filepath);
           if (options.partialsUseNamespace === true) {
-            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
+            partials.push(hbsNs+'Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
           } else {
-            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
+            partials.push(hbsNs+'Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
           }
         } else {
           if(options.amd && !useNamespace) {
             compiled = 'return ' + compiled;
           }
+
           filename = processName(filepath);
           if (useNamespace) {
             templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');

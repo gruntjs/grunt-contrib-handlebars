@@ -63,6 +63,19 @@ options: {
 }
 ```
 
+#### handlebarsNamespace
+Type: `String`
+Default: `''`
+
+The namespace of the handlebars object. Use dot notation (e.g. myObject.myProp) for nested namespaces. Primarily useful for browser environments in which handlebars isn't attached to the global object.
+
+Example:
+```js
+options: {
+  handlesbarsNamespace: 'someObject.someProperty'
+}
+```
+
 #### partialsUseNamespace
 Type: `Boolean`
 Default: `false`
@@ -271,4 +284,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Thu Jan 23 2014 09:22:44.*
+*This file was generated on Thu Feb 20 2014 20:31:05.*
