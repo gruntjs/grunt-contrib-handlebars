@@ -226,6 +226,22 @@ exports.handlebars = {
       test.equal(actual, expected, 'namespace should allow function to allow nested namespaces based on file system structure.');
       test.done();
     });
+  },
+  handlebars_namespace: function(test) {
+    test.expect(1);
+
+    filesAreEqual('handlebars_namespace.js', function(actual, expected) {
+      test.equal(actual, expected, 'should support specifying a namespace for handlebars.');
+      test.done();
+    });
+  },
+  handlebars_namespace_amd: function(test) {
+    test.expect(1);
+
+    filesAreEqual('handlebars_namespace_amd.js', function(actual, expected) {
+      test.equal(actual, expected, 'should ignore the handlebars namespace for non-browser environments.');
+      test.done();
+    });
   }
 
 };
