@@ -3,7 +3,7 @@ this["JST"] = this["JST"] || {};
 this["JST"]["test/fixtures/uses_helpers.hbs"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, stack2, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this, functionType="function", blockHelperMissing=helpers.blockHelperMissing;
+  var buffer = "", stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this, functionType="function", blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
   
@@ -11,15 +11,14 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  buffer += "This template uses custom helpers: ";
-  options = {hash:{},data:data};
-  buffer += escapeExpression(((stack1 = helpers['my-helper'] || (depth0 && depth0['my-helper'])),stack1 ? stack1.call(depth0, "variable", options) : helperMissing.call(depth0, "my-helper", "variable", options)))
+  buffer += "This template uses custom helpers: "
+    + escapeExpression((helper = helpers['my-helper'] || (depth0 && depth0['my-helper']),options={hash:{},data:data},helper ? helper.call(depth0, "variable", options) : helperMissing.call(depth0, "my-helper", "variable", options)))
     + " & ";
-  options = {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data};
-  if (stack2 = helpers['another-helper']) { stack2 = stack2.call(depth0, options); }
-  else { stack2 = (depth0 && depth0['another-helper']); stack2 = typeof stack2 === functionType ? stack2.call(depth0, options) : stack2; }
-  if (!helpers['another-helper']) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
-  if(stack2 || stack2 === 0) { buffer += stack2; }
+  options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data}
+  if (helper = helpers['another-helper']) { stack1 = helper.call(depth0, options); }
+  else { helper = (depth0 && depth0['another-helper']); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
+  if (!helpers['another-helper']) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data}); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "!\n";
   return buffer;
   });
