@@ -30,6 +30,17 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     handlebars: {
+      inline_partials: {
+        options: {
+          namespace: 'JST',
+          partialRegex: /.*/,
+          partialsPathRegex: /\/partials\//,
+          partialsInline: true
+        },
+        files: {
+          'tmp/inline_partials.js': ['test/fixtures/partials/inlined.hbs', 'test/fixtures/inline_partials.hbs']
+        }
+      },
       compile: {
         options: {
           namespace: 'JST'

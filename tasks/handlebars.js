@@ -16,6 +16,22 @@ module.exports = function(grunt) {
   // content conversion for templates
   var defaultProcessContent = function(content) { return content; };
 
+  var processASTPartialsInline = function(ast) {
+    var Handlebars = require('handlebars');
+    ast.statements.forEach(function(statement, i) {
+      if (statement.type === 'partial') {
+        var partialFile = grunt.util._.find(grunt.task.current.files, function (file) {
+            return file.src[0].indexOf(statement.partialName.name) !== -1;
+        });
+        if (partialFile) {
+            var parsed = Handlebars.parse(grunt.file.read(partialFile.src[0]));
+            ast.statements.splice.apply(ast.statements, [i, 1].concat(parsed.statements));
+        }
+      }
+    });
+    return ast;
+  };
+
   // AST processing for templates
   var defaultProcessAST = function(ast) { return ast; };
 
@@ -97,6 +113,9 @@ module.exports = function(grunt) {
         try {
           // parse the handlebars template into it's AST
           ast = processAST(Handlebars.parse(src));
+          if (options.partialsInline) {
+            ast = processASTPartialsInline(ast);
+          }
           compiled = Handlebars.precompile(ast, compilerOptions);
 
           // if configured to, wrap template in Handlebars.template call
@@ -110,11 +129,13 @@ module.exports = function(grunt) {
 
         // register partial or add template to namespace
         if (partialsPathRegex.test(filepath) && isPartial.test(_.last(filepath.split('/')))) {
-          filename = processPartialName(filepath);
-          if (options.partialsUseNamespace === true) {
-            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
-          } else {
-            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
+          if (! options.partialsInline) {
+            filename = processPartialName(filepath);
+            if (options.partialsUseNamespace === true) {
+              partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
+            } else {
+              partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
+            }
           }
         } else {
           if(options.amd && !useNamespace) {
