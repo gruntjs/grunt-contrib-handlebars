@@ -153,7 +153,12 @@ module.exports = function(grunt) {
 
         if (options.amd) {
           // Wrap the file in an AMD define fn.
-          output.unshift("define(['handlebars'], function(Handlebars) {");
+          // if just a boolean
+          if (typeof options.amd === 'boolean') {
+            output.unshift("define(['handlebars'], function(Handlebars) {");
+          } else {
+            output.unshift("define(['" + options.amd + "'], function(Handlebars) {");
+          }
           if (useNamespace) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
