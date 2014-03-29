@@ -129,6 +129,24 @@ module.exports = function(grunt) {
           'tmp/amd_compile_direct.js': ['test/fixtures/amd.html']
         }
       },
+      amd_compile_string_path: {
+        options: {
+          amd: 'lib/handlebars',
+          namespace: false
+        },
+        files: {
+          'tmp/amd_compile_string_path.js': ['test/fixtures/amd.html']
+        }
+      },
+      amd_compile_string_deps: {
+        options: {
+          amd: 'handlebars\', \'handlebars.helpers',
+          namespace: false
+        },
+        files: {
+          'tmp/amd_compile_string_deps.js': ['test/fixtures/amd.html']
+        }
+      },
       commonjs_compile: {
         options: {
           commonjs: true
