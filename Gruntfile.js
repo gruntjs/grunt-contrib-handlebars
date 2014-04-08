@@ -147,6 +147,15 @@ module.exports = function(grunt) {
           'tmp/amd_compile_string_deps.js': ['test/fixtures/amd.html']
         }
       },
+      amd_compile_array: {
+        options: {
+          amd: ['handlebars', 'handlebars.helpers'],
+          namespace: false
+        },
+        files: {
+          'tmp/amd_compile_array.js': ['test/fixtures/amd.html']
+        }
+      },
       commonjs_compile: {
         options: {
           commonjs: true
