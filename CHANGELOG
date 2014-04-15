@@ -1,3 +1,8 @@
+v0.8.0:
+  date: 2014-04-15
+  changes:
+    - Less Verbose output.
+    - New custom AMD path options.
 v0.7.0:
   date: 2014-03-03
   changes:

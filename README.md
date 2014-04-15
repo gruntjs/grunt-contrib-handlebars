@@ -1,4 +1,4 @@
-# grunt-contrib-handlebars v0.8.0-pre [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars)
+# grunt-contrib-handlebars v0.8.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) <a href="https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars"><img src="https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master" alt="Build Status: Windows" height="18" /></a>
 
 > Precompile Handlebars templates to JST file.
 
@@ -246,6 +246,7 @@ handlebars: {
 
 ## Release History
 
+ * 2014-04-15   v0.8.0   Less Verbose output. New custom AMD path options.
  * 2014-03-03   v0.7.0   Update handlebars dep to ~1.3.0
  * 2014-01-23   v0.6.1   Support function on `namespace` option.
  * 2013-11-11   v0.6.0   Update handlebars dep to ~1.1.2
@@ -276,4 +277,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Tue Apr 08 2014 15:12:55.*
+*This file was generated on Tue Apr 15 2014 17:27:14.*
