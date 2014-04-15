@@ -66,7 +66,8 @@ module.exports = function(grunt) {
     });
 
     // assign compiler options
-    var compilerOptions = options.compilerOptions || {};
+    var compilerOptions = options.compilerOptions || {},
+        filesCount = 0;
 
     this.files.forEach(function(f) {
       var partials = [];
@@ -179,10 +180,13 @@ module.exports = function(grunt) {
           output.push("};");
         }
 
+        filesCount++;
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
-        grunt.log.writeln('File ' + chalk.cyan(f.dest) + ' created.');
+        grunt.verbose.writeln('File ' + chalk.cyan(f.dest) + ' created.');
       }
     });
+
+    grunt.log.ok(filesCount + ' ' + grunt.util.pluralize(filesCount,'file/files') + ' created.');
 
   });
 
