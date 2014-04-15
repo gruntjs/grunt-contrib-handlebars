@@ -101,7 +101,12 @@ module.exports = function(grunt) {
 
           // if configured to, wrap template in Handlebars.template call
           if (options.wrapped === true) {
-            compiled = 'Handlebars.template('+compiled+')';
+            if (options.amd === true) {
+              compiled = 'Handlebars.default.template('+compiled+')';
+            } else {
+              compiled = 'Handlebars.template('+compiled+')';
+            }
+            
           }
         } catch (e) {
           grunt.log.error(e);
