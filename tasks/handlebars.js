@@ -102,7 +102,7 @@ module.exports = function(grunt) {
 
           // if configured to, wrap template in Handlebars.template call
           if (options.wrapped === true) {
-            if (options.amd === true) {
+            if (options.amd === true || (typeof options.amd === 'string') || Array.isArray(options.amd)) {
               compiled = 'Handlebars.default.template('+compiled+')';
             }
             else {
@@ -120,7 +120,6 @@ module.exports = function(grunt) {
 
           // use the correct method if using AMD which is attached to Handlebars.default
           var method = 'Handlebars.' + (options.amd === true ? 'default.' : '') + 'registerPartial';
-
           if (options.partialsUseNamespace === true) {
             partials.push(method + '('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
           } else {
