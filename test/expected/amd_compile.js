@@ -2,14 +2,13 @@ define(['handlebars'], function(Handlebars) {
 
 this["JST"] = this["JST"] || {};
 
-this["JST"]["test/fixtures/amd.html"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "<section class=\"main-app\">\n    <h1>Some title</h1>\n    <p>I've been compiled with amd support</p>\n</section>";
-  });
+this["JST"]["test/fixtures/amd.html"] = Handlebars.default.template({
+  "compiler":[5,">= 2.0.0"],
+  "main":function(depth0,helpers,partials,data) {
+    return "<section class=\"main-app\">\n    <h1>Some title</h1>\n    <p>I've been compiled with amd support</p>\n</section>";
+  },
+  "useData":true
+});
 
 return this["JST"];
 
