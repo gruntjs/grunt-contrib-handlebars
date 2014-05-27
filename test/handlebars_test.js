@@ -219,6 +219,14 @@ exports.handlebars = {
       test.done();
     });
   },
+  partial_amd: function (test) {
+    test.expect(1);
+
+    filesAreEqual('partials_use_amd.js', function(actual, expected) {
+      test.equal(actual, expected, 'should support amd with partials.');
+      test.done();
+    });
+  },
   unknown_helpers: function(test) {
     test.expect(1);
 
