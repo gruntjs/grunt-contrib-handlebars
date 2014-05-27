@@ -229,6 +229,14 @@ module.exports = function(grunt) {
           'tmp/partials_path_regex.js': ['test/fixtures/partials/partial.hbs', 'test/fixtures/one.hbs']
         }
       },
+      partial_amd: {
+        options: {
+          amd: true
+        },
+        files: {
+          'tmp/partials_use_amd.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
+        }
+      },
       unknown_helpers: {
         files: {
           'tmp/unknown_helpers.js': ['test/fixtures/uses_helpers.hbs']

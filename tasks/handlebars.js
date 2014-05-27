@@ -102,7 +102,12 @@ module.exports = function(grunt) {
 
           // if configured to, wrap template in Handlebars.template call
           if (options.wrapped === true) {
-            compiled = 'Handlebars.template('+compiled+')';
+            if (options.amd === true || (typeof options.amd === 'string') || Array.isArray(options.amd)) {
+              compiled = 'Handlebars.default.template('+compiled+')';
+            }
+            else {
+              compiled = 'Handlebars.template('+compiled+')';
+            }
           }
         } catch (e) {
           grunt.log.error(e);
@@ -112,10 +117,13 @@ module.exports = function(grunt) {
         // register partial or add template to namespace
         if (partialsPathRegex.test(filepath) && isPartial.test(_.last(filepath.split('/')))) {
           filename = processPartialName(filepath);
+
+          // use the correct method if using AMD which is attached to Handlebars.default
+          var method = 'Handlebars.' + (options.amd === true ? 'default.' : '') + 'registerPartial';
           if (options.partialsUseNamespace === true) {
-            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
+            partials.push(method + '('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
           } else {
-            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
+            partials.push(method + '('+JSON.stringify(filename)+', '+compiled+');');
           }
         } else {
           if(options.amd && !useNamespace) {

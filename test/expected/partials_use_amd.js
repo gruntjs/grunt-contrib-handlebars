@@ -1,6 +1,8 @@
+define(['handlebars'], function(Handlebars) {
+
 this["JST"] = this["JST"] || {};
 
-Handlebars.registerPartial("partial", Handlebars.template({
+Handlebars.default.registerPartial("partial", Handlebars.default.template({
   "compiler":[5,">= 2.0.0"],
   "main":function(depth0,helpers,partials,data) {
     return "<span>Canada</span>";
@@ -8,7 +10,7 @@ Handlebars.registerPartial("partial", Handlebars.template({
   "useData":true
 }));
 
-this["JST"]["test/fixtures/one.hbs"] = Handlebars.template({
+this["JST"]["test/fixtures/one.hbs"] = Handlebars.default.template({
   "compiler":[5,">= 2.0.0"],
   "main":function(depth0,helpers,partials,data) {
     var stack1, helper, functionType="function", escapeExpression=this.escapeExpression, buffer = "<p>Hello, my name is "
@@ -20,4 +22,8 @@ this["JST"]["test/fixtures/one.hbs"] = Handlebars.template({
   },
   "usePartial":true,
   "useData":true
+});
+
+return this["JST"];
+
 });

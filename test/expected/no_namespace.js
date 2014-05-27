@@ -1,8 +1,7 @@
-Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "Basic template that does nothing.";
-  })
+Handlebars.template({
+  "compiler":[5,">= 2.0.0"],
+  "main":function(depth0,helpers,partials,data) {
+    return "Basic template that does nothing.";
+  },
+  "useData":true
+})

@@ -1,27 +1,23 @@
 this["JST"] = this["JST"] || {};
 
-Handlebars.registerPartial("partial", function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
+Handlebars.registerPartial("partial", {
+  "compiler":[5,">= 2.0.0"],
+  "main":function(depth0,helpers,partials,data) {
+    return "<span>Canada</span>";
+  },
+  "useData":true
+});
 
-
-  return "<span>Canada</span>";
-  });
-
-this["JST"]["test/fixtures/one.hbs"] = function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
-  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
-
-
-  buffer += "<p>Hello, my name is ";
-  if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.name); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + ". I live in ";
-  stack1 = self.invokePartial(partials.partial, 'partial', depth0, helpers, partials, data);
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</p>";
-  return buffer;
-  };
+this["JST"]["test/fixtures/one.hbs"] = {
+  "compiler":[5,">= 2.0.0"],
+  "main":function(depth0,helpers,partials,data) {
+    var stack1, helper, functionType="function", escapeExpression=this.escapeExpression, buffer = "<p>Hello, my name is "
+      + escapeExpression(((helper = helpers.name || (depth0 && depth0.name)),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
+      + ". I live in ";
+    stack1 = this.invokePartial(partials.partial, 'partial', depth0, undefined, helpers, partials, data);
+    if(stack1 || stack1 === 0) { buffer += stack1; }
+    return buffer + "</p>";
+  },
+  "usePartial":true,
+  "useData":true
+};
