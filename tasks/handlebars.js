@@ -11,7 +11,7 @@ var chalk = require('chalk');
 
 module.exports = function(grunt) {
   var _ = grunt.util._;
-  var helpers = require('grunt-lib-contrib').init(grunt);
+  var getNamespaceDeclaration = require('./lib/handlebars').getNamespaceDeclaration;
 
   // content conversion for templates
   var defaultProcessContent = function(content) { return content; };
@@ -59,9 +59,9 @@ module.exports = function(grunt) {
     var namespaceInfo = _.memoize(function(filepath) {
       if (!useNamespace) {return undefined;}
       if (_.isFunction(options.namespace)) {
-        return helpers.getNamespaceDeclaration(options.namespace(filepath));
+        return getNamespaceDeclaration(options.namespace(filepath));
       } else {
-        return helpers.getNamespaceDeclaration(options.namespace);
+        return getNamespaceDeclaration(options.namespace);
       }
     });
 
