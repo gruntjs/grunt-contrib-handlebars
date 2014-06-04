@@ -39,6 +39,7 @@ module.exports = function(grunt) {
       wrapped: true,
       amd: false,
       commonjs: false,
+      handlebarsPath: 'handlebars',
       knownHelpers: [],
       knownHelpersOnly: false
     });
@@ -155,7 +156,7 @@ module.exports = function(grunt) {
         if (options.amd) {
           // Wrap the file in an AMD define fn.
           if (typeof options.amd === 'boolean') {
-            output.unshift("define(['handlebars'], function(Handlebars) {");
+            output.unshift("define(['" + options.handlebarsPath + "'], function(Handlebars) {");
           } else if (typeof options.amd === 'string') {
             output.unshift("define(['" + options.amd + "'], function(Handlebars) {");
           } else if (Array.isArray(options.amd)) {
