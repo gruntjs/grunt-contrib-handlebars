@@ -8,10 +8,10 @@
 
 'use strict';
 var chalk = require('chalk');
+var nsdeclare = require('nsdeclare');
 
 module.exports = function(grunt) {
   var _ = grunt.util._;
-  var getNamespaceDeclaration = require('./lib/handlebars').getNamespaceDeclaration;
 
   // content conversion for templates
   var defaultProcessContent = function(content) { return content; };
@@ -23,8 +23,8 @@ module.exports = function(grunt) {
   var defaultProcessName = function(name) { return name; };
 
   // filename conversion for partials
-  var defaultProcessPartialName = function(filePath) {
-    var pieces = _.last(filePath.split('/')).split('.');
+  var defaultProcessPartialName = function(filepath) {
+    var pieces = _.last(filepath.split('/')).split('.');
     var name   = _(pieces).without(_.last(pieces)).join('.'); // strips file extension
     if (name.charAt(0) === '_') {
       name = name.substr(1, name.length); // strips leading _ character
@@ -56,15 +56,6 @@ module.exports = function(grunt) {
     var processAST = options.processAST || defaultProcessAST;
     var useNamespace = options.namespace !== false;
 
-    var namespaceInfo = _.memoize(function(filepath) {
-      if (!useNamespace) {return undefined;}
-      if (_.isFunction(options.namespace)) {
-        return getNamespaceDeclaration(options.namespace(filepath));
-      } else {
-        return getNamespaceDeclaration(options.namespace);
-      }
-    });
-
     // assign compiler options
     var compilerOptions = options.compilerOptions || {},
         filesCount = 0;
@@ -72,8 +63,25 @@ module.exports = function(grunt) {
     this.files.forEach(function(f) {
       var partials = [];
       var templates = [];
-      var nsDeclarations = {};
+
+      // Namespace info for current template
       var nsInfo;
+
+      // Map of already declared namespace parts
+      var nsDeclarations = {};
+
+      // nsdeclare options when fetching namespace info
+      var nsDeclareOptions = { response: 'details', declared: nsDeclarations };
+
+      // Just get the namespace info for a given template
+      var getNamespaceInfo = _.memoize(function(filepath) {
+        if (!useNamespace) {return undefined;}
+        if (_.isFunction(options.namespace)) {
+          return nsdeclare(options.namespace(filepath), nsDeclareOptions);
+        } else {
+          return nsdeclare(options.namespace, nsDeclareOptions);
+        }
+      });
 
       // iterate files, processing partials and templates separately
       f.src.filter(function(filepath) {
@@ -87,11 +95,6 @@ module.exports = function(grunt) {
       })
       .forEach(function(filepath) {
         var src = processContent(grunt.file.read(filepath), filepath);
-        nsInfo = namespaceInfo(filepath);
-        if (nsInfo) {
-          // save a map of declarations so we can put them at the top of the file later
-          nsDeclarations[nsInfo.namespace] = nsInfo.declaration;
-        }
 
         var Handlebars = require('handlebars');
         var ast, compiled, filename;
@@ -113,16 +116,22 @@ module.exports = function(grunt) {
         if (partialsPathRegex.test(filepath) && isPartial.test(_.last(filepath.split('/')))) {
           filename = processPartialName(filepath);
           if (options.partialsUseNamespace === true) {
+            nsInfo = getNamespaceInfo(filepath);
+
+            partials.push(nsInfo.declaration);
             partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
           } else {
             partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
           }
         } else {
+          nsInfo = getNamespaceInfo(filepath);
+
           if(options.amd && !useNamespace) {
             compiled = 'return ' + compiled;
           }
           filename = processName(filepath);
           if (useNamespace) {
+            templates.push(nsInfo.declaration);
             templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
           } else if (options.commonjs === true) {
             templates.push('templates['+JSON.stringify(filename)+'] = '+compiled+';');
@@ -137,9 +146,6 @@ module.exports = function(grunt) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {
         if (useNamespace) {
-          var declarations = _.values(nsDeclarations).join(options.separator);
-          output.unshift(declarations);
-
           if (options.node) {
             output.unshift('Handlebars = glob.Handlebars || require(\'handlebars\');');
             output.unshift('var glob = (\'undefined\' === typeof window) ? global : window,');
