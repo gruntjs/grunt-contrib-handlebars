@@ -47,7 +47,7 @@ module.exports = function(grunt) {
     var partialsPathRegex = options.partialsPathRegex || /./;
 
     // assign regex for partial detection
-    var isPartial = options.partialRegex || /^_/;
+    var isPartialRegex = options.partialRegex || /^_/;
 
     // assign transformation functions
     var processContent = options.processContent || defaultProcessContent;
@@ -113,7 +113,7 @@ module.exports = function(grunt) {
         }
 
         // register partial or add template to namespace
-        if (partialsPathRegex.test(filepath) && isPartial.test(_.last(filepath.split('/')))) {
+        if (partialsPathRegex.test(filepath) && isPartialRegex.test(_.last(filepath.split('/')))) {
           filename = processPartialName(filepath);
           if (options.partialsUseNamespace === true) {
             nsInfo = getNamespaceInfo(filepath);
