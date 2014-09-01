@@ -1,4 +1,4 @@
-module.exports = function(Handlebars) {
+module.exports = (function() { var Handlebars = require('handlebars');
 
 this["JST"] = this["JST"] || {};
 
@@ -13,4 +13,4 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 return this["JST"];
 
-};
+}());
