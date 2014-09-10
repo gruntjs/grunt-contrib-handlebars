@@ -250,6 +250,14 @@ exports.handlebars = {
       test.equal(actual, expected, 'namespace should allow function to allow nested namespaces based on file system structure.');
       test.done();
     });
+  },
+  custom_version: function(test) {
+    test.expect(1);
+
+    filesAreEqual('custom_version.js', function(actual, expected) {
+      test.equal(actual, expected, 'sould support any version of Handlebars');
+      test.done();
+    });
   }
 
 };

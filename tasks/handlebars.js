@@ -40,7 +40,8 @@ module.exports = function(grunt) {
       amd: false,
       commonjs: false,
       knownHelpers: [],
-      knownHelpersOnly: false
+      knownHelpersOnly: false,
+      handlebars: null
     });
 
     // assign regex for partials directory detection
@@ -96,7 +97,7 @@ module.exports = function(grunt) {
       .forEach(function(filepath) {
         var src = processContent(grunt.file.read(filepath), filepath);
 
-        var Handlebars = require('handlebars');
+        var Handlebars = options.handlebars || require('handlebars');
         var ast, compiled, filename;
         try {
           // parse the handlebars template into it's AST
