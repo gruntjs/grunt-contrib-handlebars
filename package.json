@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "chalk": "~0.4.0",
-    "handlebars": "2.0.0",
+    "handlebars": "^2.0.0",
     "nsdeclare": "0.1.0"
   },
   "devDependencies": {
