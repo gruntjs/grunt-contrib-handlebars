@@ -1,4 +1,4 @@
-# grunt-contrib-handlebars v0.8.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) <a href="https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars"><img src="https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master" alt="Build Status: Windows" height="18" /></a>
+# grunt-contrib-handlebars v0.9.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) <a href="https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars"><img src="https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master" alt="Build Status: Windows" height="18" /></a>
 
 > Precompile Handlebars templates to JST file.
 
@@ -31,14 +31,12 @@ Task targets, files and options may be specified according to the grunt [Configu
 
 #### separator
 Type: `String`
-
 Default: `linefeed + linefeed`
 
 Concatenated files will be joined on this string.
 
 #### namespace
 Type: `String` or `false` or `function`
-
 Default: `'JST'`
 
 The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*  When false with `amd` option set `true`, templates will be returned directly from the AMD wrapper.
@@ -67,21 +65,18 @@ options: {
 
 #### partialsUseNamespace
 Type: `Boolean`
-
 Default: `false`
 
 When set to `true`, partials will be registered in the `namespace` in addition to templates.
 
 #### wrapped
 Type: `Boolean`
-
 Default: `true`
 
 Determine if preprocessed template functions will be wrapped in Handlebars.template function.
 
 #### node
 Type: `Boolean`
-
 Default: `false`
 
 Enable the compiled file to be required on node.js by preppending and appending proper declarations. You can use the file safely on the front-end.
@@ -90,7 +85,6 @@ For this option to work you need to define the `namespace` option.
 
 #### amd
 Type: `Boolean` or `String` or `Array`
-
 Default: `false`
 
 Wraps the output file with an AMD define function and returns the compiled template namespace unless namespace has been explicitly set to false in which case the template function will be returned directly.
@@ -108,7 +102,6 @@ define(['handlebars'], function(Handlebars) {
 
 #### commonjs
 Type: `Boolean`
-
 Default: `false`
 
 Wraps the output file in a CommonJS module function, exporting the compiled templates. It will also add templates to the template namespace, unless `namespace` is explicitly set to `false`.
@@ -192,7 +185,6 @@ Note: If processPartialName is not provided as an option the default assumes tha
 
 #### partialRegex
 Type: `Regexp`
-
 Default: `/^_/`
 
 This option accepts a regex that defines the prefix character that is used to identify Handlebars partial files.
@@ -206,7 +198,6 @@ options: {
 
 #### partialsPathRegex
 Type: `Regexp`
-
 Default: `/./`
 
 This option accepts a regex that defines the path to a directory of Handlebars partials files. The example below shows how to mark every file in a specific directory as a partial.
@@ -220,7 +211,6 @@ options: {
 
 #### compilerOptions
 Type `Object`
-
 Default: `{}`
 
 This option allows you to specify a hash of options which will be passed directly to the Handlebars compiler.
@@ -256,6 +246,7 @@ handlebars: {
 
 ## Release History
 
+ * 2014-10-16   v0.9.0   Update to Handlebars 2.0.
  * 2014-04-15   v0.8.0   Less Verbose output. New custom AMD path options.
  * 2014-03-03   v0.7.0   Update handlebars dep to ~1.3.0
  * 2014-01-23   v0.6.1   Support function on `namespace` option.
@@ -287,4 +278,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Tue Apr 15 2014 17:27:14.*
+*This file was generated on Thu Oct 16 2014 11:09:33.*
