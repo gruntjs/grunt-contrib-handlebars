@@ -273,6 +273,17 @@ module.exports = function(grunt) {
         files: {
           'tmp/namespace_as_function.js' : [ 'test/fixtures/modules/**/*.hbs']
         }
+      },
+      custom_version: {
+        options: {
+          handlebars: {
+            parse: function() {},
+            precompile: function() {}
+          }
+        },
+        files: {
+          'tmp/custom_version.js' : [ 'test/fixtures/modules/**/*.hbs']
+        }
       }
     },
     // Unit tests.

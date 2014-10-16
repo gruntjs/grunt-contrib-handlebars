@@ -227,6 +227,29 @@ options: {
 }
 ```
 
+#### handlebars
+Type: `Object`
+
+Default: `handlebars@~1.3.0`
+
+Pass a reference to Handlebars to override the default version. Use this to pin the Handlebars compiler to the same version as your application. This example shows how you can specify a Handlebars dependency version in your `package.json` and pass it as an option in the `Gruntfile.js`.
+
+package.json:
+```js
+...
+dependencies: {
+  'handlebars': '2.0.0'
+}
+...
+```
+
+Gruntfile.js:
+```js
+options: {
+  handlebars: require('handlebars')
+}
+```
+
 ### Usage Examples
 
 ```js
