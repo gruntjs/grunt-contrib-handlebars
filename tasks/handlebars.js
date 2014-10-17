@@ -72,14 +72,19 @@ module.exports = function(grunt) {
 
       // nsdeclare options when fetching namespace info
       var nsDeclareOptions = { response: 'details', declared: nsDeclarations };
+      var nsDeclarePartialOptions = { response: 'details', declared: _.clone(nsDeclarations) };
 
       // Just get the namespace info for a given template
-      var getNamespaceInfo = _.memoize(function(filepath) {
+      var getNamespaceInfo = _.memoize(function(filepath, partial) {
         if (!useNamespace) {return undefined;}
+        var localNsDeclareOptions = nsDeclareOptions;
+        if (partial) {
+          localNsDeclareOptions = nsDeclarePartialOptions;
+        }
         if (_.isFunction(options.namespace)) {
-          return nsdeclare(options.namespace(filepath), nsDeclareOptions);
+          return nsdeclare(options.namespace(filepath), localNsDeclareOptions);
         } else {
-          return nsdeclare(options.namespace, nsDeclareOptions);
+          return nsdeclare(options.namespace, localNsDeclareOptions);
         }
       });
 
@@ -116,7 +121,7 @@ module.exports = function(grunt) {
         if (partialsPathRegex.test(filepath) && isPartialRegex.test(_.last(filepath.split('/')))) {
           filename = processPartialName(filepath);
           if (options.partialsUseNamespace === true) {
-            nsInfo = getNamespaceInfo(filepath);
+            nsInfo = getNamespaceInfo(filepath, true);
 
             partials.push(nsInfo.declaration);
             partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
