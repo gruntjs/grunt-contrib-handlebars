@@ -66,6 +66,8 @@ module.exports = function(grunt) {
 
       // Namespace info for current template
       var nsInfo;
+      var nsInfoFirst;
+      var _firstNS = false;
 
       // Map of already declared namespace parts
       var nsDeclarations = {};
@@ -117,21 +119,34 @@ module.exports = function(grunt) {
           filename = processPartialName(filepath);
           if (options.partialsUseNamespace === true) {
             nsInfo = getNamespaceInfo(filepath);
-
-            partials.push(nsInfo.declaration);
+            _firstNS = false;
+            if(!nsInfoFirst){
+              nsInfoFirst = nsInfo;
+              _firstNS = true;
+            }
+            if( !_firstNS ){
+              partials.push(nsInfo.declaration);
+            }
             partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
           } else {
             partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
           }
         } else {
           nsInfo = getNamespaceInfo(filepath);
+          _firstNS = false;
+          if(!nsInfoFirst){
+            nsInfoFirst = nsInfo;
+            _firstNS = true;
+          }
 
           if(options.amd && !useNamespace) {
             compiled = 'return ' + compiled;
           }
           filename = processName(filepath);
           if (useNamespace) {
-            templates.push(nsInfo.declaration);
+            if( !_firstNS ){
+              templates.push(nsInfo.declaration);
+            }
             templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
           } else if (options.commonjs === true) {
             templates.push('templates['+JSON.stringify(filename)+'] = '+compiled+';');
@@ -142,6 +157,10 @@ module.exports = function(grunt) {
       });
 
       var output = partials.concat(templates);
+      // if nsInfoFirst is defined the declartions to the top
+      if( nsInfoFirst ){
+        output.unshift( nsInfoFirst.declaration );
+      }
       if (output.length < 1) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {
@@ -182,14 +201,14 @@ module.exports = function(grunt) {
           if (useNamespace) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
-            output.push("return "+nsInfo.namespace+";");
+            output.push("return "+ ( nsInfoFirst || nsInfo ).namespace+";");
           }
           output.push("});");
         }
 
         if (options.commonjs) {
           if (useNamespace) {
-            output.push("return "+nsInfo.namespace+";");
+            output.push("return "+ (nsInfoFirst || nsInfo).namespace+";");
           } else {
             output.unshift('var templates = {};');
             output.push("return templates;");
