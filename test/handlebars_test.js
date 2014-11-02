@@ -159,6 +159,14 @@ exports.handlebars = {
       test.done();
     });
   },
+  amd_namespace_as_function: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_namespace_as_function.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap everything with an AMD define block and have a namespace defined with a function .');
+      test.done();
+    });
+  },
   commonjs_compile: function(test) {
     test.expect(1);
 
