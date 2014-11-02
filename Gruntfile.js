@@ -156,6 +156,30 @@ module.exports = function(grunt) {
           'tmp/amd_compile_array.js': ['test/fixtures/amd.html']
         }
       },
+      amd_namespace: {
+        options: {
+          amd: ['handlebars', 'handlebars.helpers'],
+          namespace: 'foo'
+        },
+        files: {
+          'tmp/amd_namespace.js': ['test/fixtures/amd.html']
+        }
+      },
+      amd_namespace_as_function: {
+        options: {
+          amd: ['handlebars', 'handlebars.helpers'],
+          processName: function(filename) {
+            return filename.replace(/.*\/(\w+)\.hbs/, "$1");
+          },
+          namespace: function(filename) {
+            var names = filename.replace(/.*modules\/(.*)(\/\w+\.hbs)/, '$1');
+            return 'JST.' + names.split('/').join('.');
+          }
+        },
+        files: {
+          'tmp/amd_namespace_as_function.js' : [ 'test/fixtures/modules/**/*.hbs']
+        }
+      },
       commonjs_compile: {
         options: {
           commonjs: true
