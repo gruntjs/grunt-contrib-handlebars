@@ -156,6 +156,24 @@ module.exports = function(grunt) {
           'tmp/amd_compile_array.js': ['test/fixtures/amd.html']
         }
       },
+      amd_partials_use_namespace: {
+        options: {
+          amd: ['handlebars'],
+          partialsUseNamespace: true
+        },
+        files: {
+          'tmp/amd_partials_use_namespace.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
+        }
+      },
+      amd_partials_no_namespace: {
+        options: {
+          amd: ['handlebars'],
+          partialsUseNamespace: false
+        },
+        files: {
+          'tmp/amd_partials_no_namespace.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
+        }
+      },
       commonjs_compile: {
         options: {
           commonjs: true
