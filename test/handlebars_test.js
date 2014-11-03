@@ -151,6 +151,22 @@ exports.handlebars = {
       test.done();
     });
   },
+  amd_partials_use_namespace: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_partials_use_namespace.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap partial with an AMD define block and with a namespace.');
+      test.done();
+    });
+  },
+  amd_partials_no_namespace: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_partials_no_namespace.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap partial with an AMD define block and no namespace.');
+      test.done();
+    });
+  },
   commonjs_compile: function(test) {
     test.expect(1);
 
