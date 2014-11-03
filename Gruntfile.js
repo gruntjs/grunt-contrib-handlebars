@@ -156,6 +156,15 @@ module.exports = function(grunt) {
           'tmp/amd_compile_array.js': ['test/fixtures/amd.html']
         }
       },
+      amd_namespace: {
+        options: {
+          amd: ['handlebars', 'handlebars.helpers'],
+          namespace: 'foo'
+        },
+        files: {
+          'tmp/amd_namespace.js': ['test/fixtures/amd.html']
+        }
+      },
       amd_partials_use_namespace: {
         options: {
           amd: ['handlebars'],

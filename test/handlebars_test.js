@@ -151,6 +151,14 @@ exports.handlebars = {
       test.done();
     });
   },
+  amd_namespace: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_namespace.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap everything with an AMD define block and have a custom module name.');
+      test.done();
+    });
+  },
   amd_partials_use_namespace: function(test) {
     test.expect(1);
 
