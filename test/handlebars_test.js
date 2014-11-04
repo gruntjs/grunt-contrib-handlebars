@@ -33,7 +33,8 @@ exports.handlebars = {
     testhbs('handlebars.js', function(tpl) {
       var actual = tpl({name: 'Dude'});
       var expected = '<p>Hello, my name is Dude. I live in <span>Canada</span></p>';
-      test.equal(actual, expected, 'should compile partials into Handlebars.partials and handlebars template into JST');
+      test.equal(actual, expected,
+        'should compile partials into Handlebars.partials and handlebars template into JST');
       test.done();
     });
   },
@@ -43,7 +44,8 @@ exports.handlebars = {
     testhbs('handlebars-node.js', function(tpl) {
       var actual = tpl({name: 'Dude'});
       var expected = '<p>Hello, my name is Dude. I live in <span>Canada</span></p>';
-      test.equal(actual, expected, 'should compile as per compile test and also have node directives prepended and appended');
+      test.equal(actual, expected,
+        'should compile as per compile test and also have node directives prepended and appended');
       test.done();
     });
   },
@@ -51,7 +53,8 @@ exports.handlebars = {
     test.expect(1);
 
     filesAreEqual('handlebarsnowrap.js', function(actual, expected) {
-      test.equal(actual, expected, 'should compile partials into Handlebars.partials and handlebars template into JST');
+      test.equal(actual, expected,
+        'should compile partials into Handlebars.partials and handlebars template into JST');
       test.done();
     });
   },
@@ -271,7 +274,8 @@ exports.handlebars = {
     test.expect(1);
 
     filesAreEqual('namespace_as_function.js', function(actual, expected) {
-      test.equal(actual, expected, 'namespace should allow function to allow nested namespaces based on file system structure.');
+      test.equal(actual, expected,
+        'namespace should allow function to allow nested namespaces based on file system structure.');
       test.done();
     });
   }
