@@ -1,3 +1,7 @@
+v0.9.1:
+  date: 2014-11-09
+  changes:
+    - Fixes namespacing issues.
 v0.9.0:
   date: 2014-10-16
   changes:
