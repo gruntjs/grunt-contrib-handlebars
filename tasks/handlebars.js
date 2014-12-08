@@ -57,8 +57,8 @@ module.exports = function(grunt) {
     var useNamespace = options.namespace !== false;
 
     // assign compiler options
-    var compilerOptions = options.compilerOptions || {},
-        filesCount = 0;
+    var compilerOptions = options.compilerOptions || {};
+    var filesCount = 0;
 
     this.files.forEach(function(f) {
       var partials = [];
@@ -71,7 +71,7 @@ module.exports = function(grunt) {
       var nsDeclarations = {};
 
       // nsdeclare options when fetching namespace info
-      var nsDeclareOptions = { response: 'details', declared: nsDeclarations };
+      var nsDeclareOptions = {response: 'details', declared: nsDeclarations};
 
       // Just get the namespace info for a given template
       var getNamespaceInfo = _.memoize(function(filepath) {
@@ -105,11 +105,11 @@ module.exports = function(grunt) {
 
           // if configured to, wrap template in Handlebars.template call
           if (options.wrapped === true) {
-            compiled = 'Handlebars.template('+compiled+')';
+            compiled = 'Handlebars.template(' + compiled + ')';
           }
         } catch (e) {
           grunt.log.error(e);
-          grunt.fail.warn('Handlebars failed to compile '+filepath+'.');
+          grunt.fail.warn('Handlebars failed to compile ' + filepath + '.');
         }
 
         // register partial or add template to namespace
@@ -119,22 +119,23 @@ module.exports = function(grunt) {
             nsInfo = getNamespaceInfo(filepath);
 
             partials.push(nsInfo.declaration);
-            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
+            partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + nsInfo.namespace +
+              '[' + JSON.stringify(filename) + '] = ' + compiled + ');');
           } else {
-            partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
+            partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
           }
         } else {
           nsInfo = getNamespaceInfo(filepath);
 
-          if(options.amd && !useNamespace) {
+          if (options.amd && !useNamespace) {
             compiled = 'return ' + compiled;
           }
           filename = processName(filepath);
           if (useNamespace) {
             templates.push(nsInfo.declaration);
-            templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+            templates.push(nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ';');
           } else if (options.commonjs === true) {
-            templates.push('templates['+JSON.stringify(filename)+'] = '+compiled+';');
+            templates.push('templates[' + JSON.stringify(filename) + '] = ' + compiled + ';');
           } else {
             templates.push(compiled);
           }
@@ -161,9 +162,9 @@ module.exports = function(grunt) {
         if (options.amd) {
           // Wrap the file in an AMD define fn.
           if (typeof options.amd === 'boolean') {
-            output.unshift("define(['handlebars'], function(Handlebars) {");
+            output.unshift('define([\'handlebars\'], function(Handlebars) {');
           } else if (typeof options.amd === 'string') {
-            output.unshift("define(['" + options.amd + "'], function(Handlebars) {");
+            output.unshift('define([\'' + options.amd + '\'], function(Handlebars) {');
           } else if (Array.isArray(options.amd)) {
             // convert options.amd to a string of dependencies for require([...])
             var amdString = '';
@@ -172,31 +173,31 @@ module.exports = function(grunt) {
                 amdString += ', ';
               }
 
-              amdString += "'" + options.amd[i] + "'";
+              amdString += '\'' + options.amd[i] + '\'';
             }
 
             // Wrap the file in an AMD define fn.
-            output.unshift("define([" + amdString + "], function(Handlebars) {");
+            output.unshift('define([' + amdString + '], function(Handlebars) {');
           }
 
           if (useNamespace) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
-            output.push("return "+nsInfo.namespace+";");
+            output.push('return ' + nsInfo.namespace + ';');
           }
-          output.push("});");
+          output.push('});');
         }
 
         if (options.commonjs) {
           if (useNamespace) {
-            output.push("return "+nsInfo.namespace+";");
+            output.push('return ' + nsInfo.namespace + ';');
           } else {
             output.unshift('var templates = {};');
-            output.push("return templates;");
+            output.push('return templates;');
           }
           // Export the templates object for CommonJS environments.
-          output.unshift("module.exports = function(Handlebars) {");
-          output.push("};");
+          output.unshift('module.exports = function(Handlebars) {');
+          output.push('};');
         }
 
         filesCount++;
@@ -205,7 +206,7 @@ module.exports = function(grunt) {
       }
     });
 
-    grunt.log.ok(filesCount + ' ' + grunt.util.pluralize(filesCount,'file/files') + ' created.');
+    grunt.log.ok(filesCount + ' ' + grunt.util.pluralize(filesCount, 'file/files') + ' created.');
 
   });
 

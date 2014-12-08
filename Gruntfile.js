@@ -23,6 +23,13 @@ module.exports = function(grunt) {
       }
     },
 
+    jscs: {
+      src: ['tasks/**/*.js', 'test/*.js', 'Gruntfile.js'],
+      options: {
+        config: '.jscsrc'
+      }
+    },
+
     // Before generating any new files, remove any previously-created files.
     clean: {
       tests: ['tmp']
@@ -102,7 +109,7 @@ module.exports = function(grunt) {
           processAST: function(ast) {
             ast.statements.forEach(function(statement, i) {
               if (statement.type === 'partial') {
-                ast.statements[i] = { type: 'content', string: 'Fooville' };
+                ast.statements[i] = {type: 'content', string: 'Fooville'};
               }
             });
             return ast;
@@ -265,7 +272,7 @@ module.exports = function(grunt) {
         options: {
           compilerOptions: {
             knownHelpers: {
-              "my-helper": true
+              'my-helper': true
             }
           }
         },
@@ -277,8 +284,8 @@ module.exports = function(grunt) {
         options: {
           compilerOptions: {
             knownHelpers: {
-              "my-helper": true,
-              "another-helper": true
+              'my-helper': true,
+              'another-helper': true
             },
             knownHelpersOnly: true
           }
@@ -290,7 +297,7 @@ module.exports = function(grunt) {
       namespace_as_function: {
         options: {
           processName: function(filename) {
-            return filename.replace(/.*\/(\w+)\.hbs/, "$1");
+            return filename.replace(/.*\/(\w+)\.hbs/, '$1');
           },
           namespace: function(filename) {
             var names = filename.replace(/.*modules\/(.*)(\/\w+\.hbs)/, '$1');
@@ -298,7 +305,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'tmp/namespace_as_function.js' : [ 'test/fixtures/modules/**/*.hbs']
+          'tmp/namespace_as_function.js' : ['test/fixtures/modules/**/*.hbs']
         }
       }
     },
@@ -316,10 +323,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-internal');
+  grunt.loadNpmTasks('grunt-jscs');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['jshint', 'clean', 'handlebars', 'nodeunit']);
+  grunt.registerTask('test', ['jshint', 'jscs', 'clean', 'handlebars', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['test', 'build-contrib']);
