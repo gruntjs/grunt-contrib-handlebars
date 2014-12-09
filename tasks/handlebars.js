@@ -85,6 +85,7 @@ module.exports = function(grunt) {
     var filesCount = 0;
 
     this.files.forEach(function(f) {
+      var declarations = [];
       var partials = [];
       var templates = [];
 
@@ -141,22 +142,24 @@ module.exports = function(grunt) {
           filename = processPartialName(filepath);
           if (options.partialsUseNamespace === true) {
             nsInfo = getNamespaceInfo(filepath);
-
-            partials.push(nsInfo.declaration);
+            if (nsInfo.declaration) {
+              declarations.push(nsInfo.declaration);
+            }
             partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + nsInfo.namespace +
               '[' + JSON.stringify(filename) + '] = ' + compiled + ');');
           } else {
             partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
           }
         } else {
-          nsInfo = getNamespaceInfo(filepath);
-
           if (options.amd && !useNamespace) {
             compiled = 'return ' + compiled;
           }
           filename = processName(filepath);
           if (useNamespace) {
-            templates.push(nsInfo.declaration);
+            nsInfo = getNamespaceInfo(filepath);
+            if (nsInfo.declaration) {
+              declarations.push(nsInfo.declaration);
+            }
             templates.push(nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ';');
           } else if (options.commonjs === true) {
             templates.push('templates[' + JSON.stringify(filename) + '] = ' + compiled + ';');
@@ -166,7 +169,7 @@ module.exports = function(grunt) {
         }
       });
 
-      var output = partials.concat(templates);
+      var output = declarations.concat(partials, templates);
       if (output.length < 1) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {

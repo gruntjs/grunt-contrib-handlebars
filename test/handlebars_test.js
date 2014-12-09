@@ -247,6 +247,15 @@ exports.handlebars = {
       test.done();
     });
   },
+  partials_use_namespace_multiple_templates: function(test) {
+    test.expect(1);
+
+    filesAreEqual('partials_use_namespace_multiple_templates.js', function(actual, expected) {
+      test.equal(actual, expected, 'should allow partials to be added to template namespace when multiple templates' +
+        'present.');
+      test.done();
+    });
+  },
   partials_path: function(test) {
     test.expect(1);
 

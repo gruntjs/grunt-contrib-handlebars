@@ -269,6 +269,15 @@ module.exports = function(grunt) {
           'tmp/partials_use_namespace.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
         }
       },
+      partials_use_namespace_multiple_templates: {
+        options: {
+          partialsUseNamespace: true
+        },
+        files: {
+          'tmp/partials_use_namespace_multiple_templates.js': ['test/fixtures/has-spaces.hbs',
+            'test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
+        }
+      },
       partials_path_regex: {
         options: {
           partialRegex: /.*/,
