@@ -35,6 +35,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
     var options = this.options({
       namespace: 'JST',
+      returnNamespace: null,
       separator: grunt.util.linefeed + grunt.util.linefeed,
       wrapped: true,
       amd: false,
@@ -56,6 +57,12 @@ module.exports = function(grunt) {
     var processAST = options.processAST || defaultProcessAST;
     var useNamespace = options.namespace !== false;
 
+    // Map of already declared namespace parts
+    var nsDeclarations = {};
+
+    // nsdeclare options when fetching namespace info
+    var nsDeclareOptions = {response: 'details', declared: nsDeclarations};
+
     // assign compiler options
     var compilerOptions = options.compilerOptions || {};
     var filesCount = 0;
@@ -66,12 +73,6 @@ module.exports = function(grunt) {
 
       // Namespace info for current template
       var nsInfo;
-
-      // Map of already declared namespace parts
-      var nsDeclarations = {};
-
-      // nsdeclare options when fetching namespace info
-      var nsDeclareOptions = {response: 'details', declared: nsDeclarations};
 
       // Just get the namespace info for a given template
       var getNamespaceInfo = _.memoize(function(filepath) {
@@ -159,6 +160,13 @@ module.exports = function(grunt) {
 
         }
 
+        // Create the return namespace
+        var returnNamespace;
+
+        if (options.returnNamespace) {
+          returnNamespace = nsdeclare(options.returnNamespace, nsDeclareOptions).namespace;
+        }
+
         if (options.amd) {
           // Wrap the file in an AMD define fn.
           if (typeof options.amd === 'boolean') {
@@ -183,14 +191,14 @@ module.exports = function(grunt) {
           if (useNamespace) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
-            output.push('return ' + nsInfo.namespace + ';');
+            output.push('return ' + (returnNamespace || nsInfo.namespace) + ';');
           }
           output.push('});');
         }
 
         if (options.commonjs) {
           if (useNamespace) {
-            output.push('return ' + nsInfo.namespace + ';');
+            output.push('return ' + (returnNamespace || nsInfo.namespace) + ';');
           } else {
             output.unshift('var templates = {};');
             output.push('return templates;');
