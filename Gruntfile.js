@@ -307,6 +307,22 @@ module.exports = function(grunt) {
         files: {
           'tmp/namespace_as_function.js' : ['test/fixtures/modules/**/*.hbs']
         }
+      },
+      amd_namespace_as_function: {
+        options: {
+          amd: true,
+          processName: function(filename) {
+            return filename.replace(/.*\/(\w+)\.hbs/, '$1');
+          },
+          returnNamespace: 'JST',
+          namespace: function(filename) {
+            var names = filename.replace(/.*modules\/(.*)(\/\w+\.hbs)/, '$1');
+            return 'JST.' + names.split('/').join('.');
+          }
+        },
+        files: {
+          'tmp/amd_namespace_as_function.js' : ['test/fixtures/modules/**/*.hbs']
+        }
       }
     },
     // Unit tests.

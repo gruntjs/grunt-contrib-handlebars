@@ -278,6 +278,15 @@ exports.handlebars = {
         'namespace should allow function to allow nested namespaces based on file system structure.');
       test.done();
     });
+  },
+  amd_namespace_as_function: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_namespace_as_function.js', function(actual, expected) {
+      test.equal(actual, expected,
+        'allow namespace function while using amd option');
+      test.done();
+    });
   }
 
 };
