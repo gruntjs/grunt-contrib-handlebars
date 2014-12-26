@@ -47,5 +47,6 @@
   "files": [
     "tasks",
     "LICENSE-MIT"
-  ]
+  ],
+  "appveyor_id": "byxsu7xtyjxuwe3g"
 }
