@@ -1,4 +1,8 @@
 v0.9.1:
+  date: 2014-12-31
+  changes:
+    - More fixes for AMD namespacing.
+v0.9.1:
   date: 2014-11-09
   changes:
     - Fixes namespacing issues.
