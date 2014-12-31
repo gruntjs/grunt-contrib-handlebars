@@ -32,6 +32,30 @@ module.exports = function(grunt) {
     return name;
   };
 
+  var extractGlobalNamespace = function(nsDeclarations) {
+    // Extract global namespace from any existing namespace declaration.
+    // The purpose of this method is too fix an issue with AMD when using namespace as a function where the
+    // nsInfo.namespace will contains the last namespace, not the global namespace.
+
+    var declarations = _.keys(nsDeclarations);
+
+    // no declaration found
+    if (!declarations.length) {
+      return '';
+    }
+
+    // In case only one namespace has been declared it will only return it.
+    if (declarations.length === 1) {
+      return declarations[0];
+    }
+    else {
+      // we only need to take any declaration to extract the global namespace.
+      // Another option might be find the shortest declaration which is the global one.
+      var matches = declarations[0].match(/(this\[[^\[]+\])/g);
+      return matches[0];
+    }
+  };
+
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
     var options = this.options({
       namespace: 'JST',
@@ -183,7 +207,7 @@ module.exports = function(grunt) {
           if (useNamespace) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
-            output.push('return ' + nsInfo.namespace + ';');
+            output.push('return ' + extractGlobalNamespace(nsDeclarations) + ';');
           }
           output.push('});');
         }
