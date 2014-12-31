@@ -246,6 +246,7 @@ handlebars: {
 
 ## Release History
 
+ * 2014-12-31   v0.9.2   More fixes for AMD namespacing.
  * 2014-11-09   v0.9.1   Fixes namespacing issues.
  * 2014-10-16   v0.9.0   Update to Handlebars 2.0.
  * 2014-04-15   v0.8.0   Less Verbose output. New custom AMD path options.
@@ -279,4 +280,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Wed Dec 31 2014 13:00:37.*
+*This file was generated on Wed Dec 31 2014 13:01:27.*
