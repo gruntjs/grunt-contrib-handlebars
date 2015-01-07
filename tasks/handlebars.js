@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 
   var extractGlobalNamespace = function(nsDeclarations) {
     // Extract global namespace from any existing namespace declaration.
-    // The purpose of this method is too fix an issue with AMD when using namespace as a function where the
+    // The purpose of this method is to fix an issue with AMD when using namespace as a function where the
     // nsInfo.namespace will contains the last namespace, not the global namespace.
 
     var declarations = _.keys(nsDeclarations);
