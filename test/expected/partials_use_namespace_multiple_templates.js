@@ -1,8 +1,12 @@
 this["JST"] = this["JST"] || {};
 
-Handlebars.registerPartial("partial", Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+Handlebars.registerPartial("partial", this["JST"]["partial"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   return "<span>Canada</span>";
   },"useData":true}));
+
+this["JST"]["test/fixtures/has-spaces.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  return "\n\n    <div>\n        <span>this template has many spaces</span>\n    </div>\n";
+  },"useData":true});
 
 this["JST"]["test/fixtures/one.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<p>Hello, my name is "
