@@ -246,7 +246,7 @@ handlebars: {
 
 ## Release History
 
- * 2014-12-31   v0.9.3   Fix issues with namespace delcarations and partialsUseNamespace.
+ * 2014-12-31   v0.9.3   Fix issues with namespace declarations and partialsUseNamespace.
  * 2014-12-31   v0.9.2   More fixes for AMD namespacing.
  * 2014-11-09   v0.9.1   Fixes namespacing issues.
  * 2014-10-16   v0.9.0   Update to Handlebars 2.0.
@@ -281,4 +281,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Wed Feb 04 2015 21:46:03.*
+*This file was generated on Wed Feb 04 2015 21:54:44.*
