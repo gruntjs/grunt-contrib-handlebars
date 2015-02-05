@@ -1,4 +1,4 @@
-# grunt-contrib-handlebars v0.9.2 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) [![Build Status: Windows]([object Object])](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars/branch/master)
+# grunt-contrib-handlebars v0.9.3 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars/branch/master)
 
 > Precompile Handlebars templates to JST file.
 
@@ -246,6 +246,7 @@ handlebars: {
 
 ## Release History
 
+ * 2014-12-31   v0.9.3   Fix issues with namespace delcarations and partialsUseNamespace.
  * 2014-12-31   v0.9.2   More fixes for AMD namespacing.
  * 2014-11-09   v0.9.1   Fixes namespacing issues.
  * 2014-10-16   v0.9.0   Update to Handlebars 2.0.
@@ -280,4 +281,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Tue Jan 06 2015 10:52:16.*
+*This file was generated on Wed Feb 04 2015 21:46:03.*
