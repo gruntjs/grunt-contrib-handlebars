@@ -32,10 +32,11 @@
     "nsdeclare": "0.1.0"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-clean": "~0.4.0",
     "grunt-contrib-internal": "~0.4.12",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.1.2",
     "grunt-jscs": "~1.0.0"
   },
   "peerDependencies": {
