@@ -47,8 +47,7 @@ module.exports = function(grunt) {
     // In case only one namespace has been declared it will only return it.
     if (declarations.length === 1) {
       return declarations[0];
-    }
-    else {
+    } else {
       // we only need to take any declaration to extract the global namespace.
       // Another option might be find the shortest declaration which is the global one.
       var matches = declarations[0].match(/(this\[[^\[]+\])/g);
@@ -234,7 +233,5 @@ module.exports = function(grunt) {
     });
 
     grunt.log.ok(filesCount + ' ' + grunt.util.pluralize(filesCount, 'file/files') + ' created.');
-
   });
-
 };
