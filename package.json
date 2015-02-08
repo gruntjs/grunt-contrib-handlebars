@@ -2,18 +2,11 @@
   "name": "grunt-contrib-handlebars",
   "description": "Precompile Handlebars templates to JST file.",
   "version": "0.9.3",
-  "homepage": "https://github.com/gruntjs/grunt-contrib-handlebars",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/gruntjs/grunt-contrib-handlebars.git"
-  },
-  "bugs": {
-    "url": "https://github.com/gruntjs/grunt-contrib-handlebars/issues"
-  },
+  "repository": "gruntjs/grunt-contrib-handlebars",
   "licenses": [
     {
       "type": "MIT",
@@ -21,33 +14,32 @@
     }
   ],
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">=0.10.0"
   },
   "scripts": {
     "test": "grunt test"
   },
   "dependencies": {
-    "chalk": "^0.4.0",
+    "chalk": "^0.5.1",
     "handlebars": "^2.0.0",
     "nsdeclare": "0.1.0"
   },
   "devDependencies": {
     "grunt-cli": "^0.1.13",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-internal": "~0.4.12",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-nodeunit": "~0.1.2",
-    "grunt-jscs": "~1.0.0"
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-internal": "^0.4.12",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-jscs": "^1.5.0"
   },
   "peerDependencies": {
-    "grunt": "~0.4.0"
+    "grunt": ">=0.4.0"
   },
   "keywords": [
     "gruntplugin"
   ],
   "files": [
-    "tasks",
-    "LICENSE-MIT"
+    "tasks"
   ],
   "appveyor_id": "byxsu7xtyjxuwe3g"
 }
