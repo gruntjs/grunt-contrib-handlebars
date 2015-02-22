@@ -150,7 +150,7 @@ module.exports = function(grunt) {
             partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
           }
         } else {
-          if (options.amd && !useNamespace) {
+          if ((options.amd || options.commonjs) && !useNamespace) {
             compiled = 'return ' + compiled;
           }
           filename = processName(filepath);
@@ -161,7 +161,7 @@ module.exports = function(grunt) {
             }
             templates.push(nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ';');
           } else if (options.commonjs === true) {
-            templates.push('templates[' + JSON.stringify(filename) + '] = ' + compiled + ';');
+            templates.push(compiled + ';');
           } else {
             templates.push(compiled);
           }
@@ -217,9 +217,6 @@ module.exports = function(grunt) {
         if (options.commonjs) {
           if (useNamespace) {
             output.push('return ' + nsInfo.namespace + ';');
-          } else {
-            output.unshift('var templates = {};');
-            output.push('return templates;');
           }
           // Export the templates object for CommonJS environments.
           output.unshift('module.exports = function(Handlebars) {');
