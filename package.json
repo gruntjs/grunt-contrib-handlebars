@@ -20,8 +20,8 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "chalk": "^0.5.1",
     "handlebars": "^2.0.0",
+    "chalk": "^1.0.0",
     "nsdeclare": "0.1.0"
   },
   "devDependencies": {
