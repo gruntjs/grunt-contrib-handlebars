@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 
   var extractGlobalNamespace = function(nsDeclarations) {
     // Extract global namespace from any existing namespace declaration.
-    // The purpose of this method is too fix an issue with AMD when using namespace as a function where the
+    // The purpose of this method is to fix an issue with AMD when using namespace as a function where the
     // nsInfo.namespace will contains the last namespace, not the global namespace.
 
     var declarations = _.keys(nsDeclarations);
@@ -47,7 +47,8 @@ module.exports = function(grunt) {
     // In case only one namespace has been declared it will only return it.
     if (declarations.length === 1) {
       return declarations[0];
-    } else {
+    }
+    else {
       // we only need to take any declaration to extract the global namespace.
       // Another option might be find the shortest declaration which is the global one.
       var matches = declarations[0].match(/(this\[[^\[]+\])/g);
@@ -84,7 +85,6 @@ module.exports = function(grunt) {
     var filesCount = 0;
 
     this.files.forEach(function(f) {
-      var declarations = [];
       var partials = [];
       var templates = [];
 
@@ -209,7 +209,12 @@ module.exports = function(grunt) {
           if (useNamespace) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
-            output.push('return ' + extractGlobalNamespace(nsDeclarations) + ';');
+
+            // if namespace is a function iterating over file for search global/root namespace
+            // instead find the declared namespace formatted and allowing namespace with dots
+            var namespace = _.isFunction(options.namespace) ?
+              extractGlobalNamespace(nsDeclarations) : getNamespaceInfo().namespace;
+            output.push('return ' + namespace + ';');
           }
           output.push('});');
         }
