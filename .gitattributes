@@ -1,2 +1,3 @@
-# Automatically normalize line endings for all text-based files
-* text=crlf
+* text=auto
+/test/expected/*.js text eol=lf
+/test/fixtures/**   text eol=lf
