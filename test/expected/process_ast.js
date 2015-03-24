@@ -1,15 +1,11 @@
 this["JST"] = this["JST"] || {};
 
-this["JST"]["test/fixtures/one.hbs"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+this["JST"]["test/fixtures/one.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var stack1, helper;
 
-
-  buffer += "<p>Hello, my name is ";
-  if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = (depth0 && depth0.name); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
-  buffer += escapeExpression(stack1)
-    + ". I live in Fooville</p>";
-  return buffer;
-  });
+  return "<p>Hello, my name is "
+    + this.escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"name","hash":{},"data":data}) : helper)))
+    + ". I live in "
+    + ((stack1 = this.invokePartial(partials.partial,depth0,{"name":"partial","data":data,"helpers":helpers,"partials":partials})) != null ? stack1 : "")
+    + "</p>";
+},"usePartial":true,"useData":true});
