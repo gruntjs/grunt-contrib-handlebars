@@ -1,4 +1,4 @@
-# grunt-contrib-handlebars v0.9.3 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars/branch/master)
+# grunt-contrib-handlebars v0.10.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars/branch/master)
 
 > Precompile Handlebars templates to JST file.
 
@@ -39,7 +39,7 @@ Concatenated files will be joined on this string.
 Type: `String` or `false` or `function`
 Default: `'JST'`
 
-The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*  When false with `amd` option set `true`, templates will be returned directly from the AMD wrapper.
+The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*  When false with `amd` or `commonjs` option set `true`, templates will be returned directly from the AMD/CommonJS wrapper.
 
 Example:
 ```js
@@ -246,6 +246,8 @@ handlebars: {
 
 ## Release History
 
+ * 2015-03-23   v0.10.1   Documentation fix
+ * 2015-03-23   v0.10.0   Update to Handlebars 3.0.0
  * 2015-02-04   v0.9.3   Fix issues with namespace declarations and partialsUseNamespace.
  * 2014-12-31   v0.9.2   More fixes for AMD namespacing.
  * 2014-11-09   v0.9.1   Fixes namespacing issues.
@@ -281,4 +283,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Wed Feb 11 2015 00:39:41.*
+*This file was generated on Mon Mar 23 2015 21:44:41.*
