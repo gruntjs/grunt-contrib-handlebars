@@ -109,7 +109,7 @@ module.exports = function(grunt) {
           processAST: function(ast) {
             ast.body.forEach(function(statement, i) {
               if (statement.type === 'PartialStatement') {
-                ast.body[i] = {type: 'ContentStatement', string: 'Fooville'};
+                ast.body[i] = {type: 'ContentStatement', value: 'Fooville'};
               }
             });
             return ast;
