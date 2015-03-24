@@ -256,7 +256,7 @@ exports.handlebars = {
       test.done();
     });
   },
-  partials_path: function(test) {
+  partials_path_regex: function(test) {
     test.expect(1);
 
     filesAreEqual('partials_path_regex.js', function(actual, expected) {

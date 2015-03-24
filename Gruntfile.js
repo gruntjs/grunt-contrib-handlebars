@@ -107,9 +107,9 @@ module.exports = function(grunt) {
       process_ast: {
         options: {
           processAST: function(ast) {
-            ast.statements.forEach(function(statement, i) {
-              if (statement.type === 'partial') {
-                ast.statements[i] = {type: 'content', string: 'Fooville'};
+            ast.body.forEach(function(statement, i) {
+              if (statement.type === 'PartialStatement') {
+                ast.body[i] = {type: 'ContentStatement', string: 'Fooville'};
               }
             });
             return ast;
