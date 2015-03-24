@@ -1,3 +1,7 @@
+v0.10.0:
+  date: 2015-03-23
+  changes:
+    - Update to Handlebars 3.0.0
 v0.9.3:
   date: 2015-02-04
   changes:
