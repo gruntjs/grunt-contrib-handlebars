@@ -1,3 +1,7 @@
+v0.10.2:
+  date: 2015-04-21
+  changes:
+    - Added options.amd as a function
 v0.10.1:
   date: 2015-03-23
   changes:
