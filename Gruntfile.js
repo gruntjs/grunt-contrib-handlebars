@@ -205,6 +205,15 @@ module.exports = function(grunt) {
           'tmp/amd_namespace_as_function.js' : ['test/fixtures/modules/**/*.hbs']
         }
       },
+      amd_compile_function: {
+        options: {
+          amd: function() { return ['handlebars', 'custom dependency'].join("', '"); },
+          namespace: false
+        },
+        files: {
+          'tmp/amd_compile_function.js': ['test/fixtures/amd.html']
+        }
+      },
       commonjs_compile: {
         options: {
           commonjs: true

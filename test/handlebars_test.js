@@ -187,6 +187,14 @@ exports.handlebars = {
       test.done();
     });
   },
+  amd_compile_function: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_compile_function.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap everything with an AMD define block and have a custom module name.');
+      test.done();
+    });
+  },
   commonjs_compile: function(test) {
     test.expect(1);
 
