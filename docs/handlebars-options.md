@@ -55,7 +55,7 @@ Enable the compiled file to be required on node.js by preppending and appending 
 For this option to work you need to define the `namespace` option.
 
 ## amd
-Type: `Boolean` or `String` or `Array`
+Type: `Boolean` or `String` or `Array` or `Function`
 Default: `false`
 
 Wraps the output file with an AMD define function and returns the compiled template namespace unless namespace has been explicitly set to false in which case the template function will be returned directly.
@@ -63,6 +63,8 @@ Wraps the output file with an AMD define function and returns the compiled templ
 If `String` then that string will be used in the module definition `define(['your_amd_opt_here'])`
 
 If `Array` then those strings will be used in the module definition.  `'handlebars'` should always be the first item in the array, eg: `amd: ['handlebars', 'handlebars.helpers']`
+
+If `Function` then it will be called per each module and returned string will be used in the module defintion `"define(['" + options.amd(filename, ast, compiled) + "']"`
 
 ```js
 define(['handlebars'], function(Handlebars) {

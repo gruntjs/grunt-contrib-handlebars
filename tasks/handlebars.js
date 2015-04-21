@@ -87,6 +87,8 @@ module.exports = function(grunt) {
       var declarations = [];
       var partials = [];
       var templates = [];
+      // template identifying parts
+      var ast, compiled, filename;
 
       // Namespace info for current template
       var nsInfo;
@@ -121,7 +123,6 @@ module.exports = function(grunt) {
         var src = processContent(grunt.file.read(filepath), filepath);
 
         var Handlebars = require('handlebars');
-        var ast, compiled, filename;
         try {
           // parse the handlebars template into it's AST
           ast = processAST(Handlebars.parse(src));
@@ -191,6 +192,8 @@ module.exports = function(grunt) {
             output.unshift('define([\'handlebars\'], function(Handlebars) {');
           } else if (typeof options.amd === 'string') {
             output.unshift('define([\'' + options.amd + '\'], function(Handlebars) {');
+          } else if (typeof options.amd === 'function') {
+            output.unshift("define(['" + options.amd(filename, ast, compiled) + "'], function(Handlebars) {");
           } else if (Array.isArray(options.amd)) {
             // convert options.amd to a string of dependencies for require([...])
             var amdString = '';
