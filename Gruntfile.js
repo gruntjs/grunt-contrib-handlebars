@@ -202,7 +202,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'tmp/amd_namespace_as_function.js' : ['test/fixtures/modules/**/*.hbs']
+          'tmp/amd_namespace_as_function.js': ['test/fixtures/modules/**/*.hbs']
         }
       },
       amd_compile_function: {
@@ -338,7 +338,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'tmp/namespace_as_function.js' : ['test/fixtures/modules/**/*.hbs']
+          'tmp/namespace_as_function.js': ['test/fixtures/modules/**/*.hbs']
         }
       }
     },

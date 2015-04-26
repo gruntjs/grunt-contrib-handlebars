@@ -10,7 +10,7 @@ function testhbs(filename, fn) {
   var script = vm.createScript(grunt.file.read(path.join('tmp', filename)));
   fn(script.runInNewContext({
     Handlebars: Handlebars,
-    global: {Handlebars: Handlebars},
+    global: {Handlebars: Handlebars}
   }, path.basename(filename)));
 }
 
@@ -86,7 +86,7 @@ exports.handlebars = {
       test.done();
     });
   },
-  no_namespace:function(test) {
+  no_namespace: function(test) {
     test.expect(1);
 
     filesAreEqual('no_namespace.js', function(actual, expected) {

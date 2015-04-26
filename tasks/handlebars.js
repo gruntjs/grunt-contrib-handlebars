@@ -47,12 +47,11 @@ module.exports = function(grunt) {
     // In case only one namespace has been declared it will only return it.
     if (declarations.length === 1) {
       return declarations[0];
-    } else {
-      // we only need to take any declaration to extract the global namespace.
-      // Another option might be find the shortest declaration which is the global one.
-      var matches = declarations[0].match(/(this\[[^\[]+\])/g);
-      return matches[0];
     }
+    // We only need to take any declaration to extract the global namespace.
+    // Another option might be find the shortest declaration which is the global one.
+    var matches = declarations[0].match(/(this\[[^\[]+\])/g);
+    return matches[0];
   };
 
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
@@ -101,12 +100,13 @@ module.exports = function(grunt) {
 
       // Just get the namespace info for a given template
       var getNamespaceInfo = _.memoize(function(filepath) {
-        if (!useNamespace) {return undefined;}
+        if (!useNamespace) {
+          return undefined;
+        }
         if (_.isFunction(options.namespace)) {
           return nsdeclare(options.namespace(filepath), nsDeclareOptions);
-        } else {
-          return nsdeclare(options.namespace, nsDeclareOptions);
         }
+        return nsdeclare(options.namespace, nsDeclareOptions);
       });
 
       // iterate files, processing partials and templates separately
@@ -115,9 +115,8 @@ module.exports = function(grunt) {
         if (!grunt.file.exists(filepath)) {
           grunt.log.warn('Source file "' + filepath + '" not found.');
           return false;
-        } else {
-          return true;
         }
+        return true;
       })
       .forEach(function(filepath) {
         var src = processContent(grunt.file.read(filepath), filepath);
@@ -193,7 +192,7 @@ module.exports = function(grunt) {
           } else if (typeof options.amd === 'string') {
             output.unshift('define([\'' + options.amd + '\'], function(Handlebars) {');
           } else if (typeof options.amd === 'function') {
-            output.unshift("define(['" + options.amd(filename, ast, compiled) + "'], function(Handlebars) {");
+            output.unshift('define([\'' + options.amd(filename, ast, compiled) + '\'], function(Handlebars) {');
           } else if (Array.isArray(options.amd)) {
             // convert options.amd to a string of dependencies for require([...])
             var amdString = '';
