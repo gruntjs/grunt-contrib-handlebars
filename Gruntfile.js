@@ -231,6 +231,23 @@ module.exports = function(grunt) {
           'tmp/commonjs_compile_direct.js': ['test/fixtures/commonjs.html']
         }
       },
+      umd_compile: {
+        options: {
+          umd: true
+        },
+        files: {
+          'tmp/umd_compile.js': ['test/fixtures/umd.html']
+        }
+      },
+      umd_compile_direct: {
+        options: {
+          umd: true,
+          namespace: false
+        },
+        files: {
+          'tmp/umd_compile_direct.js': ['test/fixtures/umd.html']
+        }
+      },
       custom_separator: {
         options: {
           separator: ';;;;;'

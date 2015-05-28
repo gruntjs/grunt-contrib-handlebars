@@ -61,6 +61,7 @@ module.exports = function(grunt) {
       wrapped: true,
       amd: false,
       commonjs: false,
+      umd: false,
       knownHelpers: [],
       knownHelpersOnly: false
     });
@@ -150,7 +151,7 @@ module.exports = function(grunt) {
             partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
           }
         } else {
-          if ((options.amd || options.commonjs) && !useNamespace) {
+          if ((options.amd || options.commonjs || options.umd) && !useNamespace) {
             compiled = 'return ' + compiled;
           }
           filename = processName(filepath);
@@ -160,7 +161,7 @@ module.exports = function(grunt) {
               declarations.push(nsInfo.declaration);
             }
             templates.push(nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ';');
-          } else if (options.commonjs === true) {
+          } else if (options.commonjs === true || options.umd === true) {
             templates.push(compiled + ';');
           } else {
             templates.push(compiled);
@@ -223,6 +224,29 @@ module.exports = function(grunt) {
           // Export the templates object for CommonJS environments.
           output.unshift('module.exports = function(Handlebars) {');
           output.push('};');
+        }
+
+        if (options.umd) {
+          if (useNamespace) {
+            output.push('return ' + nsInfo.namespace + ';');
+          }
+
+          output.unshift(
+            '(function(factory) {',
+            'if (typeof define === \'function\' && define.amd) {',
+            // AMD. Register as an anonymous module.
+            'define([\'handlebars\'], factory);',
+            '} else if (typeof exports === \'object\') {',
+            // Node/CommonJS
+            'module.exports = factory(require(\'handlebars\'));',
+            '} else {',
+            // Browser globals
+            'factory(Handlebars);',
+            '}',
+            '}(function(Handlebars) {'
+          );
+
+          output.push('}));');
         }
 
         filesCount++;

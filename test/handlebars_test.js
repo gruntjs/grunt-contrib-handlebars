@@ -211,6 +211,22 @@ exports.handlebars = {
       test.done();
     });
   },
+  umd_compile: function(test) {
+    test.expect(1);
+
+    filesAreEqual('umd_compile.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap everything with a UMD module.');
+      test.done();
+    });
+  },
+  umd_compile_direct: function(test) {
+    test.expect(1);
+
+    filesAreEqual('umd_compile_direct.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap everything with a UMD and directly return the template.');
+      test.done();
+    });
+  },
   custom_separator: function(test) {
     test.expect(1);
 
