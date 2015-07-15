@@ -22,6 +22,9 @@ module.exports = function(grunt) {
   // filename conversion for templates
   var defaultProcessName = function(name) { return name; };
 
+  // process templates before concatenating
+  var defaultProcessTemplate = function(content, filename) { return content; };
+
   // filename conversion for partials
   var defaultProcessPartialName = function(filepath) {
     var pieces = _.last(filepath.split('/')).split('.');
@@ -77,9 +80,8 @@ module.exports = function(grunt) {
     var processName = options.processName || defaultProcessName;
     var processPartialName = options.processPartialName || defaultProcessPartialName;
     var processAST = options.processAST || defaultProcessAST;
+    var processTemplate = options.processTemplate || defaultProcessTemplate;
     var useNamespace = options.namespace !== false;
-    // Adding a 'process' function so that we can wrap each individual file
-    // within a module.
 
     // assign compiler options
     var compilerOptions = options.compilerOptions || {};
@@ -162,16 +164,11 @@ module.exports = function(grunt) {
             if (nsInfo.declaration) {
               declarations.push(nsInfo.declaration);
             }
-            templates.push(nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ';');
+            templates.push(processTemplate(nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ';', filename));
           } else if (options.commonjs === true) {
-            templates.push(compiled + ';');
-          } else if (options.node_like === true) {
-            var prefix = 'require.register("' + filename + '", function(exports, require, module) {\n'
-            + 'module.exports = ';
-            var suffix = '\n});'
-            templates.push(prefix + compiled + suffix);
+            templates.push(processTemplate(compiled + ';', filename));
           } else {
-            templates.push(compiled);
+            templates.push(processTemplate(compiled, filename));
           }
         }
       });
