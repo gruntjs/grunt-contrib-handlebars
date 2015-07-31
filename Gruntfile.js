@@ -190,6 +190,15 @@ module.exports = function(grunt) {
           'tmp/amd_partials_no_namespace.js': ['test/fixtures/_partial.hbs', 'test/fixtures/one.hbs']
         }
       },
+      amd_partials_no_namespace_single_input: {
+        options: {
+          amd: ['handlebars'],
+          partialsUseNamespace: false
+        },
+        files: {
+          'tmp/amd_partials_no_namespace_single_input.js': ['test/fixtures/_partial.hbs']
+        }
+      },
       amd_namespace_as_function: {
         options: {
           amd: ['handlebars', 'handlebars.helpers'],

@@ -178,6 +178,15 @@ exports.handlebars = {
       test.done();
     });
   },
+  amd_partials_no_namespace_single_input: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_partials_no_namespace_single_input.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap partial with an AMD define block and no namespace and ' +
+        'return the partial template when the partial is the only input file.');
+      test.done();
+    });
+  },
   amd_namespace_as_function: function(test) {
     test.expect(1);
 
