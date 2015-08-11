@@ -84,8 +84,8 @@ module.exports = function(grunt) {
 
     this.files.forEach(function(f) {
       var declarations = [];
-      var partials = [];
-      var templates = [];
+      var partials = {};
+      var templates = {};
       // template identifying parts
       var ast, compiled, filename;
 
@@ -144,10 +144,10 @@ module.exports = function(grunt) {
             if (nsInfo.declaration) {
               declarations.push(nsInfo.declaration);
             }
-            partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + nsInfo.namespace +
+            partials[JSON.stringify(filename)] = ('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + nsInfo.namespace +
               '[' + JSON.stringify(filename) + '] = ' + compiled + ');');
           } else {
-            partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
+            partials[JSON.stringify(filename)] = ('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
           }
         } else {
           if ((options.amd || options.commonjs) && !useNamespace) {
@@ -159,16 +159,16 @@ module.exports = function(grunt) {
             if (nsInfo.declaration) {
               declarations.push(nsInfo.declaration);
             }
-            templates.push(nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ';');
+            templates[JSON.stringify(filename)] = (nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ';');
           } else if (options.commonjs === true) {
-            templates.push(compiled + ';');
+            templates[JSON.stringify(filename)] = ('templates[' + JSON.stringify(filename) + '] = ' + compiled + ';');
           } else {
-            templates.push(compiled);
+            templates[JSON.stringify(filename)] = compiled;
           }
         }
       });
 
-      var output = declarations.concat(partials, templates);
+      var output = declarations.concat(_.values(partials), _.values(templates));
       if (output.length < 1) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {
