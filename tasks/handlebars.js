@@ -161,7 +161,7 @@ module.exports = function(grunt) {
             }
             templates[JSON.stringify(filename)] = (nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ';');
           } else if (options.commonjs === true) {
-            templates[JSON.stringify(filename)] = ('templates[' + JSON.stringify(filename) + '] = ' + compiled + ';');
+            templates[JSON.stringify(filename)] = compiled + ';';
           } else {
             templates[JSON.stringify(filename)] = compiled;
           }
