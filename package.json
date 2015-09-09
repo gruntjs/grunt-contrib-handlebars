@@ -15,7 +15,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "handlebars": "^3.0.0",
+    "handlebars": "^4.0.0",
     "chalk": "^1.0.0",
     "nsdeclare": "0.1.0"
   },
