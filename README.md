@@ -1,4 +1,4 @@
-# grunt-contrib-handlebars v0.10.2 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars/branch/master)
+# grunt-contrib-handlebars v0.11.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars/branch/master)
 
 > Precompile Handlebars templates to JST file.
 
@@ -42,7 +42,7 @@ Default: `'JST'`
 The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*  When false with `amd` or `commonjs` option set `true`, templates will be returned directly from the AMD/CommonJS wrapper.
 
 Example:
-```js
+```javascript
 options: {
   namespace: 'MyApp.Templates'
 }
@@ -51,7 +51,7 @@ options: {
 You can generate nested namespaces based on the file system paths of your templates by providing a function. The function will be called with one argument (the template filepath).  *The function must return a dot notation based on the filepath*.
 
 Example:
-```js
+```javascript
 options: {
   namespace: function(filename) {
     var names = filename.replace(/modules\/(.*)(\/\w+\.hbs)/, '$1');
@@ -95,7 +95,7 @@ If `Array` then those strings will be used in the module definition.  `'handleba
 
 If `Function` then it will be called per each module and returned string will be used in the module defintion `"define(['" + options.amd(filename, ast, compiled) + "']"`
 
-```js
+```javascript
 define(['handlebars'], function(Handlebars) {
     //...//
     return this['[template namespace]'];
@@ -108,7 +108,7 @@ Default: `false`
 
 Wraps the output file in a CommonJS module function, exporting the compiled templates. It will also add templates to the template namespace, unless `namespace` is explicitly set to `false`.
 
-```js
+```javascript
 module.exports = function(Handlebars) {
     //...//
     Handlebars.template(…);
@@ -118,7 +118,7 @@ module.exports = function(Handlebars) {
 
 When requiring the module in a CommonJS environment, pass in your `Handlebars` object.
 
-```js
+```javascript
 var Handlebars = require('handlebars');
 var templates = require('./templates')(Handlebars);
 ```
@@ -128,7 +128,7 @@ Type: `function`
 
 This option accepts a function which takes two arguments (the template file content, and the filepath) and returns a string which will be used as the source for the precompiled template object.  The example below removes leading and trailing spaces to shorten templates.
 
-```js
+```javascript
 options: {
   processContent: function(content, filepath) {
     content = content.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
@@ -143,7 +143,7 @@ Type: `function`
 
 This option accepts a function which takes one argument (the parsed Abstract Syntax Tree) and returns a modified version which will be used as the source for the precompiled template object.  The example below removes any partial and replaces it with the text `foo`.
 
-```js
+```javascript
 options: {
   processAST: function(ast) {
     ast.statements.forEach(function(statement, i) {
@@ -161,7 +161,7 @@ Type: `function`
 
 This option accepts a function which takes one argument (the template filepath) and returns a string which will be used as the key for the precompiled template object.  The example below stores all templates on the default JST namespace in capital letters.
 
-```js
+```javascript
 options: {
   processName: function(filePath) {
     return filePath.toUpperCase();
@@ -174,7 +174,7 @@ Type: `function`
 
 This option accepts a function which takes one argument (the partial filepath) and returns a string which will be used as the key for the precompiled partial object when it is registered in Handlebars.partials. The example below stores all partials using only the actual filename instead of the full path.
 
-```js
+```javascript
 options: {
   processPartialName: function(filePath) { // input:  templates/_header.hbs
     var pieces = filePath.split("/");
@@ -191,7 +191,7 @@ Default: `/^_/`
 
 This option accepts a regex that defines the prefix character that is used to identify Handlebars partial files.
 
-``` javascript
+```javascript
 // assumes partial files would be prefixed with "par_" ie: "par_header.hbs"
 options: {
   partialRegex: /^par_/
@@ -204,7 +204,7 @@ Default: `/./`
 
 This option accepts a regex that defines the path to a directory of Handlebars partials files. The example below shows how to mark every file in a specific directory as a partial.
 
-``` javascript
+```javascript
 options: {
   partialRegex: /.*/,
   partialsPathRegex: /\/partials\//
@@ -217,7 +217,7 @@ Default: `{}`
 
 This option allows you to specify a hash of options which will be passed directly to the Handlebars compiler.
 
-``` javascript
+```javascript
 options: {
   compilerOptions: {
     knownHelpers: {
@@ -231,7 +231,7 @@ options: {
 
 ### Usage Examples
 
-```js
+```javascript
 handlebars: {
   compile: {
     options: {
@@ -248,6 +248,7 @@ handlebars: {
 
 ## Release History
 
+ * 2015-10-16   v0.11.0   Handlebars ~4
  * 2015-04-21   v0.10.2   Added options.amd as a function
  * 2015-03-23   v0.10.1   Documentation fix
  * 2015-03-23   v0.10.0   Update to Handlebars 3.0.0
@@ -286,4 +287,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Tue Apr 21 2015 09:47:19.*
+*This file was generated on Fri Oct 16 2015 11:17:16.*
