@@ -1,6 +1,6 @@
 # Usage Examples
 
-```js
+```javascript
 handlebars: {
   compile: {
     options: {
