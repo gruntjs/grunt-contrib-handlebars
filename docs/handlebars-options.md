@@ -1,19 +1,19 @@
 # Options
 
 ## separator
-Type: `String`
+Type: `String`  
 Default: `linefeed + linefeed`
 
 Concatenated files will be joined on this string.
 
 ## namespace
-Type: `String` or `false` or `function`
+Type: `String` or `false` or `function`  
 Default: `'JST'`
 
 The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*  When false with `amd` or `commonjs` option set `true`, templates will be returned directly from the AMD/CommonJS wrapper.
 
 Example:
-```javascript
+```js
 options: {
   namespace: 'MyApp.Templates'
 }
@@ -22,7 +22,7 @@ options: {
 You can generate nested namespaces based on the file system paths of your templates by providing a function. The function will be called with one argument (the template filepath).  *The function must return a dot notation based on the filepath*.
 
 Example:
-```javascript
+```js
 options: {
   namespace: function(filename) {
     var names = filename.replace(/modules\/(.*)(\/\w+\.hbs)/, '$1');
@@ -35,19 +35,19 @@ options: {
 ```
 
 ## partialsUseNamespace
-Type: `Boolean`
+Type: `Boolean`  
 Default: `false`
 
 When set to `true`, partials will be registered in the `namespace` in addition to templates.
 
 ## wrapped
-Type: `Boolean`
+Type: `Boolean`  
 Default: `true`
 
 Determine if preprocessed template functions will be wrapped in Handlebars.template function.
 
 ## node
-Type: `Boolean`
+Type: `Boolean`  
 Default: `false`
 
 Enable the compiled file to be required on node.js by preppending and appending proper declarations. You can use the file safely on the front-end.
@@ -55,18 +55,18 @@ Enable the compiled file to be required on node.js by preppending and appending 
 For this option to work you need to define the `namespace` option.
 
 ## amd
-Type: `Boolean` or `String` or `Array` or `Function`
+Type: `Boolean` or `String` or `Array` or `Function`  
 Default: `false`
 
 Wraps the output file with an AMD define function and returns the compiled template namespace unless namespace has been explicitly set to false in which case the template function will be returned directly.
 
 If `String` then that string will be used in the module definition `define(['your_amd_opt_here'])`
 
-If `Array` then those strings will be used in the module definition.  `'handlebars'` should always be the first item in the array, eg: `amd: ['handlebars', 'handlebars.helpers']`
+If `Array` then those strings will be used in the module definition. `'handlebars'` should always be the first item in the array, eg: `amd: ['handlebars', 'handlebars.helpers']`
 
 If `Function` then it will be called per each module and returned string will be used in the module defintion `"define(['" + options.amd(filename, ast, compiled) + "']"`
 
-```javascript
+```js
 define(['handlebars'], function(Handlebars) {
     //...//
     return this['[template namespace]'];
@@ -74,12 +74,12 @@ define(['handlebars'], function(Handlebars) {
 ```
 
 ## commonjs
-Type: `Boolean`
+Type: `Boolean`  
 Default: `false`
 
 Wraps the output file in a CommonJS module function, exporting the compiled templates. It will also add templates to the template namespace, unless `namespace` is explicitly set to `false`.
 
-```javascript
+```js
 module.exports = function(Handlebars) {
     //...//
     Handlebars.template(…);
@@ -89,17 +89,17 @@ module.exports = function(Handlebars) {
 
 When requiring the module in a CommonJS environment, pass in your `Handlebars` object.
 
-```javascript
+```js
 var Handlebars = require('handlebars');
 var templates = require('./templates')(Handlebars);
 ```
 
 ## processContent
-Type: `function`
+Type: `Function`
 
 This option accepts a function which takes two arguments (the template file content, and the filepath) and returns a string which will be used as the source for the precompiled template object.  The example below removes leading and trailing spaces to shorten templates.
 
-```javascript
+```js
 options: {
   processContent: function(content, filepath) {
     content = content.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
@@ -110,11 +110,11 @@ options: {
 ```
 
 ## processAST
-Type: `function`
+Type: `Function`
 
 This option accepts a function which takes one argument (the parsed Abstract Syntax Tree) and returns a modified version which will be used as the source for the precompiled template object.  The example below removes any partial and replaces it with the text `foo`.
 
-```javascript
+```js
 options: {
   processAST: function(ast) {
     ast.statements.forEach(function(statement, i) {
@@ -128,11 +128,11 @@ options: {
 ```
 
 ## processName
-Type: `function`
+Type: `Function`
 
 This option accepts a function which takes one argument (the template filepath) and returns a string which will be used as the key for the precompiled template object.  The example below stores all templates on the default JST namespace in capital letters.
 
-```javascript
+```js
 options: {
   processName: function(filePath) {
     return filePath.toUpperCase();
@@ -141,15 +141,15 @@ options: {
 ```
 
 ## processPartialName
-Type: `function`
+Type: `Function`
 
 This option accepts a function which takes one argument (the partial filepath) and returns a string which will be used as the key for the precompiled partial object when it is registered in Handlebars.partials. The example below stores all partials using only the actual filename instead of the full path.
 
-```javascript
+```js
 options: {
-  processPartialName: function(filePath) { // input:  templates/_header.hbs
+  processPartialName: function(filePath) {  // input: templates/_header.hbs
     var pieces = filePath.split("/");
-    return pieces[pieces.length - 1]; // output: _header.hbs
+    return pieces[pieces.length - 1];       // output: _header.hbs
   }
 }
 ````
@@ -157,12 +157,12 @@ options: {
 Note: If processPartialName is not provided as an option the default assumes that partials will be stored by stripping trailing underscore characters and filename extensions. For example, the path *templates/_header.hbs* will become *header* and can be referenced in other templates as *{{> header}}*.
 
 ## partialRegex
-Type: `Regexp`
+Type: `Regexp`  
 Default: `/^_/`
 
 This option accepts a regex that defines the prefix character that is used to identify Handlebars partial files.
 
-```javascript
+```js
 // assumes partial files would be prefixed with "par_" ie: "par_header.hbs"
 options: {
   partialRegex: /^par_/
@@ -170,12 +170,12 @@ options: {
 ```
 
 ## partialsPathRegex
-Type: `Regexp`
+Type: `Regexp`  
 Default: `/./`
 
 This option accepts a regex that defines the path to a directory of Handlebars partials files. The example below shows how to mark every file in a specific directory as a partial.
 
-```javascript
+```js
 options: {
   partialRegex: /.*/,
   partialsPathRegex: /\/partials\//
@@ -183,12 +183,12 @@ options: {
 ```
 
 ## compilerOptions
-Type `Object`
+Type `Object`  
 Default: `{}`
 
 This option allows you to specify a hash of options which will be passed directly to the Handlebars compiler.
 
-```javascript
+```js
 options: {
   compilerOptions: {
     knownHelpers: {
