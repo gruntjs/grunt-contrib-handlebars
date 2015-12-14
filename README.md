@@ -57,7 +57,8 @@ options: {
     var names = filename.replace(/modules\/(.*)(\/\w+\.hbs)/, '$1');
     return names.split('/').join('.');
   },
-  files: {
+},
+files: {
     'ns_nested_tmpls.js' : [ 'modules/**/*.hbs']
   }
 }
