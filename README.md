@@ -59,8 +59,7 @@ options: {
   },
 },
 files: {
-    'ns_nested_tmpls.js' : [ 'modules/**/*.hbs']
-  }
+  'ns_nested_tmpls.js' : [ 'modules/**/*.hbs']
 }
 ```
 
