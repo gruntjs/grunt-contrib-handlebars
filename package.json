@@ -1,12 +1,12 @@
 {
-  "name": "grunt-contrib-handlebars-es2015",
+  "name": "grunt-contrib-handlebars",
   "description": "Precompile Handlebars templates to JST file.",
   "version": "0.11.0",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"
   },
-  "repository": "coffeine-009/grunt-contrib-handlebars",
+  "repository": "gruntjs/grunt-contrib-handlebars",
   "license": "MIT",
   "engines": {
     "node": ">=0.10.0"
