@@ -61,6 +61,7 @@ module.exports = function(grunt) {
       wrapped: true,
       amd: false,
       commonjs: false,
+      es2015: false,
       knownHelpers: [],
       knownHelpersOnly: false
     });
@@ -76,7 +77,7 @@ module.exports = function(grunt) {
     var processName = options.processName || defaultProcessName;
     var processPartialName = options.processPartialName || defaultProcessPartialName;
     var processAST = options.processAST || defaultProcessAST;
-    var useNamespace = options.namespace !== false;
+    var useNamespace = !options.es2015 && options.namespace !== false;
 
     // assign compiler options
     var compilerOptions = options.compilerOptions || {};
@@ -222,6 +223,12 @@ module.exports = function(grunt) {
           }
           // Export the templates object for CommonJS environments.
           output.unshift('module.exports = function(Handlebars) {');
+          output.push('};');
+        }
+
+        if (options.es2015) {
+          // Export the templates object for es2015 environments.
+          output.unshift('export default function() { return ' + output.shift());
           output.push('};');
         }
 

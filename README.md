@@ -57,9 +57,9 @@ options: {
     var names = filename.replace(/modules\/(.*)(\/\w+\.hbs)/, '$1');
     return names.split('/').join('.');
   },
-},
-files: {
-  'ns_nested_tmpls.js' : [ 'modules/**/*.hbs']
+  files: {
+    'ns_nested_tmpls.js' : [ 'modules/**/*.hbs']
+  }
 }
 ```
 
@@ -287,4 +287,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Fri Oct 16 2015 18:59:59.*
+*This file was generated on Thu Dec 24 2015 22:51:35.*
