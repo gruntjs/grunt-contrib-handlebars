@@ -1,4 +1,4 @@
-# grunt-contrib-handlebars v0.11.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars/branch/master)
+# grunt-contrib-handlebars-es2015 v0.11.0 [![Build Status: Linux](https://travis-ci.org/coffeine-009/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/coffeine-009/grunt-contrib-handlebars) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars-es2015/branch/master)
 
 > Precompile Handlebars templates to JST file.
 
@@ -287,4 +287,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Thu Dec 24 2015 22:51:35.*
+*This file was generated on Sat Dec 26 2015 19:12:22.*

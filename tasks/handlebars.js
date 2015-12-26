@@ -228,8 +228,8 @@ module.exports = function(grunt) {
 
         if (options.es2015) {
           // Export the templates object for es2015 environments.
-          output.unshift('export default function() { return ' + output.shift());
-          output.push('};');
+          output.unshift('export default ' + output.shift());
+          output.push(';');
         }
 
         filesCount++;
