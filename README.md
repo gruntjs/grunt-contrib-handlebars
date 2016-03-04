@@ -1,11 +1,10 @@
-# grunt-contrib-handlebars v0.11.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars/branch/master)
+# grunt-contrib-handlebars v1.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars/branch/master)
 
 > Precompile Handlebars templates to JST file.
 
 
 
 ## Getting Started
-This plugin requires Grunt `>=0.4.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -248,6 +247,7 @@ handlebars: {
 
 ## Release History
 
+ * 2016-03-04   v1.0.0   Update docs and examples. Remove peerDeps and other fixes.
  * 2015-10-16   v0.11.0   Handlebars ~4
  * 2015-04-21   v0.10.2   Added options.amd as a function
  * 2015-03-23   v0.10.1   Documentation fix
@@ -287,4 +287,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Fri Oct 16 2015 18:59:59.*
+*This file was generated on Fri Mar 04 2016 17:22:00.*

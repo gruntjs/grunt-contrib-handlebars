@@ -1,3 +1,8 @@
+v1.0.0:
+  date: 2016-03-04
+  changes:
+    - Update docs and examples.
+    - Remove peerDeps and other fixes.
 v0.11.0:
   date: 2015-10-16
   changes:
