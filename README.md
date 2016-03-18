@@ -248,36 +248,36 @@ handlebars: {
 ## Release History
 
  * 2016-03-04   v1.0.0   Update docs and examples. Remove peerDeps and other fixes.
- * 2015-10-16   v0.11.0   Handlebars ~4
- * 2015-04-21   v0.10.2   Added options.amd as a function
- * 2015-03-23   v0.10.1   Documentation fix
- * 2015-03-23   v0.10.0   Update to Handlebars 3.0.0
- * 2015-02-04   v0.9.3   Fix issues with namespace declarations and partialsUseNamespace.
+ * 2015-10-16   v0.11.0   Update to Handlebars 4.0.0.
+ * 2015-04-21   v0.10.2   Added `options.amd` as a function.
+ * 2015-03-23   v0.10.1   Documentation fix.
+ * 2015-03-23   v0.10.0   Update to Handlebars 3.0.0.
+ * 2015-02-04   v0.9.3   Fix issues with namespace declarations and `partialsUseNamespace`.
  * 2014-12-31   v0.9.2   More fixes for AMD namespacing.
  * 2014-11-09   v0.9.1   Fixes namespacing issues.
  * 2014-10-16   v0.9.0   Update to Handlebars 2.0.
- * 2014-04-15   v0.8.0   Less Verbose output. New custom AMD path options.
- * 2014-03-03   v0.7.0   Update handlebars dep to ~1.3.0
+ * 2014-04-15   v0.8.0   Less verbose output. New custom AMD path options.
+ * 2014-03-03   v0.7.0   Update handlebars dep to ~1.3.0.
  * 2014-01-23   v0.6.1   Support function on `namespace` option.
- * 2013-11-11   v0.6.0   Update handlebars dep to ~1.1.2
+ * 2013-11-11   v0.6.0   Update handlebars dep to ~1.1.2.
  * 2013-11-07   v0.5.12   Pass file path into `processContent`.
  * 2013-09-24   v0.5.11   Fix for broken partial pre-compilation.
  * 2013-07-14   v0.5.10   Add `commonjs` option.
  * 2013-05-30   v0.5.9   Allow passing `compilerOptions` to Handlebars compiler.
- * 2013-03-14   v0.5.8   Update handlebars dep to ~1.0.10
- * 2013-03-11   v0.5.7   Fix regression with 'wrapped' option.
- * 2013-03-07   v0.5.6   Add new option, processAST
- * 2013-02-27   v0.5.5   Add new options partialsUseNamespace, partialRegex, partialsPathRegex
+ * 2013-03-14   v0.5.8   Update handlebars dep to ~1.0.10.
+ * 2013-03-11   v0.5.7   Fix regression with `wrapped` option.
+ * 2013-03-07   v0.5.6   Add new `processAST` option.
+ * 2013-02-27   v0.5.5   Add new `partialsUseNamespace`, `partialRegex`, `partialsPathRegex` options.
  * 2013-02-15   v0.5.4   First official release for Grunt 0.4.0.
  * 2013-02-08   v0.5.4rc7   When `namespace` is false and `amd` is true, return handlebars templates directly from AMD wrapper.
- * 2013-02-01   v0.5.3rc7   Add `node` option to produce dual node.js / front-end compiled file.
+ * 2013-02-01   v0.5.3rc7   Add `node` option to produce dual Node.js / front-end compiled file.
  * 2013-01-29   v0.5.2rc7   Define handlebars as a dependency for AMD option.
- * 2013-01-28   v0.5.1rc7   Add AMD compilation option. Add processContent option. Do not generate templates into a namespaces when namespace option is false.
- * 2013-01-23   v0.5.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions. Default wrapped option to true.
- * 2013-01-09   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Switching to this.files api.
+ * 2013-01-28   v0.5.1rc7   Add AMD compilation option. Add `processContent` option. Do not generate templates into a namespaces when namespace option is false.
+ * 2013-01-23   v0.5.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions. Default `wrapped` option to `true`.
+ * 2013-01-09   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Switching to `this.files` API.
  * 2012-11-21   v0.3.3   Reset for each target
  * 2012-10-12   v0.3.2   Rename grunt-contrib-lib dep to grunt-lib-contrib.
- * 2012-10-03   v0.3.1   Bugfix default processPartialName.
+ * 2012-10-03   v0.3.1   Bugfix default `processPartialName`.
  * 2012-09-23   v0.3.0   Options no longer accepted from global config key.
  * 2012-09-16   v0.2.3   Support for nested namespaces.
  * 2012-09-12   v0.2.2   Escape single quotes in filenames.
@@ -287,4 +287,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Fri Mar 04 2016 17:22:00.*
+*This file was generated on Fri Mar 18 2016 18:55:47.*
