@@ -10,7 +10,7 @@ Concatenated files will be joined on this string.
 Type: `String` or `false` or `function`  
 Default: `'JST'`
 
-The namespace in which the precompiled templates will be assigned.  *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.*  When false with `amd` or `commonjs` option set `true`, templates will be returned directly from the AMD/CommonJS wrapper.
+The namespace in which the precompiled templates will be assigned. *Use dot notation (e.g. App.Templates) for nested namespaces or false for no namespace wrapping.* When false with `amd` or `commonjs` option set `true`, templates will be returned directly from the AMD/CommonJS wrapper.
 
 Example:
 ```js
@@ -19,7 +19,7 @@ options: {
 }
 ```
 
-You can generate nested namespaces based on the file system paths of your templates by providing a function. The function will be called with one argument (the template filepath).  *The function must return a dot notation based on the filepath*.
+You can generate nested namespaces based on the file system paths of your templates by providing a function. The function will be called with one argument (the template filepath). *The function must return a dot notation based on the filepath*.
 
 Example:
 ```js
@@ -97,7 +97,7 @@ var templates = require('./templates')(Handlebars);
 ## processContent
 Type: `Function`
 
-This option accepts a function which takes two arguments (the template file content, and the filepath) and returns a string which will be used as the source for the precompiled template object.  The example below removes leading and trailing spaces to shorten templates.
+This option accepts a function which takes two arguments (the template file content, and the filepath) and returns a string which will be used as the source for the precompiled template object. The example below removes leading and trailing spaces to shorten templates.
 
 ```js
 options: {
@@ -112,7 +112,7 @@ options: {
 ## processAST
 Type: `Function`
 
-This option accepts a function which takes one argument (the parsed Abstract Syntax Tree) and returns a modified version which will be used as the source for the precompiled template object.  The example below removes any partial and replaces it with the text `foo`.
+This option accepts a function which takes one argument (the parsed Abstract Syntax Tree) and returns a modified version which will be used as the source for the precompiled template object. The example below removes any partial and replaces it with the text `foo`.
 
 ```js
 options: {
@@ -130,7 +130,7 @@ options: {
 ## processName
 Type: `Function`
 
-This option accepts a function which takes one argument (the template filepath) and returns a string which will be used as the key for the precompiled template object.  The example below stores all templates on the default JST namespace in capital letters.
+This option accepts a function which takes one argument (the template filepath) and returns a string which will be used as the key for the precompiled template object. The example below stores all templates on the default JST namespace in capital letters.
 
 ```js
 options: {
@@ -148,7 +148,7 @@ This option accepts a function which takes one argument (the partial filepath) a
 ```js
 options: {
   processPartialName: function(filePath) {  // input: templates/_header.hbs
-    var pieces = filePath.split("/");
+    var pieces = filePath.split('/');
     return pieces[pieces.length - 1];       // output: _header.hbs
   }
 }
@@ -192,8 +192,8 @@ This option allows you to specify a hash of options which will be passed directl
 options: {
   compilerOptions: {
     knownHelpers: {
-      "my-helper": true,
-      "another-helper": true
+      'my-helper': true,
+      'another-helper': true
     },
     knownHelpersOnly: true
   }
