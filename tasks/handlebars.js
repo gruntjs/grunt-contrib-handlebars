@@ -97,6 +97,11 @@ module.exports = function(grunt) {
 
       // nsdeclare options when fetching namespace info
       var nsDeclareOptions = {response: 'details', declared: nsDeclarations};
+      
+      // if 'disableGlobal' option is true prevent the templates to be declared in the global namespace
+      if (options.disableGlobal) {
+          nsDeclareOptions.root = "templates";
+      }
 
       // Just get the namespace info for a given template
       var getNamespaceInfo = _.memoize(function(filepath) {
@@ -184,6 +189,11 @@ module.exports = function(grunt) {
           }
 
         }
+        
+        // if the 'disableGlobal' option is true create a local root variable to contain the templates
+        if (options.disableGlobal) {
+            output.unshift('var ' + nsDeclareOptions.root + ' = {};');
+        } 
 
         if (options.amd) {
           // Wrap the file in an AMD define fn.
