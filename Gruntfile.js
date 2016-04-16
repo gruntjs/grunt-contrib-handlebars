@@ -231,6 +231,14 @@ module.exports = function(grunt) {
           'tmp/commonjs_compile_direct.js': ['test/fixtures/commonjs.html']
         }
       },
+      es2015_compile_direct: {
+        options: {
+          es2015: true
+        },
+        files: {
+          'tmp/es2015_compile_direct.js': ['test/fixtures/es2015.hbs']
+        }
+      },
       custom_separator: {
         options: {
           separator: ';;;;;'

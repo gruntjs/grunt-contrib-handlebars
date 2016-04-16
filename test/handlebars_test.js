@@ -211,6 +211,14 @@ exports.handlebars = {
       test.done();
     });
   },
+  es2015_compile_direct: function(test) {
+    test.expect(1);
+
+    filesAreEqual('es2015_compile_direct.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap everything with a es2015 and directly return the template.');
+      test.done();
+    });
+  },
   custom_separator: function(test) {
     test.expect(1);
 
