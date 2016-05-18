@@ -148,8 +148,8 @@ module.exports = function(grunt) {
               JSON.stringify(filename) + ', ' + nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' +
               compiled + ');');
           } else {
-            partials[JSON.stringify(filename) + ', ' + nsInfo.namespace] = ('Handlebars.registerPartial(' +
-              JSON.stringify(filename) + ', ' + compiled + ');');
+            partials[JSON.stringify(filename)] = ('Handlebars.registerPartial(' + JSON.stringify(filename) +
+              ', ' + compiled + ');');
           }
         } else {
           if ((options.amd || options.commonjs) && !useNamespace) {
