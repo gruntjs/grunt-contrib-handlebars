@@ -2,7 +2,7 @@
  * grunt-contrib-handlebars
  * http://gruntjs.com/
  *
- * Copyright (c) 2015 Tim Branyen, contributors
+ * Copyright (c) 2016 Tim Branyen, contributors
  * Licensed under the MIT license.
  */
 
