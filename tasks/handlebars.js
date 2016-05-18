@@ -144,10 +144,10 @@ module.exports = function(grunt) {
             if (nsInfo.declaration) {
               declarations.push(nsInfo.declaration);
             }
-            partials[JSON.stringify(filename)] = ('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' +
+            partials[JSON.stringify(filename) + ', ' + nsInfo.namespace] = ('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' +
               nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ');');
           } else {
-            partials[JSON.stringify(filename)] = ('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' +
+            partials[JSON.stringify(filename) + ', ' + nsInfo.namespace] = ('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' +
               compiled + ');');
           }
         } else {
@@ -160,12 +160,12 @@ module.exports = function(grunt) {
             if (nsInfo.declaration) {
               declarations.push(nsInfo.declaration);
             }
-            templates[JSON.stringify(filename)] = (nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' +
+            templates[JSON.stringify(filename) + ', ' + nsInfo.namespace] = (nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' +
               compiled + ';');
           } else if (options.commonjs === true) {
-            templates[JSON.stringify(filename)] = compiled + ';';
+            templates[JSON.stringify(filename) + ', ' + nsInfo.namespace] = compiled + ';';
           } else {
-            templates[JSON.stringify(filename)] = compiled;
+            templates[JSON.stringify(filename) + ', ' + nsInfo.namespace] = compiled;
           }
         }
       });
