@@ -144,7 +144,7 @@ module.exports = function(grunt) {
             if (nsInfo.declaration) {
               declarations.push(nsInfo.declaration);
             }
-            partials[JSON.stringify(filename) + ', ' + nsInfo.namespace] = ('Handlebars.registerPartial(' +
+            partials[nsInfo.namespace + ':' + JSON.stringify(filename)] = ('Handlebars.registerPartial(' +
               JSON.stringify(filename) + ', ' + nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' +
               compiled + ');');
           } else {
@@ -161,7 +161,7 @@ module.exports = function(grunt) {
             if (nsInfo.declaration) {
               declarations.push(nsInfo.declaration);
             }
-            templates[JSON.stringify(filename) + ', ' + nsInfo.namespace] = (nsInfo.namespace + '[' +
+            templates[nsInfo.namespace + ':' + JSON.stringify(filename)] = (nsInfo.namespace + '[' +
               JSON.stringify(filename) + '] = ' + compiled + ';');
           } else if (options.commonjs === true) {
             templates[JSON.stringify(filename)] = compiled + ';';
