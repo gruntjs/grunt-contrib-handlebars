@@ -164,9 +164,9 @@ module.exports = function(grunt) {
             templates[JSON.stringify(filename) + ', ' + nsInfo.namespace] = (nsInfo.namespace + '[' +
               JSON.stringify(filename) + '] = ' + compiled + ';');
           } else if (options.commonjs === true) {
-            templates[JSON.stringify(filename) + ', ' + nsInfo.namespace] = compiled + ';';
+            templates[JSON.stringify(filename)] = compiled + ';';
           } else {
-            templates[JSON.stringify(filename) + ', ' + nsInfo.namespace] = compiled;
+            templates[JSON.stringify(filename)] = compiled;
           }
         }
       });
