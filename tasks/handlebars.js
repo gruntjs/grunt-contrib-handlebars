@@ -147,7 +147,15 @@ module.exports = function(grunt) {
             partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + nsInfo.namespace +
               '[' + JSON.stringify(filename) + '] = ' + compiled + ');');
           } else {
-            partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
+            if ((options.amd || options.commonjs)) {
+              partials.push(
+                'var compiledPartial = ' + compiled + ';\n' +
+                'Handlebars.registerPartial(' + JSON.stringify(filename) + ', compiledPartial);\n' +
+                'return compiledPartial;'
+              );
+            } else {
+              partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
+            }
           }
         } else {
           if ((options.amd || options.commonjs) && !useNamespace) {
