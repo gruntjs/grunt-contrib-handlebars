@@ -1,3 +1,11 @@
+v2.0.0:
+  date: 2019-01-01
+  changes:
+    - Updated outdated NPM dependencies
+    - Fixed failing tests
+    - Changed node engine from 0.10.0 to 11.6.0
+    - Updated how options.amd works when it is supplied as a function
+      - Documentation Update for options.amd
 v1.0.0:
   date: 2016-03-04
   changes:

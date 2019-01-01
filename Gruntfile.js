@@ -205,13 +205,31 @@ module.exports = function(grunt) {
           'tmp/amd_namespace_as_function.js': ['test/fixtures/modules/**/*.hbs']
         }
       },
-      amd_compile_function: {
+      amd_compile_function_return_string: {
         options: {
           amd: function() { return ['handlebars', 'custom dependency'].join("', '"); },
           namespace: false
         },
         files: {
-          'tmp/amd_compile_function.js': ['test/fixtures/amd.html']
+          'tmp/amd_compile_function_return_string.js': ['test/fixtures/amd.html']
+        }
+      },
+      amd_compile_function_return_boolean: {
+        options: {
+          amd: function() { return true; },
+          namespace: false
+        },
+        files: {
+          'tmp/amd_compile_function_return_boolean.js': ['test/fixtures/amd.html']
+        }
+      },
+      amd_compile_function_return_array: {
+        options: {
+          amd: function() { return ['handlebars', 'custom dependency']; },
+          namespace: false
+        },
+        files: {
+          'tmp/amd_compile_function_return_array.js': ['test/fixtures/amd.html']
         }
       },
       commonjs_compile: {

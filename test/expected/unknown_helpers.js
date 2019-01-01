@@ -3,7 +3,7 @@ this["JST"] = this["JST"] || {};
 this["JST"]["test/fixtures/uses_helpers.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return "";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, buffer = 
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, buffer = 
   "This template uses custom helpers: "
     + container.escapeExpression((helpers["my-helper"] || (depth0 && depth0["my-helper"]) || alias2).call(alias1,"variable",{"name":"my-helper","hash":{},"data":data}))
     + " & ";

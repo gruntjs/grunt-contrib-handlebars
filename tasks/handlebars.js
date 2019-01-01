@@ -54,6 +54,61 @@ module.exports = function(grunt) {
     return matches[0];
   };
 
+  var isAMDEnabled = function(options, filename, ast, compiled) {
+    compiled = 'return ' + compiled;
+
+    if (options.amd && typeof options.amd === 'function') {
+      return !!(options.amd((filename, ast, compiled)));
+    } else {
+      return !!(options.amd);
+    }
+  };
+
+  // AMD processing
+  var processAMD = function(options, output, filename, ast, compiled,
+    useNamespace, extractGlobalNamespace, nsDeclarations) {
+
+    var amdString = '';
+    var amdOption = options.amd;
+    var qoutify = function(value) {
+      return '\'' + value + '\'';
+    };
+
+    // Check to see if it is a function first so we can process the results
+    // the same way boolean, strings, and arrays and processed
+    if (typeof amdOption === 'function') {
+      amdOption = amdOption(filename, ast, compiled);
+    }
+
+    // short circit the rest of the logic if amdOptions is falsie
+    if (!amdOption) {
+      return;
+    }
+
+    if (typeof amdOption === 'boolean') {
+      amdString = qoutify('handlebars');
+    } else if (typeof amdOption === 'string') {
+      amdString = qoutify(amdOption);
+    } else if (Array.isArray(amdOption)) {
+      // convert amdOption to a string of dependencies for require([...])
+
+      amdString = amdOption.map(qoutify)
+        .join(',');
+    }
+
+    // Wrap the file in an AMD define fn.
+    output.unshift('define([' + amdString + '], function(Handlebars) {');
+
+    if (useNamespace) {
+      // Namespace has not been explicitly set to false; the AMD
+      // wrapper will return the object containing the template.
+      output.push('return ' + extractGlobalNamespace(nsDeclarations) + ';');
+    }
+    output.push('});');
+
+    return output;
+  };
+
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
     var options = this.options({
       namespace: 'JST',
@@ -150,10 +205,12 @@ module.exports = function(grunt) {
             partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
           }
         } else {
-          if ((options.amd || options.commonjs) && !useNamespace) {
+          filename = processName(filepath);
+
+          if ((isAMDEnabled(options, filename, ast, compiled) || options.commonjs) && !useNamespace) {
             compiled = 'return ' + compiled;
           }
-          filename = processName(filepath);
+
           if (useNamespace) {
             nsInfo = getNamespaceInfo(filepath);
             if (nsInfo.declaration) {
@@ -182,38 +239,11 @@ module.exports = function(grunt) {
 
             output.push(nodeExport);
           }
-
         }
 
         if (options.amd) {
           // Wrap the file in an AMD define fn.
-          if (typeof options.amd === 'boolean') {
-            output.unshift('define([\'handlebars\'], function(Handlebars) {');
-          } else if (typeof options.amd === 'string') {
-            output.unshift('define([\'' + options.amd + '\'], function(Handlebars) {');
-          } else if (typeof options.amd === 'function') {
-            output.unshift('define([\'' + options.amd(filename, ast, compiled) + '\'], function(Handlebars) {');
-          } else if (Array.isArray(options.amd)) {
-            // convert options.amd to a string of dependencies for require([...])
-            var amdString = '';
-            for (var i = 0; i < options.amd.length; i++) {
-              if (i !== 0) {
-                amdString += ', ';
-              }
-
-              amdString += '\'' + options.amd[i] + '\'';
-            }
-
-            // Wrap the file in an AMD define fn.
-            output.unshift('define([' + amdString + '], function(Handlebars) {');
-          }
-
-          if (useNamespace) {
-            // Namespace has not been explicitly set to false; the AMD
-            // wrapper will return the object containing the template.
-            output.push('return ' + extractGlobalNamespace(nsDeclarations) + ';');
-          }
-          output.push('});');
+          processAMD(options, output, filename, ast, compiled, useNamespace, extractGlobalNamespace, nsDeclarations);
         }
 
         if (options.commonjs) {

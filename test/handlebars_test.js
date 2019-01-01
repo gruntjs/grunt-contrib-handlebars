@@ -6,12 +6,29 @@ var grunt = require('grunt');
 var Handlebars = require('handlebars');
 
 // Helper for testing result of template
-function testhbs(filename, fn) {
-  var script = vm.createScript(grunt.file.read(path.join('tmp', filename)));
-  fn(script.runInNewContext({
+function testhbs(filename, templatename, fn) {
+  var script = new vm.Script(grunt.file.read(path.join('tmp', filename)));
+  var sandbox = {
     Handlebars: Handlebars,
     global: {Handlebars: Handlebars}
-  }, path.basename(filename)));
+  };
+  script.runInNewContext(
+    sandbox,
+    {
+      filename: path.basename(filename)
+    }
+  );
+
+  // get the compiled template to be sent back
+  var template = templatename.reduce(function(accumulator, currentValue) {
+    if (accumulator) {
+      return accumulator[currentValue];
+    } else {
+      return accumulator;
+    }
+  }, sandbox);
+
+  fn(template);
 }
 
 // Helper for getting files without whitespace
@@ -30,24 +47,28 @@ exports.handlebars = {
   compile: function(test) {
     test.expect(1);
 
-    testhbs('handlebars.js', function(tpl) {
-      var actual = tpl({name: 'Dude'});
-      var expected = '<p>Hello, my name is Dude. I live in <span>Canada</span></p>';
-      test.equal(actual, expected,
-        'should compile partials into Handlebars.partials and handlebars template into JST');
-      test.done();
-    });
+    testhbs('handlebars.js',
+      ['JST', 'test/fixtures/one.hbs'],
+      function(tpl) {
+        var actual = tpl({name: 'Dude'});
+        var expected = '<p>Hello, my name is Dude. I live in <span>Canada</span></p>';
+        test.equal(actual, expected,
+          'should compile partials into Handlebars.partials and handlebars template into JST');
+        test.done();
+      });
   },
   compileNode: function(test) {
     test.expect(1);
 
-    testhbs('handlebars-node.js', function(tpl) {
-      var actual = tpl({name: 'Dude'});
-      var expected = '<p>Hello, my name is Dude. I live in <span>Canada</span></p>';
-      test.equal(actual, expected,
-        'should compile as per compile test and also have node directives prepended and appended');
-      test.done();
-    });
+    testhbs('handlebars-node.js',
+      ['JST', 'test/fixtures/one.hbs'],
+      function(tpl) {
+        var actual = tpl({name: 'Dude'});
+        var expected = '<p>Hello, my name is Dude. I live in <span>Canada</span></p>';
+        test.equal(actual, expected,
+          'should compile as per compile test and also have node directives prepended and appended');
+        test.done();
+      });
   },
   nowrap: function(test) {
     test.expect(1);
@@ -61,22 +82,26 @@ exports.handlebars = {
   uglyfile: function(test) {
     test.expect(1);
 
-    testhbs('uglyfile.js', function(tpl) {
-      var actual = tpl({name: 'Dude'});
-      var expected = 'Why would you name your file like this?';
-      test.equal(actual, expected, 'should escape single quotes in filenames');
-      test.done();
-    });
+    testhbs('uglyfile.js',
+      ['JST', 'test/fixtures/it\'s-a-bad-filename.hbs'],
+      function(tpl) {
+        var actual = tpl({name: 'Dude'});
+        var expected = 'Why would you name your file like this?';
+        test.equal(actual, expected, 'should escape single quotes in filenames');
+        test.done();
+      });
   },
   ns_nested: function(test) {
     test.expect(1);
 
-    testhbs('ns_nested.js', function(tpl) {
-      var actual = tpl({name: 'Dude'});
-      var expected = 'Basic template that does nothing.';
-      test.equal(actual, expected, 'should define parts of nested namespaces');
-      test.done();
-    });
+    testhbs('ns_nested.js',
+      ['MyApp', 'JST', 'Main', 'test/fixtures/basic.hbs'],
+      function(tpl) {
+        var actual = tpl({name: 'Dude'});
+        var expected = 'Basic template that does nothing.';
+        test.equal(actual, expected, 'should define parts of nested namespaces');
+        test.done();
+      });
   },
   ns_nested_this: function(test) {
     test.expect(1);
@@ -97,22 +122,26 @@ exports.handlebars = {
   processcontent: function(test) {
     test.expect(1);
 
-    testhbs('processcontent.js', function(tpl) {
-      var actual = tpl({name: 'Dude'});
-      var expected = '<div>\n<span>this template has many spaces</span>\n</div>';
-      test.equal(actual, expected, 'should remove leading and trailing spaces');
-      test.done();
-    });
+    testhbs('processcontent.js',
+      ['JST', 'test/fixtures/has-spaces.hbs'],
+      function(tpl) {
+        var actual = tpl({name: 'Dude'});
+        var expected = '<div>\n<span>this template has many spaces</span>\n</div>';
+        test.equal(actual, expected, 'should remove leading and trailing spaces');
+        test.done();
+      });
   },
   process_ast: function(test) {
     test.expect(1);
 
-    testhbs('process_ast.js', function(tpl) {
-      var actual = tpl({name: 'Dude'});
-      var expected = '<p>Hello, my name is Dude. I live in Fooville</p>';
-      test.equal(actual, expected, 'should allow the AST to be modified before compilation');
-      test.done();
-    });
+    testhbs('process_ast.js',
+      ['JST', 'test/fixtures/one.hbs'],
+      function(tpl) {
+        var actual = tpl({name: 'Dude'});
+        var expected = '<p>Hello, my name is Dude. I live in Fooville</p>';
+        test.equal(actual, expected, 'should allow the AST to be modified before compilation');
+        test.done();
+      });
   },
   amd_compile: function(test) {
     test.expect(1);
@@ -154,6 +183,31 @@ exports.handlebars = {
       test.done();
     });
   },
+  amd_compile_function_return_array: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_compile_function_return_array.js', function(actual, expected) {
+      test.equal(actual, expected,
+        'should concat and wrap everything with an AMD define block and have a custom module name.');
+      test.done();
+    });
+  },
+  amd_compile_function_return_boolean: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_compile_function_return_boolean.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap everything with an AMD define block.');
+      test.done();
+    });
+  },
+  amd_compile_function_return_string: function(test) {
+    test.expect(1);
+
+    filesAreEqual('amd_compile_function_return_string.js', function(actual, expected) {
+      test.equal(actual, expected, 'should wrap everything with an AMD define block and have a custom module name.');
+      test.done();
+    });
+  },
   amd_namespace: function(test) {
     test.expect(1);
 
@@ -184,14 +238,6 @@ exports.handlebars = {
     filesAreEqual('amd_namespace_as_function.js', function(actual, expected) {
       test.equal(actual, expected, 'should wrap everything with an AMD define block and have a namespace defined ' +
         'with a function .');
-      test.done();
-    });
-  },
-  amd_compile_function: function(test) {
-    test.expect(1);
-
-    filesAreEqual('amd_compile_function.js', function(actual, expected) {
-      test.equal(actual, expected, 'should wrap everything with an AMD define block and have a custom module name.');
       test.done();
     });
   },
@@ -230,22 +276,26 @@ exports.handlebars = {
   process_partial_name: function(test) {
     test.expect(1);
 
-    testhbs('process_partial_name.js', function(tpl) {
-      var actual = tpl({name: 'Dude'});
-      var expected = '<p>Hello, my name is Dude. I live in <span>Canada</span></p>';
-      test.equal(actual, expected, 'should support custom handling of partial naming conventions.');
-      test.done();
-    });
+    testhbs('process_partial_name.js',
+      ['JST', 'test/fixtures/one.hbs'],
+      function(tpl) {
+        var actual = tpl({name: 'Dude'});
+        var expected = '<p>Hello, my name is Dude. I live in <span>Canada</span></p>';
+        test.equal(actual, expected, 'should support custom handling of partial naming conventions.');
+        test.done();
+      });
   },
   partial_regex: function(test) {
     test.expect(1);
 
-    testhbs('partial_regex.js', function(tpl) {
-      var actual = tpl({name: 'Dude'});
-      var expected = '<p>Hello, my name is Dude. I live in <span>Canada</span></p>';
-      test.equal(actual, expected, 'should support custom file name identifiers for partials.');
-      test.done();
-    });
+    testhbs('partial_regex.js',
+      ['JST', 'test/fixtures/one.hbs'],
+      function(tpl) {
+        var actual = tpl({name: 'Dude'});
+        var expected = '<p>Hello, my name is Dude. I live in <span>Canada</span></p>';
+        test.equal(actual, expected, 'should support custom file name identifiers for partials.');
+        test.done();
+      });
   },
   partials_use_namespace: function(test) {
     test.expect(1);
