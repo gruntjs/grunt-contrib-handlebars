@@ -92,7 +92,7 @@ If `String` then that string will be used in the module definition `define(['you
 
 If `Array` then those strings will be used in the module definition. `'handlebars'` should always be the first item in the array, eg: `amd: ['handlebars', 'handlebars.helpers']`
 
-If `Function` then it will be called per each module and returned string will be used in the module defintion `"define(['" + options.amd(filename, ast, compiled) + "']"`
+If `Function` then it will be called per each module and returned string will be used in the module definition `"define(['" + options.amd(filename, ast, compiled) + "']"`
 
 ```js
 define(['handlebars'], function(Handlebars) {
