@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "pabigot/affixed-ids": "off"
+  },
+  "extends": "grunt"
+}

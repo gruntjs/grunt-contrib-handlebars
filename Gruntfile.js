@@ -23,10 +23,10 @@ module.exports = function(grunt) {
       }
     },
 
-    jscs: {
-      src: ['tasks/**/*.js', 'test/*.js', 'Gruntfile.js'],
+    eslint: {
+      target: ['tasks/**/*.js', 'test/*.js', 'Gruntfile.js'],
       options: {
-        config: '.jscsrc'
+        config: '.eslintrc.json'
       }
     },
 
@@ -356,11 +356,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-internal');
-  grunt.loadNpmTasks('grunt-jscs');
+  grunt.loadNpmTasks('grunt-eslint');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['jshint', 'jscs', 'clean', 'handlebars', 'nodeunit']);
+  grunt.registerTask('test', ['jshint', 'eslint', 'clean', 'handlebars', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['test', 'build-contrib']);

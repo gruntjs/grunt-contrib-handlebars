@@ -14,18 +14,24 @@ module.exports = function(grunt) {
   var _ = grunt.util._;
 
   // content conversion for templates
-  var defaultProcessContent = function(content) { return content; };
+  var defaultProcessContent = function(content) {
+    return content;
+  };
 
   // AST processing for templates
-  var defaultProcessAST = function(ast) { return ast; };
+  var defaultProcessAST = function(ast) {
+    return ast;
+  };
 
   // filename conversion for templates
-  var defaultProcessName = function(name) { return name; };
+  var defaultProcessName = function(name) {
+    return name;
+  };
 
   // filename conversion for partials
   var defaultProcessPartialName = function(filepath) {
     var pieces = _.last(filepath.split('/')).split('.');
-    var name   = _(pieces).without(_.last(pieces)).join('.'); // strips file extension
+    var name = _(pieces).without(_.last(pieces)).join('.'); // strips file extension
     if (name.charAt(0) === '_') {
       name = name.substr(1, name.length); // strips leading _ character
     }
@@ -90,7 +96,7 @@ module.exports = function(grunt) {
       var ast, compiled, filename;
 
       // Namespace info for current template
-      var nsInfo;
+      var nsInfo; // eslint-disable-line one-var
 
       // Map of already declared namespace parts
       var nsDeclarations = {};
@@ -118,55 +124,55 @@ module.exports = function(grunt) {
         }
         return true;
       })
-      .forEach(function(filepath) {
-        var src = processContent(grunt.file.read(filepath), filepath);
+        .forEach(function(filepath) {
+          var src = processContent(grunt.file.read(filepath), filepath);
 
-        var Handlebars = require('handlebars');
-        try {
-          // parse the handlebars template into it's AST
-          ast = processAST(Handlebars.parse(src));
-          compiled = Handlebars.precompile(ast, compilerOptions);
+          var Handlebars = require('handlebars');
+          try {
+            // parse the handlebars template into it's AST
+            ast = processAST(Handlebars.parse(src));
+            compiled = Handlebars.precompile(ast, compilerOptions);
 
-          // if configured to, wrap template in Handlebars.template call
-          if (options.wrapped === true) {
-            compiled = 'Handlebars.template(' + compiled + ')';
-          }
-        } catch (e) {
-          grunt.log.error(e);
-          grunt.fail.warn('Handlebars failed to compile ' + filepath + '.');
-        }
-
-        // register partial or add template to namespace
-        if (partialsPathRegex.test(filepath) && isPartialRegex.test(_.last(filepath.split('/')))) {
-          filename = processPartialName(filepath);
-          if (options.partialsUseNamespace === true) {
-            nsInfo = getNamespaceInfo(filepath);
-            if (nsInfo.declaration) {
-              declarations.push(nsInfo.declaration);
+            // if configured to, wrap template in Handlebars.template call
+            if (options.wrapped === true) {
+              compiled = 'Handlebars.template(' + compiled + ')';
             }
-            partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + nsInfo.namespace +
-              '[' + JSON.stringify(filename) + '] = ' + compiled + ');');
-          } else {
-            partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
+          } catch (e) {
+            grunt.log.error(e);
+            grunt.fail.warn('Handlebars failed to compile ' + filepath + '.');
           }
-        } else {
-          if ((options.amd || options.commonjs) && !useNamespace) {
-            compiled = 'return ' + compiled;
-          }
-          filename = processName(filepath);
-          if (useNamespace) {
-            nsInfo = getNamespaceInfo(filepath);
-            if (nsInfo.declaration) {
-              declarations.push(nsInfo.declaration);
+
+          // register partial or add template to namespace
+          if (partialsPathRegex.test(filepath) && isPartialRegex.test(_.last(filepath.split('/')))) {
+            filename = processPartialName(filepath);
+            if (options.partialsUseNamespace === true) {
+              nsInfo = getNamespaceInfo(filepath);
+              if (nsInfo.declaration) {
+                declarations.push(nsInfo.declaration);
+              }
+              partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + nsInfo.namespace +
+                '[' + JSON.stringify(filename) + '] = ' + compiled + ');');
+            } else {
+              partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
             }
-            templates.push(nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ';');
-          } else if (options.commonjs === true) {
-            templates.push(compiled + ';');
           } else {
-            templates.push(compiled);
+            if ((options.amd || options.commonjs) && !useNamespace) {
+              compiled = 'return ' + compiled;
+            }
+            filename = processName(filepath);
+            if (useNamespace) {
+              nsInfo = getNamespaceInfo(filepath);
+              if (nsInfo.declaration) {
+                declarations.push(nsInfo.declaration);
+              }
+              templates.push(nsInfo.namespace + '[' + JSON.stringify(filename) + '] = ' + compiled + ';');
+            } else if (options.commonjs === true) {
+              templates.push(compiled + ';');
+            } else {
+              templates.push(compiled);
+            }
           }
-        }
-      });
+        });
 
       var output = declarations.concat(partials, templates);
       if (output.length < 1) {
