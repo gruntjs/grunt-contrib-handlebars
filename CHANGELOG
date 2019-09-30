@@ -1,3 +1,7 @@
+v2.0.0:
+  date: 2019-09-30
+  changes:
+    - Docs, CI and dependency updates.
 v1.0.0:
   date: 2016-03-04
   changes:

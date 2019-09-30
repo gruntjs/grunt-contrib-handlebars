@@ -1,4 +1,4 @@
-# grunt-contrib-handlebars v1.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars/branch/master)
+# grunt-contrib-handlebars v2.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-handlebars.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-handlebars) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/byxsu7xtyjxuwe3g/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-handlebars/branch/master)
 
 > Precompile Handlebars templates to JST file.
 
@@ -247,6 +247,7 @@ handlebars: {
 
 ## Release History
 
+ * 2019-09-30   v2.0.0   Docs, CI and dependency updates.
  * 2016-03-04   v1.0.0   Update docs and examples. Remove peerDeps and other fixes.
  * 2015-10-16   v0.11.0   Update to Handlebars 4.0.0.
  * 2015-04-21   v0.10.2   Added `options.amd` as a function.
@@ -287,4 +288,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Fri Sep 27 2019 16:05:34.*
+*This file was generated on Mon Sep 30 2019 11:14:56.*
