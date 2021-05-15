@@ -247,6 +247,7 @@ handlebars: {
 
 ## Release History
 
+ * 2021-05-14   v3.0.0   Docs, CI and dependency updates. Requires node 12+.
  * 2019-09-30   v2.0.0   Docs, CI and dependency updates.
  * 2016-03-04   v1.0.0   Update docs and examples. Remove peerDeps and other fixes.
  * 2015-10-16   v0.11.0   Update to Handlebars 4.0.0.
@@ -288,4 +289,4 @@ handlebars: {
 
 Task submitted by [Tim Branyen](http://tbranyen.com)
 
-*This file was generated on Fri May 14 2021 21:44:38.*
+*This file was generated on Fri May 14 2021 21:50:46.*

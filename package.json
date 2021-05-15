@@ -9,7 +9,7 @@
   "repository": "gruntjs/grunt-contrib-handlebars",
   "license": "MIT",
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "main": "tasks/handlebars.js",
   "scripts": {
