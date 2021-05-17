@@ -147,7 +147,15 @@ module.exports = function(grunt) {
             partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + nsInfo.namespace +
               '[' + JSON.stringify(filename) + '] = ' + compiled + ');');
           } else {
-            partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
+            if ((options.amd || options.commonjs) && f.src.length === 1) {
+              partials.push(
+                'var compiledPartial = ' + compiled + ';\n' +
+                'Handlebars.registerPartial(' + JSON.stringify(filename) + ', compiledPartial);\n' +
+                'return compiledPartial;'
+              );
+            } else {
+              partials.push('Handlebars.registerPartial(' + JSON.stringify(filename) + ', ' + compiled + ');');
+            }
           }
         } else {
           if ((options.amd || options.commonjs) && !useNamespace) {
@@ -208,7 +216,7 @@ module.exports = function(grunt) {
             output.unshift('define([' + amdString + '], function(Handlebars) {');
           }
 
-          if (useNamespace) {
+          if (useNamespace && templates.length) {
             // Namespace has not been explicitly set to false; the AMD
             // wrapper will return the object containing the template.
             output.push('return ' + extractGlobalNamespace(nsDeclarations) + ';');
