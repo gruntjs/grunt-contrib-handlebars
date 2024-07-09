@@ -122,6 +122,64 @@ var Handlebars = require('handlebars');
 var templates = require('./templates')(Handlebars);
 ```
 
+
+#### es2015
+Type: `Boolean` or `Array`  
+Default: `false`
+
+Formats the output file as an ES2015 module, exports the result both as a named export as well as a default export.
+
+For this option to work the `namespace` property needs to be defined. 
+If not defined or explicitly set to `false`, the task's `namespace` property will instead default to `JST`.
+
+
+If `Array` then each array entry is expected to have both a variable and path properties:
+
+```js
+   es2015: [
+     {variable: '$', path: 'jquery'},
+     {variable: 'Handlebars', path: 'handlebars.runtime.js'},
+     {variable: '{NamedModule}', path: 'my_module.js'}
+   ]
+```
+
+Each of these will, in turn, be imported at the top of the compilation file:
+
+
+```js
+   import $ from  'jquery';
+   import Handlebars from 'handlebars.runtime.js';
+   import {NamedModule} from 'my_module.js';
+```
+
+If the es2015 property is a string, a function or `true` these imports will default to:
+
+```js
+   import Handlebars from 'handlebars.runtime.js';
+```
+
+As you might know, you can't use `this` inside an es2015 module to reference the global scope. It's undefined as per specification.
+Instead of `this`, you can pass a `root` option to be used in its place. 
+
+```js
+options: {
+  root: 'templates'
+}
+```
+
+If said option isn't declared, the task's `root` property will default to `templates`
+
+So, for example, if you use the default namespace `JST`, the compiled file will end with:
+
+```js
+ var JST = templates["JST"];
+ export {JST};
+ export default JST;
+```
+
+The `root` option (albeit is not needed except for es2015 format) can be safely used with all output formats.
+
+ 
 #### processContent
 Type: `Function`
 
