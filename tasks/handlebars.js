@@ -60,6 +60,7 @@ module.exports = function(grunt) {
       separator: grunt.util.linefeed + grunt.util.linefeed,
       wrapped: true,
       amd: false,
+      amdDefinitionName: false,
       commonjs: false,
       knownHelpers: [],
       knownHelpersOnly: false
@@ -185,14 +186,28 @@ module.exports = function(grunt) {
 
         }
 
+        // Start to wrap file with AMD
         if (options.amd) {
+
+          // add AMD name string from options.amdDefinitionName
+          var amdNameString = '';
+
+          // Verify if it was set a name to define method and its a string
+          if (options.amdDefinitionName && typeof options.amdDefinitionName === 'string') {
+            amdNameString = '\'' + options.amdDefinitionName + '\',';
+          } else {
+            amdNameString = '';
+          }
+
           // Wrap the file in an AMD define fn.
           if (typeof options.amd === 'boolean') {
-            output.unshift('define([\'handlebars\'], function(Handlebars) {');
+            output.unshift('define(' + amdNameString + '[\'handlebars\'], function(Handlebars) {');
           } else if (typeof options.amd === 'string') {
-            output.unshift('define([\'' + options.amd + '\'], function(Handlebars) {');
+            output.unshift('define(' + amdNameString + '[\'' + options.amd + '\'], function(Handlebars) {');
           } else if (typeof options.amd === 'function') {
-            output.unshift('define([\'' + options.amd(filename, ast, compiled) + '\'], function(Handlebars) {');
+            //jscs:disable maximumLineLength
+            output.unshift('define(' + amdNameString + '[\'' + options.amd(filename, ast, compiled) + '\'], function(Handlebars) {');
+            //jscs:enable maximumLineLength
           } else if (Array.isArray(options.amd)) {
             // convert options.amd to a string of dependencies for require([...])
             var amdString = '';
@@ -205,7 +220,7 @@ module.exports = function(grunt) {
             }
 
             // Wrap the file in an AMD define fn.
-            output.unshift('define([' + amdString + '], function(Handlebars) {');
+            output.unshift('define(' + amdNameString + '[' + amdString + '], function(Handlebars) {');
           }
 
           if (useNamespace) {
