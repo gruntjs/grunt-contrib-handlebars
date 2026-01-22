@@ -58,7 +58,7 @@ For this option to work you need to define the `namespace` option.
 Type: `Boolean` or `String` or `Array` or `Function`  
 Default: `false`
 
-Wraps the output file with an AMD define function and returns the compiled template namespace unless namespace has been explicitly set to false in which case the template function will be returned directly.
+Wraps the output file with an AMD define function and returns the compiled template namespace unless namespace has been explicitly set to false in which case the template function will be returned directly. Partial templates will be returned directly if they are the only input to the file.
 
 If `String` then that string will be used in the module definition `define(['your_amd_opt_here'])`
 
