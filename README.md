@@ -56,9 +56,9 @@ options: {
     var names = filename.replace(/modules\/(.*)(\/\w+\.hbs)/, '$1');
     return names.split('/').join('.');
   },
-},
-files: {
-  'ns_nested_tmpls.js' : [ 'modules/**/*.hbs']
+  files: {
+    'ns_nested_tmpls.js' : [ 'modules/**/*.hbs']
+  }
 }
 ```
 
@@ -100,6 +100,11 @@ define(['handlebars'], function(Handlebars) {
     return this['[template namespace]'];
 });
 ```
+#### amdDefinitionName
+Type:  `String`     
+Default: `false`
+
+This option gives a name to the AMD module. It is necessary to have amd true.
 
 #### commonjs
 Type: `Boolean`  

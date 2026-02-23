@@ -72,6 +72,11 @@ define(['handlebars'], function(Handlebars) {
     return this['[template namespace]'];
 });
 ```
+## amdDefinitionName
+Type:  `String`     
+Default: `false`
+
+This option gives a name to the AMD module. It is necessary to have amd true.
 
 ## commonjs
 Type: `Boolean`  
